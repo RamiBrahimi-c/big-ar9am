@@ -20,7 +20,7 @@ typedef struct BigRa9m BigRa9m ;
 struct BigRa9m
 {   
     uint64_t nums[MAX_LEN] ; 
-    size_t length ; 
+    int length ; // if length < 0 then the number is negative , if > 0 then its positive , if 0 its 0 -gmp style- 
 };
 
 

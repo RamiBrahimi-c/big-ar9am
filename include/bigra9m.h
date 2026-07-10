@@ -28,7 +28,7 @@ void bigra9m_print(BigInt number) ;
 
 // proper initialization for BigInt struct which does :
 //  - set the .nums[] array to 0
-//  - set .length to 1 
+//  - set .length to 0 
 //  in short set the struct to `0`
 void bigra9m_init(BigInt *) ;
 

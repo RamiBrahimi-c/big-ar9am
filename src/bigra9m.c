@@ -10,44 +10,66 @@ void bigra9m_assign(BigInt *a , BigInt b  ) {
 
 
 void bigra9m_init(BigInt *a) {
-    a->length = 1 ;
+    a->length = 0 ;
     memset(a->nums , 0 , MAX_LEN*sizeof(uint64_t)) ;
 }
 
 
+static int is_num(uchar_t a) {
+    return a >= '0' && a <= '9' ; 
+}
 
+// accepts numbers that are like (-9.../913...) aka starts with number OR numeral digit , yet needs better handling  
+// TODO : handle input properly like in bizarre cases such as "4545-+565"
+// TODO : replace atoi() with strtol ... 
 void bigra9m_assign_str(BigInt *a , uchar_t *num_str) {
     
-    size_t len = strlen(num_str) ;
+    uchar_t *num_str_clean ;
+    if (num_str[0]== '-' && is_num(num_str[1]))
+    {
+        a->length = -1 ;
+        num_str_clean = num_str + 1 ;  
+    } else if (is_num(num_str[0]))  {
+        a->length = 1 ;
+        num_str_clean = num_str  ;  
+        
+    } else {
+        // a->length = 0 ;
+        bigra9m_init(a) ; 
+        return ; 
+    }
+    
+
+    size_t len = strlen(num_str_clean) ;
 
     size_t j = 0 ;
     if (len % 2 ==0)
     {
         j = len/2 ;
-        a->length = j ; 
+        a->length *= j ; 
         j-- ; 
         for (size_t i = 0; i < len; i+=2)
         {
             uchar_t buffer[2] ; 
-            memcpy(buffer , num_str + i , sizeof(uchar_t)*2) ;
+            memcpy(buffer , num_str_clean + i , sizeof(uchar_t)*2) ;
             a->nums[j] = atoi(buffer ) ;
             j-- ; 
         }
         
     } else {
         j = len/2 +1;;
-        a->length = j ; 
+        a->length *= j ; 
         j-- ; 
         uchar_t buffer[2] ; 
         buffer[1] = 0  ; 
-        memcpy(buffer   , num_str  , sizeof(uchar_t)) ;
+        memcpy(buffer   , num_str_clean  , sizeof(uchar_t)) ;
         a->nums[j] = atoi(buffer) ;
         j-- ; 
         
         for (size_t i = 1; i < len; i+=2)
         {
             uchar_t buffer[2] ; 
-            memcpy(buffer , num_str + i , sizeof(uchar_t)*2) ;
+            memcpy(buffer , num_str_clean + i , sizeof(uchar_t)*2) ;
             a->nums[j] = atoi(buffer ) ;
             j-- ; 
         }        
@@ -58,6 +80,15 @@ void bigra9m_assign_str(BigInt *a , uchar_t *num_str) {
 
 void bigra9m_print(BigInt number) {
     // printf("length : (%ld) ||\t" , number.length) ; 
+    if (number.length < 0)
+    {
+        printf("-");
+        number.length *= -1 ; 
+    } else if (!number.length) {
+        printf("0") ; 
+    }
+    
+
     for (size_t i = 0 ; i < number.length ; i++)
     {
         uchar_t a = number.nums[number.length-i-1] ; 

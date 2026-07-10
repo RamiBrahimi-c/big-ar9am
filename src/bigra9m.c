@@ -1,5 +1,6 @@
-#include "bigra9m.h"
-
+#include "../include/bigra9m.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void bigra9m_assign(BigInt *a , BigInt b  ) {
 

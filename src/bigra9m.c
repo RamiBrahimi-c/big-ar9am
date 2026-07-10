@@ -173,3 +173,57 @@ void bigra9m_add(BigInt a , BigInt b , BigInt *c ) {
     
 
 }
+
+
+// our dummy so called naive algorithm 
+// complexity O(n²)
+void bigra9m_mul(BigInt a , BigInt b , BigInt *c) {
+
+    // might be unnecessary ???
+    if ((a.length == b.length && a.nums[a.length-1] > b.nums[b.length-1]) ||
+    a.length > b.length )
+    {
+        
+        
+        BigInt temp ; 
+        memcpy(&temp , &a , sizeof(BigInt)) ; 
+        memcpy(&a , &b , sizeof(BigInt)) ; 
+        memcpy(&b , &temp , sizeof(BigInt)) ; 
+    }     
+
+
+        uint64_t overflow = 0 ;
+        uint64_t result ;
+            
+        for (size_t i = 0; i < a.length; i++)
+        {
+            overflow = 0 ; 
+            for (size_t j = 0; j < b.length; j++)
+            {
+                c->nums[i+j] += (a.nums[i] * b.nums[j]) + overflow ; 
+                    
+                    
+                if (c->nums[i+j] >= BASE)
+                {
+                    overflow = c->nums[i+j] ;
+                    overflow /= BASE ; 
+                } else {
+                    overflow = 0 ; 
+                }
+                c->nums[i+j] %= BASE  ; 
+                    
+            }
+            c->length =  i+b.length  ;
+            if (overflow)
+            {
+                c->nums[i+b.length] = (overflow )  ;
+                c->length =  i+b.length  +1;
+            }
+                
+                
+                
+        }
+        
+}
+
+

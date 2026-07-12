@@ -200,6 +200,103 @@ void bigra9m_add(BigInt a , BigInt b , BigInt *c ) {
     }
 }
 
+// fucking hell .
+// fuck this shit 
+void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
+    if (a.length * b.length < 0)
+    {
+        b.length *= -1 ; 
+        bigra9m_add(a , b , c) ;
+        return ; 
+    }
+    if ((a.length == b.length && a.nums[abs(a.length)-1] < b.nums[abs(b.length)-1]) ||
+    abs(a.length) < abs(b.length) )
+    {
+        
+        #if 0
+            printf("switch\n") ;
+        #endif
+        c->length = -1 ; 
+        
+        BigInt temp ; 
+        memcpy(&temp , &a , sizeof(BigInt)) ; 
+        memcpy(&a , &b , sizeof(BigInt)) ; 
+        memcpy(&b , &temp , sizeof(BigInt)) ; 
+    } else  {
+
+        c->length = (a.length/a.length) ; 
+    }
+
+
+    if (abs(a.length) == abs(b.length))
+    {
+        uint64_t overflow = 0 ;
+        uint64_t result ;
+        for (size_t i = 0; i < abs(a.length); i++)
+        {
+            if (a.nums[i] >= (b.nums[i] + overflow))
+            {
+                result = a.nums[i] - (b.nums[i] + overflow) ; 
+                overflow = 0 ; 
+            } else {
+                result = (a.nums[i] + BASE)  - (b.nums[i] + overflow) ; 
+                overflow = 1 ; 
+            }
+            
+            c->nums[i] = (result % BASE)  ; 
+        }
+
+        c->length *= a.length  ; 
+        if (overflow != 0 && 0)
+        {
+            c->nums[abs(a.length)] = overflow ; 
+            c->length = a.length + (a.length/a.length) ; 
+        }
+        
+    } else {
+        size_t min_len = (abs(a.length) < abs(b.length)) ? abs(a.length) : abs(b.length) ;
+        size_t max_len ;
+        BigInt *umm ;
+        if (abs(a.length) > abs(b.length))
+        {
+            max_len = abs(a.length) ;
+            umm = &a ; 
+        } else {
+            max_len = abs(b.length) ;
+            umm = &b ; 
+
+        }
+        
+
+        uint64_t overflow = 0 ;
+        uint64_t result ;
+        for (size_t i = 0; i < abs(a.length); i++)
+        {
+            if (a.nums[i] >= (b.nums[i] + overflow))
+            {
+                result = a.nums[i] - (b.nums[i] + overflow) ; 
+                overflow = 0 ; 
+            } else {
+                result = (a.nums[i] + BASE)  - (b.nums[i] + overflow) ; 
+                overflow = 1 ; 
+            }
+            
+            c->nums[i] = (result % BASE)  ; 
+        }
+
+
+        c->length *= umm->length  ; 
+        if (overflow != 0)
+        {
+            c->nums[abs(umm->length)] = overflow ; 
+            c->length = umm->length + (umm->length/umm->length) ; 
+        }
+    }
+}
+
+
+
+
 
 // our dummy so called naive algorithm 
 // complexity O(n²)

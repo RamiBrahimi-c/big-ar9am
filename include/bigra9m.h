@@ -53,6 +53,7 @@ int bigra9m_is_zero(BigInt a) ;
 int bigra9m_is_positive(BigInt a) ;
 int bigra9m_is_negative(BigInt a) ;
 
+int bigra9m_isBiggerThanNum(BigInt a , BigInt b) ;
 
 
 #endif

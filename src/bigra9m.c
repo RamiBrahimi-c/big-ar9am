@@ -401,5 +401,26 @@ void bigra9m_div(BigInt a , BigInt b , BigInt *c ,  BigInt *d) {
 }
 
 
+// TODO : needs more testing 
+int bigra9m_isBiggerThanNum(BigInt a , BigInt b) {
+    if (a.length * b.length < 0)
+    {
+        return a.length > b.length ;   
+    } 
+    
+    if (a.length > b.length)
+    {
+        return 1; 
+    }else if (a.length < b.length) {
+        return 0; 
+
+    } else if (a.length == b.length && a.length != 0) {
+        return a.nums[a.length-1] >= b.nums[a.length-1] ; 
+    } else {
+        return 0; 
+    }
+    
+}
+
 
 

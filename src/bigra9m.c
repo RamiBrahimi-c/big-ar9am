@@ -202,6 +202,7 @@ void bigra9m_add(BigInt a , BigInt b , BigInt *c ) {
 
 // fucking hell .
 // fuck this shit 
+// TODO : this is NOT bug-free !!!!!!!!!!!!! 
 void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
     if (a.length * b.length < 0)
     {
@@ -213,9 +214,6 @@ void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
     abs(a.length) < abs(b.length) )
     {
         
-        #if 0
-            printf("switch\n") ;
-        #endif
         c->length = -1 ; 
         
         BigInt temp ; 
@@ -230,6 +228,7 @@ void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
 
     if (abs(a.length) == abs(b.length))
     {
+        // printf("here\n") ; 
         uint64_t overflow = 0 ;
         uint64_t result ;
         for (size_t i = 0; i < abs(a.length); i++)
@@ -268,7 +267,6 @@ void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
         }
         
         int j = 0 ; 
-
         uint64_t overflow = 0 ;
         uint64_t result ;
         for (size_t i = 0; i < abs(a.length); i++)
@@ -281,7 +279,7 @@ void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
                 result = (a.nums[i] + BASE)  - (b.nums[i] + overflow) ; 
                 overflow = 1 ; 
             }
-            j++  ;            
+            j++ ; 
             c->nums[i] = (result % BASE)  ; 
         }
 
@@ -298,9 +296,8 @@ void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
         {
             c->length -= (c->length/c->length) ; 
         }
-    }
+    }    
 }
-
 
 
 
@@ -356,4 +353,16 @@ void bigra9m_mul(BigInt a , BigInt b , BigInt *c) {
 
 }
 
+
+int bigra9m_is_zero(BigInt a) {
+    return a.length == 0 ; 
+}
+
+int bigra9m_is_positive(BigInt a) {
+    return a.length > 0 ; 
+}
+
+int bigra9m_is_negative(BigInt a) {
+    return a.length < 0 ; 
+}
 

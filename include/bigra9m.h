@@ -47,4 +47,12 @@ void bigra9m_div(BigInt a , BigInt b , BigInt *c) ;
 // assign (num_str) a number in string (char *) format to BigInt struct
 void bigra9m_assign_str(BigInt *a , uchar_t *num_str) ; 
 
+
+
+int bigra9m_is_zero(BigInt a) ;
+int bigra9m_is_positive(BigInt a) ;
+int bigra9m_is_negative(BigInt a) ;
+
+
+
 #endif

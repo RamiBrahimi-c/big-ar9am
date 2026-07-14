@@ -267,6 +267,7 @@ void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
 
         }
         
+        int j = 0 ; 
 
         uint64_t overflow = 0 ;
         uint64_t result ;
@@ -280,16 +281,22 @@ void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
                 result = (a.nums[i] + BASE)  - (b.nums[i] + overflow) ; 
                 overflow = 1 ; 
             }
-            
+            j++  ;            
             c->nums[i] = (result % BASE)  ; 
         }
 
-
-        c->length *= umm->length  ; 
+        c->length *= j  ; 
         if (overflow != 0)
         {
+            printf("overflow\n") ;
+            j++ ; 
             c->nums[abs(umm->length)] = overflow ; 
             c->length = umm->length + (umm->length/umm->length) ; 
+        }
+        
+        if (c->nums[c->length-1]==0 && c->length != 0)
+        {
+            c->length -= (c->length/c->length) ; 
         }
     }
 }

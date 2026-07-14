@@ -366,3 +366,40 @@ int bigra9m_is_negative(BigInt a) {
     return a.length < 0 ; 
 }
 
+
+
+static void repeated_subtraction_division(BigInt N , BigInt D ,BigInt *Qoeff , BigInt *Reminder ) {
+    if (D.length ==0)
+    {
+        printf("Division by 0\n") ; 
+        return ; 
+    }
+    BigInt R , Q ; 
+    bigra9m_assign(&R , N) ; 
+    bigra9m_assign_str(&Q , "0") ; 
+    BigInt temp  , temp2; 
+    bigra9m_assign_str(&temp , "1") ; 
+    while (bigra9m_isBiggerThanNum(R , D))
+    {
+        bigra9m_sub(R , D  , &temp2) ; 
+        bigra9m_add(Q , temp  , &Q) ; 
+        bigra9m_assign(&R , temp2) ; 
+        
+        // bigra9m_print(R) ; 
+        // bigra9m_print(D) ; 
+        // bigra9m_print(temp2) ; 
+    }
+    
+    bigra9m_assign(Qoeff , Q) ; 
+    bigra9m_assign(Reminder , R) ; 
+    
+}
+
+void bigra9m_div(BigInt a , BigInt b , BigInt *c ,  BigInt *d) {
+    repeated_subtraction_division(a , b , c , d) ; 
+
+}
+
+
+
+

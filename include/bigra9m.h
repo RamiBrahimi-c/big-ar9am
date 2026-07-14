@@ -42,7 +42,7 @@ void bigra9m_assign(BigInt *a , BigInt b  ) ;
 void bigra9m_add(BigInt a , BigInt b , BigInt *c ) ;
 void bigra9m_mul(BigInt a , BigInt b , BigInt *c) ;
 void bigra9m_sub(BigInt a , BigInt b , BigInt *c) ;
-void bigra9m_div(BigInt a , BigInt b , BigInt *c) ;
+void bigra9m_div(BigInt a , BigInt b , BigInt *c , BigInt *d) ;
 
 // assign (num_str) a number in string (char *) format to BigInt struct
 void bigra9m_assign_str(BigInt *a , uchar_t *num_str) ; 

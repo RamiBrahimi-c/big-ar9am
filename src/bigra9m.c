@@ -1,6 +1,7 @@
 #include "../include/bigra9m.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "utils.h"
 
 void bigra9m_assign(BigInt *a , BigInt b  ) {
 
@@ -15,14 +16,14 @@ void bigra9m_init(BigInt *a) {
 }
 
 
-static int is_num(uchar_t a) {
+static int is_num(const char a) {
     return a >= '0' && a <= '9' ; 
 }
 
 // accepts numbers that are like (-9.../913...) aka starts with number OR numeral digit , yet needs better handling  
 // TODO : handle input properly like in bizarre cases such as "4545-+565"
 // TODO : replace atoi() with strtol ... 
-void bigra9m_assign_str(BigInt *a , uchar_t *num_str) {
+void bigra9m_assign_str(BigInt *a , const char *num_str) {
     
     uchar_t *num_str_clean ;
     if (num_str[0]== '-' && is_num(num_str[1]))
@@ -40,7 +41,7 @@ void bigra9m_assign_str(BigInt *a , uchar_t *num_str) {
     }
     
 
-    size_t len = strlen(num_str_clean) ;
+    size_t len = strlen((const char*) num_str_clean) ;
 
     size_t j = 0 ;
     if (len % 2 ==0)
@@ -113,7 +114,7 @@ void bigra9m_print(BigInt number) {
     
 }
 
-
+// TODO: handle when some length is 0
 void bigra9m_add(BigInt a , BigInt b , BigInt *c ) {
     if (a.length * b.length < 0)
     {
@@ -144,7 +145,7 @@ void bigra9m_add(BigInt a , BigInt b , BigInt *c ) {
         if (overflow != 0)
         {
             c->nums[abs(a.length)] = overflow ; 
-            c->length = a.length + (a.length/a.length) ; 
+            c->length = a.length + (a.length/abs(a.length)) ; 
         }
         
     } else {
@@ -423,4 +424,11 @@ int bigra9m_isBiggerThanNum(BigInt a , BigInt b) {
 }
 
 
+int main() {
 
+    
+    TEST_SUBTRACTION("-55" , "89") ;
+
+
+    return 0 ; 
+}

@@ -36,7 +36,7 @@ int main(int argc , char *argv[]) {
         {
             TEST_SUBTRACTION(argv[2] , argv[3]) ; 
         }
-        if (strcmp(argv[1] , "sub")==0)
+        if (strcmp(argv[1] , "add")==0)
         {
             TEST_ADDITION(argv[2] , argv[3]) ; 
         }

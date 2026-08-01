@@ -1,7 +1,16 @@
 #include "../include/bigra9m.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "utils.h"
+#include "../include/utils.h"
+
+#if 1
+    #define DEBUG
+#endif
+
+
+/* TODO : actually you need to fix bigra9m_mul cuz each time we need to initilize it before we call it !!!!!!!!!!!!!!!*/ 
+
+
 
 void bigra9m_assign(BigInt *a , BigInt b  ) {
 
@@ -396,9 +405,98 @@ static void repeated_subtraction_division(BigInt N , BigInt D ,BigInt *Qoeff , B
     
 }
 
+
+static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Reminder) {
+    printf("knuth's algorithm here !!!!!\n");
+    uint64_t D = (BASE-1) / V.nums[V.length-1] ;
+
+    // bigra9m_mul(U , D , U) ;
+    // bigra9m_mul(V , D , V) ;
+
+    int m = U.length - V.length ; 
+    int j = m ;
+    int n = V.length ;
+    Qoeff->length = m +1; 
+
+    #ifdef DEBUG
+        printf("m=%d\n" , m) ;
+    #endif
+    // bigra9m_assign(&D , );
+    //     Set Q̂ to (U[n+j] × B + U[n−1+j]) ÷ V[n−1]; 
+    //     Set R̂ to (U[n+j] × B + U[n−1+j]) % V[n−1]; 
+
+    do {
+        int64_t q_hat , r_hat ;
+        do
+        {
+            q_hat = (U.nums[n+j-1] * BASE) + (U.nums[n-1+j] / V.nums[n-1]) ;
+            r_hat = (U.nums[n+j-1] * BASE) + (U.nums[n-1+j] % V.nums[n-1]) ;
+
+            if(q_hat == BASE || q_hat * V.nums[n-2] > r_hat * BASE + U.nums[n-2+j]) {
+                q_hat-- ;
+                r_hat += V.nums[n-1] ;
+            }
+            // printf("hi\n");
+        } while (r_hat <= BASE);
+
+        int k = 0;
+        for (size_t i = j; i < n+j+1; i++)
+        {
+            U.nums[i] = U.nums[i] - q_hat * V.nums[k] ;
+            k++ ;
+        }
+        Qoeff->nums[j] = q_hat ;
+        j--;
+    } while(j > 0) ;
+    printf("quoeff : ????\n");
+    bigra9m_print(*Qoeff);
+    
+
+}
+
+static int bigra9m_is_normalized(BigInt a) {
+
+
+    return 0;
+}
+
+
+static void naive_division(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Reminder) {
+    
+
+}
+
+
 void bigra9m_div(BigInt a , BigInt b , BigInt *c ,  BigInt *d) {
     repeated_subtraction_division(a , b , c , d) ; 
+    // knuths_algorithm_d(a , b , c , d) ; 
 
+}
+
+
+
+void bigra9m_assign_uint64_t(BigInt *a , uint64_t x) {
+
+    bigra9m_init(a);
+    int i=0;
+    int c;
+    while (x > 0)
+    {
+        c = x % BASE ;
+        a->nums[i] = c;
+        i++;
+        x /= BASE ;
+    }
+    a->length = i ;
+
+    for (size_t j = 0; j < i; j++)
+    {
+        uint64_t temp = a->nums[j] ; 
+        a->nums[j] = a->nums[i-j-1] ; 
+        a->nums[i-j-1] = temp ; 
+    }
+    
+    
 }
 
 
@@ -424,11 +522,61 @@ int bigra9m_isBiggerThanNum(BigInt a , BigInt b) {
 }
 
 
-int main() {
 
+static int fermat_primality_test(uint64_t a) {
+    size_t s ;
+    for (size_t i = 0; i < s; i++)
+    {
+        
+    }
     
-    TEST_SUBTRACTION("-55" , "89") ;
-
-
-    return 0 ; 
 }
+
+
+void bigra9m_pow(BigInt base , BigInt pow , BigInt *res) {
+    BigInt i , inc , copy ; 
+    bigra9m_assign_str(&i , "1");
+    bigra9m_assign_str(&inc , "1");
+    // bigra9m_assign_str(res , "1");
+    bigra9m_assign(&copy , base);
+    bigra9m_init(res );
+    int j = 0;
+    
+    while (!bigra9m_isBiggerThanNum(i , pow))
+    {
+        // bigra9m_print(base);
+        // bigra9m_print(copy);
+        
+        bigra9m_init(res );
+        bigra9m_mul(base , copy , res);
+        bigra9m_assign(&copy , *res);
+        bigra9m_add(i , inc , &i) ;
+        j++ ; 
+        // bigra9m_print(*res);
+    }
+
+}
+
+
+
+void bigra9m_mod(BigInt dividend , BigInt divisor , BigInt *c) {
+    BigInt a ;
+    bigra9m_div(dividend , divisor ,&a , c ) ; 
+}
+
+
+
+// int main() {
+
+//     // TEST_DIVISION("100" , "50") ;
+//     TEST_POWER_EXPO("10" , "10") ;
+
+//     BigInt a;
+//     uint64_t x = 10254650; 
+//     bigra9m_assign_uint64_t(&a , x );
+//     printf("x=%lu\n" , x) ; 
+//     bigra9m_print(a);        
+
+
+//     return 0 ; 
+// }

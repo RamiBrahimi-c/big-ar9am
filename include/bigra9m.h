@@ -44,8 +44,19 @@ void bigra9m_mul(BigInt a , BigInt b , BigInt *c) ;
 void bigra9m_sub(BigInt a , BigInt b , BigInt *c) ;
 void bigra9m_div(BigInt a , BigInt b , BigInt *c , BigInt *d) ;
 
+
+// calculates `res` = base^(pow) 
+void bigra9m_pow(BigInt base , BigInt pow , BigInt *res) ;
+
+// calculates `c` = `divedend` % `divisor` 
+void bigra9m_mod(BigInt dividend , BigInt divisor , BigInt *c) ;
+
+
 // assign (num_str) a number in string (char *) format to BigInt struct
 void bigra9m_assign_str(BigInt *a , const char *num_str) ;
+
+// assign a number x of type`uint64_t` to BigInt *a
+void bigra9m_assign_uint64_t(BigInt *a , uint64_t x) ;
 
 
 

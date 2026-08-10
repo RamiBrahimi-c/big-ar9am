@@ -30,6 +30,7 @@ static int is_num(const char a) {
 }
 
 // accepts numbers that are like (-9.../913...) aka starts with number OR numeral digit , yet needs better handling  
+// NOTE : works only with base 100   
 // TODO : handle input properly like in bizarre cases such as "4545-+565"
 // TODO : replace atoi() with strtol ... 
 void bigra9m_assign_str(BigInt *a , const char *num_str) {

@@ -262,6 +262,10 @@ void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
             c->nums[abs(a.length)] = overflow ; 
             c->length = a.length + (a.length/a.length) ; 
         }
+        if (c->nums[c->length-1]==0 && c->length != 0)
+        {
+            c->length -= (c->length/c->length) ; 
+        }        
         
     } else {
         size_t min_len = (abs(a.length) < abs(b.length)) ? abs(a.length) : abs(b.length) ;
@@ -313,56 +317,6 @@ void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
 
 
 
-// our dummy so called naive algorithm 
-// complexity O(n²)
-// REQUIRES FOR C TO BE INITILIZED PROPERLY ...
-void bigra9m_mul(BigInt a , BigInt b , BigInt *c) {
-
-    if ((a.length == b.length && a.nums[abs(a.length)-1] > b.nums[abs(b.length)-1]) ||
-    abs(a.length) > abs(b.length) )
-    {        
-        BigInt temp ; 
-        memcpy(&temp , &a , sizeof(BigInt)) ; 
-        memcpy(&a , &b , sizeof(BigInt)) ; 
-        memcpy(&b , &temp , sizeof(BigInt)) ; 
-    } 
-    uint64_t overflow = 0 ;
-    uint64_t result ;
-            
-    for (size_t i = 0; i < abs(a.length); i++)
-    {
-        overflow = 0 ; 
-        for (size_t j = 0; j < abs(b.length); j++)
-        {
-            c->nums[i+j] += (a.nums[i] * b.nums[j]) + overflow ; 
-                    
-                    
-            if (c->nums[i+j] >= BASE)
-            {
-                overflow = c->nums[i+j] ;
-                overflow /= BASE ; 
-            } else {
-                overflow = 0 ; 
-            }
-            c->nums[i+j] %= BASE  ; 
-                    
-        }
-        c->length =  i+abs(b.length)  ;
-        if (overflow)
-        {
-            c->nums[i+abs(b.length)] = (overflow )  ;
-            c->length =  i+abs(b.length)  +1;
-        }
-    }
-
-    if (a.length * b.length > 0) {
-        c->length *= (int) (a.length/a.length) ; 
-    } else {
-        c->length *= -1 ; 
-
-    }
-
-}
 
 
 int bigra9m_is_zero(BigInt a) {
@@ -407,54 +361,238 @@ static void repeated_subtraction_division(BigInt N , BigInt D ,BigInt *Qoeff , B
 }
 
 
+#define DEBUG_KNUTHS
+// fuck this algorithm
 static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Reminder) {
     printf("knuth's algorithm here !!!!!\n");
+    printf("DIVIDEND : \n") ; 
+    bigra9m_print(U); 
+    printf("DIVISOR : \n") ; 
+    bigra9m_print(V); 
+
     uint64_t D = (BASE-1) / V.nums[V.length-1] ;
-
-    // bigra9m_mul(U , D , U) ;
-    // bigra9m_mul(V , D , V) ;
-
+    BigInt temp_U , temp_V ;
+    bigra9m_assign(&temp_U , U) ; 
+    bigra9m_assign(&temp_V , V) ; 
+    
     int m = U.length - V.length ; 
     int j = m ;
     int n = V.length ;
     Qoeff->length = m +1; 
 
-    #ifdef DEBUG
-        printf("m=%d\n" , m) ;
-    #endif
+    // step 1 : [Normalize]
+    do {
+        // uint64_t d = (uint64_t) (BASE-1) / V.nums[V.length-1] ; 
+        uint64_t d = 2 ; 
+        
+        bigra9m_mul_uint64(U , d , &U) ;
+        bigra9m_mul_uint64(V , d , &V) ;
+    } while(V.nums[V.length-1] < BASE/2) ;
+
+    if (V.nums[V.length-1] >= BASE/2)
+    {
+        printf("yes normalized\n") ; 
+    } else {
+        printf("no not normalized\n") ; 
+
+    }
+    
+    if (U.length == m + n)
+    {
+        // U.length++ ; 
+    }
+    m = U.length - V.length ; 
+    n = V.length ; 
+    Qoeff->length = m+1 ; 
+
+    
+    // step 2 : [Initilize]
+    j = m ; 
+
+    do {
+        // step 3 : Calculate q^
+
+        uint64_t q_hat = (U.nums[j+n]*BASE + U.nums[j+n-1]) / V.nums[n-1] ; 
+        uint64_t r_hat = (U.nums[j+n]*BASE + U.nums[j+n-1]) % V.nums[n-1] ; 
+
+        while (q_hat == BASE ||  q_hat * V.nums[n-2] > BASE*r_hat + U.nums[j+n-2])
+        {
+            q_hat-- ; 
+            r_hat += V.nums[n-1] ; 
+
+            if (r_hat >= BASE)
+            {
+                break;
+            }
+            
+        }
+
+        // step 4 : [Multiply and Subtract]
+
+        BigInt temp , temp2;
+        int k = 0 ;  
+        for (size_t i = j; i < j + n + 1; i++)
+        {
+            temp.nums[k] = U.nums[i] ;
+            k++  ; 
+        }
+        // temp.length = j + n + 1 ; 
+        temp.length = k ; 
+        // temp now has digits of (U) from (j) to (n+j)
+        
+        bigra9m_init(&temp2) ; 
+
+        bigra9m_mul_uint64(V , q_hat , &temp2) ; 
+        bigra9m_sub(temp , temp2 , &temp ) ; 
+
+        k=0 ; 
+        for (size_t i = j; i < j + n + 1; i++)
+        {
+            U.nums[i] = temp.nums[k]  ; 
+            k++ ; 
+        }
+
+        // step 5 : [Test Reminder]
+
+
+        Qoeff->nums[j] = q_hat ; 
+
+        if (bigra9m_is_negative(temp))
+        {
+            // step 6 : [Add back]
+            printf("panic\n"); 
+            // exit(64) ;
+            Qoeff->nums[j]-- ; 
+            bigra9m_add(V , temp , &temp) ;
+
+            k=0 ; 
+            for (size_t i = j; i < j +  n + 1; i++)
+            {
+                U.nums[j] = temp.nums[k]  ; 
+                k++ ; 
+            }
+
+        }
+        // step 7 : [Loop on j]
+        j-- ; 
+
+    } while (j>=0) ; 
+    
+    
+
+
+    // bigra9m_mul(U , D , U) ;
+    // bigra9m_mul(V , D , V) ;
+    
     // bigra9m_assign(&D , );
     //     Set Q̂ to (U[n+j] × B + U[n−1+j]) ÷ V[n−1]; 
     //     Set R̂ to (U[n+j] × B + U[n−1+j]) % V[n−1]; 
-
-    do {
-        int64_t q_hat , r_hat ;
-        do
-        {
-            q_hat = (U.nums[n+j-1] * BASE) + (U.nums[n-1+j] / V.nums[n-1]) ;
-            r_hat = (U.nums[n+j-1] * BASE) + (U.nums[n-1+j] % V.nums[n-1]) ;
-
-            if(q_hat == BASE || q_hat * V.nums[n-2] > r_hat * BASE + U.nums[n-2+j]) {
-                q_hat-- ;
-                r_hat += V.nums[n-1] ;
-            }
-            // printf("hi\n");
-        } while (r_hat <= BASE);
-
-        int k = 0;
-        for (size_t i = j; i < n+j+1; i++)
-        {
-            U.nums[i] = U.nums[i] - q_hat * V.nums[k] ;
-            k++ ;
-        }
-        Qoeff->nums[j] = q_hat ;
-        j--;
-    } while(j > 0) ;
     printf("quoeff : ????\n");
     bigra9m_print(*Qoeff);
     
 
 }
+/*    uint64_t normalization_factor = 0 ; 
+    BigInt big_2 ; 
+    bigra9m_assign_str(&big_2 , "2") ; 
 
+
+    // first step normalizing ????
+    
+    while (V.nums[V.length-1] < BASE / 2  )
+    {
+        bigra9m_mul(U , big_2 , &U) ; 
+        bigra9m_mul(V , big_2 , &V) ; 
+        normalization_factor++ ; 
+    }
+    
+
+    
+    for (size_t i = 0; i < V.length - 1; i++)
+    {
+        U.nums[i] = V.nums[i] = 0 ; 
+    }
+    
+    uint64_t ratio = (U.nums[U.length-1] * (BASE-1) + U.nums[U.length-1]   ) ;
+    ratio = ratio < BASE -1 ? ratio : BASE-1 ; 
+    ratio /= V.nums[V.length-1] ; 
+
+    #ifdef DEBUG_KNUTHS
+        printf("printing after normalizing : \n") ; 
+        bigra9m_print(U); 
+        bigra9m_print(V); 
+
+        printf("ratio : %lu \n" , ratio ) ; 
+    #endif
+
+    BigInt r_hat , q_hat; 
+    bigra9m_init(&r_hat) ; 
+    bigra9m_init(&q_hat) ; 
+    bigra9m_assign_uint64_t(&q_hat ,ratio ) ;
+    
+    #ifdef DEBUG_KNUTHS
+    printf("q hat :  "  ) ; 
+    bigra9m_print(q_hat) ; 
+    #endif    
+    bigra9m_mod2(U , V , q_hat , &r_hat ) ; 
+    
+    #ifdef DEBUG_KNUTHS
+        printf("r hat : "  ) ; 
+        bigra9m_print(r_hat) ; 
+    #endif
+
+    BigInt temp1 , temp2 , temp3 , big1 , big6 , big7; 
+    bigra9m_init(&temp1) ; 
+    bigra9m_init(&temp2) ; 
+    bigra9m_assign_str(&big1 , "1") ; 
+    bigra9m_assign_uint64_t(&big6 , temp_U.nums[0]) ; 
+    bigra9m_assign_uint64_t(&big7 , temp_V.nums[0] ) ; 
+
+
+    bigra9m_mul(q_hat , big7 , &temp1) ; 
+    bigra9m_add(r_hat , big6 , &temp2) ; 
+
+    #ifdef DEBUG_KNUTHS
+        printf("hi!!!\n");
+        bigra9m_print(big6);
+        bigra9m_print(big7);
+        bigra9m_print(temp1);
+        bigra9m_print(temp2);
+    #endif
+        // temp2.length-- ; 
+        printf("hi!!! is bigger :%d \n" , bigra9m_isStrictlyBiggerThanNum(temp1 , temp2));
+    
+    while (bigra9m_isStrictlyBiggerThanNum(temp1 , temp2))
+    {
+        printf("hi???\n");
+        bigra9m_sub(q_hat , big1 , &temp3);
+        bigra9m_assign(&q_hat  , temp3);
+
+        bigra9m_print(temp3) ; 
+
+        bigra9m_init(&temp1) ; 
+        bigra9m_mul(q_hat , big7 , &temp1) ; 
+
+        bigra9m_mod2(U , V , temp3 , &r_hat ) ; 
+        bigra9m_add(r_hat , big6 , &temp2) ; 
+
+    }
+    
+    bigra9m_assign(Qoeff , temp3) ; 
+
+    bigra9m_mod2(temp_U ,temp_V , temp3 , Reminder);
+    // bigra9m_assign(Reminder , r_hat) ; 
+    printf("normalization factor : %lu\n" , normalization_factor) ;
+
+    return ; 
+    
+
+
+    #ifdef DEBUG_KNUTHS
+        printf("m=%d\n" , m) ;
+    #endif
+    #endif
+*/
 static int bigra9m_is_normalized(BigInt a) {
 
 

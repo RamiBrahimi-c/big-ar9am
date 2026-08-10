@@ -363,6 +363,7 @@ static void repeated_subtraction_division(BigInt N , BigInt D ,BigInt *Qoeff , B
 
 #define DEBUG_KNUTHS
 // fuck this algorithm
+// TODO : this algo stills need to do the length correctly plus calculating the reminder ..
 static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Reminder) {
     printf("knuth's algorithm here !!!!!\n");
     printf("DIVIDEND : \n") ; 

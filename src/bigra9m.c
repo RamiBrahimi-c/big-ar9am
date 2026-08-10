@@ -660,16 +660,51 @@ int bigra9m_isBiggerThanNum(BigInt a , BigInt b) {
     
 }
 
-
-
-static int fermat_primality_test(uint64_t a) {
-    size_t s ;
-    for (size_t i = 0; i < s; i++)
+int bigra9m_isStrictlyBiggerThanNum(BigInt a , BigInt b) {
+    if (a.length * b.length < 0)
     {
+        return a.length > b.length ;   
+    } 
+    
+    if (a.length > b.length)
+    {
+        return 1; 
+    }else if (a.length < b.length) {
+        return 0; 
+
+    } else if (a.length == b.length && a.length != 0) {
+        for (int i = a.length -1 ; i >= 0; i--)
+        {
+            if (a.nums[i] == b.nums[i])
+            {
+                continue;
+            }
+            return a.nums[i] > b.nums[i] ; 
+            
+        }
+        return 0 ; 
         
+        // return a.nums[a.length-1] > b.nums[b.length-1] ; 
+    } else {
+        return 0; 
     }
     
 }
+
+#define S 10
+#include <time.h>
+#include <math.h>
+
+uint64_t pow_ui64(uint64_t a , uint64_t b) {
+    uint64_t r = 1 ;
+    printf("a= %lu , b = %lu \n" , a , b ) ; 
+    for (size_t i = 0; i < b; i++)
+    {
+        r *= a ; 
+    }
+    return r ; 
+}
+
 
 
 void bigra9m_pow(BigInt base , BigInt pow , BigInt *res) {
@@ -696,6 +731,16 @@ void bigra9m_pow(BigInt base , BigInt pow , BigInt *res) {
 
 }
 
+void bigra9m_mod2(BigInt dividend , BigInt divisor , BigInt quoeff , BigInt *c) {
+    BigInt temp , temp2; 
+
+    bigra9m_init(&temp) ;
+    bigra9m_init(&temp2) ;
+
+    bigra9m_mul(divisor , quoeff , &temp) ; 
+    bigra9m_sub(dividend , temp , c);
+
+}
 
 
 void bigra9m_mod(BigInt dividend , BigInt divisor , BigInt *c) {
@@ -704,18 +749,232 @@ void bigra9m_mod(BigInt dividend , BigInt divisor , BigInt *c) {
 }
 
 
+static int fermat_primality_test_uint64(uint64_t p) {
+    srand(time(0)) ; 
+    size_t s = S , a;
+    for (size_t i = 0; i < s; i++)
+    {
+        a = (rand() % (p-1))  ;
+        a = (a == 0 || a==1) ? 2 : a ;
+        printf("testing with a=%ld  p-1=%ld \tpow(a , p-1) %% p =%lu \n" , a , p-1   ,( pow_ui64(a , p-1) % p )  ) ; 
+        printf("pow(a , p-1):%lu  \n" ,   pow_ui64(a , p-1)   ) ; 
+        if ( pow_ui64(a , p-1) % p != 1)
+        {
+            return 1 ;
+        }
+         
+    }
+    return 0 ; 
+    
+}
 
-// int main() {
+int bigra9m_fermat_primality_test(BigInt p) {
+    srand(time(0)) ; 
+    
+    BigInt i , inc , inc2 , a , p_min1 , s , temp ;
+    bigra9m_init(&i) ;
+    bigra9m_init(&inc) ;
+    bigra9m_init(&inc2) ;
+    bigra9m_init(&a) ;
+    bigra9m_init(&p_min1) ;
 
-//     // TEST_DIVISION("100" , "50") ;
-//     TEST_POWER_EXPO("10" , "10") ;
+    bigra9m_assign_str(&i , "1") ; 
+    bigra9m_assign_str(&inc , "1") ; 
+    bigra9m_assign_str(&inc2 , "0") ; 
+    // inc2.length = 0 ;
+    bigra9m_assign_uint64_t(&s , S) ; 
+    bigra9m_sub(p , inc , &p_min1) ; 
+    printf("hi\n");
+    // bigra9m_init(&i) ;
+    int j = 0 ; 
+    while (!bigra9m_isBiggerThanNum(i , s))
+    {
+        // init a
+        // printf("hi\n");
+        bigra9m_assign_uint64_t(&a , rand() % 100 ) ; 
+        bigra9m_mod(a , p_min1 , &a ) ;
+        printf("its not mod\n"); 
+        // check if a = 0 OR a= 1
+        if (bigra9m_isEqualNum(temp , inc) || bigra9m_isEqualNum(temp , inc2))
+        {
+            bigra9m_assign_uint64_t(&a , 2) ; 
+        }
+        
+        
+        bigra9m_pow(a , p_min1 , &temp) ; 
+        printf("its not pow\n");
+        bigra9m_print(temp);  
+        bigra9m_print(p);  
+        bigra9m_mod(temp , p , &temp) ; 
+        printf("its not mod\n"); 
 
-//     BigInt a;
-//     uint64_t x = 10254650; 
-//     bigra9m_assign_uint64_t(&a , x );
-//     printf("x=%lu\n" , x) ; 
-//     bigra9m_print(a);        
+
+        if (!bigra9m_isEqualNum(temp , inc))
+        {
+            printf("p is composite\n") ; 
+            return 1 ; 
+        }
+        bigra9m_add(i , inc , &i) ; 
+    }
+    printf("p could be prime\n") ;     
+    return 0 ; 
+
+}
 
 
-//     return 0 ; 
-// }
+
+int bigra9m_isEqualNum(BigInt a , BigInt b) {
+    if (a.length != b.length)
+    {
+        return 0; 
+    }
+
+    for (size_t i = 0; i < a.length; i++)
+    {
+        if (a.nums[i] != b.nums[i])
+        {
+            return 0 ; 
+        }
+        
+    }
+    
+    return 1 ;     
+}
+
+
+
+void bigra9m_mul_uint64(BigInt a , uint64_t b, BigInt *c) {
+    BigInt *b_big = malloc(sizeof(BigInt)) ;
+    if (b_big == NULL)
+    {
+        fprintf( stderr, "aw\n") ;
+        return ;  
+    }
+
+    bigra9m_assign_uint64_t(b_big , b) ; 
+    bigra9m_mul(a , *b_big , c) ; 
+}
+
+// our dummy so called naive algorithm 
+// complexity O(n²)
+// REQUIRES FOR C TO BE INITILIZED PROPERLY ...
+void bigra9m_mul(BigInt a , BigInt b , BigInt *c) {
+    BigInt *result = malloc(sizeof(BigInt)) ;
+    if (result == NULL)
+    {
+        fprintf( stderr, "aw\n") ;
+        return ;  
+    }
+    
+
+    if ((a.length == b.length && a.nums[abs(a.length)-1] > b.nums[abs(b.length)-1]) ||
+    abs(a.length) > abs(b.length) )
+    {        
+        BigInt temp ; 
+        memcpy(&temp , &a , sizeof(BigInt)) ; 
+        memcpy(&a , &b , sizeof(BigInt)) ; 
+        memcpy(&b , &temp , sizeof(BigInt)) ; 
+    } 
+    uint64_t overflow = 0 ;
+            
+    for (size_t i = 0; i < abs(a.length); i++)
+    {
+        overflow = 0 ; 
+        for (size_t j = 0; j < abs(b.length); j++)
+        {
+            result->nums[i+j] += (a.nums[i] * b.nums[j]) + overflow ; 
+                    
+                    
+            if (result->nums[i+j] >= BASE)
+            {
+                overflow = result->nums[i+j] ;
+                overflow /= BASE ; 
+            } else {
+                overflow = 0 ; 
+            }
+            result->nums[i+j] %= BASE  ; 
+                    
+        }
+        result->length =  i+abs(b.length)  ;
+        if (overflow)
+        {
+            result->nums[i+abs(b.length)] = (overflow )  ;
+            result->length =  i+abs(b.length)  +1;
+        }
+    }
+
+    if (a.length * b.length > 0) {
+        result->length *= (int) (a.length/a.length) ; 
+    } else {
+        result->length *= -1 ; 
+
+    }
+    memcpy(c , result , sizeof(BigInt)) ; 
+}
+
+
+
+
+#if 1
+int main(int argc , char **argv) {
+
+    // BigInt ccc , rrrr ; 
+    // bigra9m_init(&ccc ) ; 
+    // bigra9m_init( &rrrr) ; 
+
+    // bigra9m_assign_str(&ccc , "1020") ; 
+
+    // bigra9m_mul_uint64(ccc , 5 , &rrrr) ; 
+
+    // bigra9m_print(rrrr) ;
+
+    // exit(0) ; 
+
+    BigRa9m U , V  , Q , R;
+    bigra9m_init(&U) ; 
+    bigra9m_init(&V) ; 
+    bigra9m_init(&Q) ; 
+    bigra9m_init(&R) ; 
+
+    bigra9m_assign_str(&U , argv[1]) ; 
+    bigra9m_assign_str(&V , argv[2]) ; 
+
+    knuths_algorithm_d(U , V , &Q , &R) ; 
+
+    printf("final result : ") ; 
+    bigra9m_print(Q) ; 
+    printf("final reminder : ") ; 
+    bigra9m_print(R) ; 
+
+    
+    exit(EXIT_SUCCESS)  ; 
+
+
+
+    BigInt p_big ;
+    bigra9m_init(&p_big) ;
+    uint64_t p = 29 ; 
+    bigra9m_assign_uint64_t(&p_big , p) ;  
+    if (argc > 1)
+    {
+        p = atoi(argv[1]) ; 
+        bigra9m_assign_str(&p_big , argv[1]) ; 
+    }
+    bigra9m_print(p_big) ; 
+
+    int result2 = bigra9m_fermat_primality_test(p_big) ; 
+    printf("ending bigra9m\n\n\n");
+
+    int result = fermat_primality_test_uint64(p) ; 
+    printf("result = %d\n" , result) ; 
+    printf("result2 = %d\n" , result) ; 
+    if (result == 0)
+    {
+        printf("%lu is likely prime\n" , p) ; 
+    } else {
+        printf("%lu is composite\n" , p) ; 
+    }
+    
+    return 0 ; 
+}
+#endif

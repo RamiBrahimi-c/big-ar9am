@@ -25,6 +25,9 @@ void string_to_lowercase(char *str) {
     }
 }
 
+uint64_t string_to_uint62(char *str) {
+    return strtol(str , NULL , 10) ;
+}
 
 int main(int argc , char *argv[]) {
     if (argc > 1)
@@ -51,8 +54,39 @@ int main(int argc , char *argv[]) {
             TEST_DIVISION(argv[2] , argv[3]) ; 
         }
         
+        if (strcmp(argv[1] , "pow")==0)
+        {
+            TEST_POWER_EXPO(argv[2] , argv[3]) ; 
+        }
         
+        if (strcmp(argv[1] , "mod")==0)
+        {
+            TEST_MODULO(argv[2] , argv[3]) ; 
+        }
         
+        if (strcmp(argv[1] , "eq")==0)
+        {
+            TEST_EQ(argv[2] , argv[3]) ; 
+        }
+        
+        if (strcmp(argv[1] , "mod2")==0)
+        {
+            TEST_MODULO2(argv[2] , argv[3] ,argv[4]) ; 
+        }
+
+        if (strcmp(argv[1] , "bg")==0)
+        {
+            TEST_BG(argv[2] , argv[3]) ; 
+        }
+
+        if (strcmp(argv[1] , "mul_u64")==0)
+        {
+            TEST_MULTIPLICATION_uint64_t(argv[2] , string_to_uint62(argv[3])) ; 
+        }
+        if (strcmp(argv[1] , "x")==0)
+        {
+            printf("result : %lu \n" , string_to_uint62(argv[2])) ;  
+        }
     }
     exit(EXIT_SUCCESS) ; 
 

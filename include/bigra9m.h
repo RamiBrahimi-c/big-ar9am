@@ -44,12 +44,19 @@ void bigra9m_mul(BigInt a , BigInt b , BigInt *c) ;
 void bigra9m_sub(BigInt a , BigInt b , BigInt *c) ;
 void bigra9m_div(BigInt a , BigInt b , BigInt *c , BigInt *d) ;
 
+void bigra9m_mul_uint64(BigInt a , uint64_t b , BigInt *c) ;
+
 
 // calculates `res` = base^(pow) 
 void bigra9m_pow(BigInt base , BigInt pow , BigInt *res) ;
 
 // calculates `c` = `divedend` % `divisor` 
 void bigra9m_mod(BigInt dividend , BigInt divisor , BigInt *c) ;
+
+// calculates `c` = `divedend` % `divisor` 
+// same as `bigra9m_mod2` just works this way : 
+//  reminder = dividend - divisor * quoeff
+void bigra9m_mod2(BigInt dividend , BigInt divisor , BigInt quoeff , BigInt *c) ;
 
 
 // assign (num_str) a number in string (char *) format to BigInt struct
@@ -65,6 +72,8 @@ int bigra9m_is_positive(BigInt a) ;
 int bigra9m_is_negative(BigInt a) ;
 
 int bigra9m_isBiggerThanNum(BigInt a , BigInt b) ;
+int bigra9m_isStrictlyBiggerThanNum(BigInt a , BigInt b) ;
+int bigra9m_isEqualNum(BigInt a , BigInt b) ;
 
 
 #endif

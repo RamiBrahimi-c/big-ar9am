@@ -681,7 +681,17 @@ int bigra9m_isBiggerThanNum(BigInt a , BigInt b) {
         return 0; 
 
     } else if (a.length == b.length && a.length != 0) {
-        return a.nums[a.length-1] >= b.nums[a.length-1] ; 
+        for (int i = a.length -1 ; i >= 0; i--)
+        {
+            if (a.nums[i] == b.nums[i])
+            {
+                continue;
+            }
+            return a.nums[i] >= b.nums[i] ; 
+            
+        }
+        return 0 ; 
+       
     } else {
         return 0; 
     }
@@ -733,17 +743,17 @@ uint64_t pow_ui64(uint64_t a , uint64_t b) {
 }
 
 
-
+// bro this NEEDS MORE investegations
 void bigra9m_pow(BigInt base , BigInt pow , BigInt *res) {
     BigInt i , inc , copy ; 
-    bigra9m_assign_str(&i , "1");
+    bigra9m_assign_str(&i , "2");
     bigra9m_assign_str(&inc , "1");
     // bigra9m_assign_str(res , "1");
     bigra9m_assign(&copy , base);
     bigra9m_init(res );
     int j = 0;
     
-    while (!bigra9m_isBiggerThanNum(i , pow))
+    while (!bigra9m_isStrictlyBiggerThanNum(i , pow))
     {
         // bigra9m_print(base);
         // bigra9m_print(copy);
@@ -840,7 +850,9 @@ int bigra9m_fermat_primality_test(BigInt p) {
     {
         // init a
         // printf("hi\n");
-        bigra9m_assign_uint64_t(&a , rand() % 100 ) ; 
+        bigra9m_assign_uint64_t(&a , 2 ) ; 
+        // bigra9m_assign_uint64_t(&a , rand() % 100 ) ; 
+
         bigra9m_mod(a , p_min1 , &a ) ;
         // printf("its not mod\n"); 
         // check if a = 0 OR a= 1
@@ -849,10 +861,14 @@ int bigra9m_fermat_primality_test(BigInt p) {
             bigra9m_assign_uint64_t(&a , 2) ; 
         }
         
+        printf("a : ") ; 
+        bigra9m_print(a) ; 
+        printf("p min 1: ") ; 
+        bigra9m_print(p_min1) ; 
         
         bigra9m_pow(a , p_min1 , &temp) ; 
-        // printf("its not pow\n");
-        // bigra9m_print(temp);  
+        printf("temp : \n");
+        bigra9m_print(temp);  
         // bigra9m_print(p);  
         bigra9m_mod(temp , p , &temp) ; 
         // printf("its not mod\n"); 
@@ -899,7 +915,7 @@ int bigra9m_isEqualNum(BigInt a , BigInt b) {
 
 
 
-#if 1
+#if 0
 int main(int argc , char **argv) {
 
     // BigInt ccc , rrrr ; 

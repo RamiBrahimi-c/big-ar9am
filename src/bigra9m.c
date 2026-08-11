@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/utils.h"
-
+#include <string.h>
 #if 1
     #define DEBUG
 #endif
@@ -45,18 +45,19 @@ static int is_num(const char a) {
 // TODO : replace atoi() with strtol ... 
 void bigra9m_assign_str(BigInt *a , const char *num_str) {
     
-    uchar_t *num_str_clean ;
+    uchar_t *num_str_clean = strdup(num_str) ;
     if (num_str[0]== '-' && is_num(num_str[1]))
     {
         a->length = -1 ;
-        num_str_clean = num_str + 1 ;  
+        num_str_clean = num_str_clean + 1 ;  
     } else if (is_num(num_str[0]))  {
         a->length = 1 ;
-        num_str_clean = num_str  ;  
+        // num_str_clean = num_str  ;  
         
     } else {
         // a->length = 0 ;
         bigra9m_init(a) ; 
+        free(num_str_clean) ; 
         return ; 
     }
     
@@ -95,7 +96,7 @@ void bigra9m_assign_str(BigInt *a , const char *num_str) {
             j-- ; 
         }        
     }
-    
+    free(num_str_clean);
 }
 
 

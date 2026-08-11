@@ -1,6 +1,7 @@
 #include "../include/bigra9m.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 
 void bigra9m_mul_uint64(BigInt a , uint64_t b, BigInt *c) {

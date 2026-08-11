@@ -378,16 +378,17 @@ static void repeated_subtraction_division(BigInt N , BigInt D ,BigInt *Qoeff , B
 }
 
 
-#define DEBUG_KNUTHS
+#define DEBUG_KNUTHS 0
 // fuck this algorithm
 // TODO : this algo stills need to do the length correctly plus calculating the reminder ..
 static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Reminder) {
-    printf("knuth's algorithm here !!!!!\n");
-    printf("DIVIDEND : \n") ; 
-    bigra9m_print(U); 
-    printf("DIVISOR : \n") ; 
-    bigra9m_print(V); 
-
+    #if DEBUG_KNUTHS
+        printf("knuth's algorithm here !!!!!\n");
+        printf("DIVIDEND : \n") ; 
+        bigra9m_print(U); 
+        printf("DIVISOR : \n") ; 
+        bigra9m_print(V); 
+    #endif
     uint64_t D = (BASE-1) / V.nums[V.length-1] ;
     BigInt temp_U , temp_V ;
     bigra9m_assign(&temp_U , U) ; 
@@ -406,7 +407,8 @@ static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Remi
         bigra9m_mul_uint64(U , d , &U) ;
         bigra9m_mul_uint64(V , d , &V) ;
     } while(V.nums[V.length-1] < BASE/2) ;
-
+    
+    #if DEBUG_KNUTHS
     if (V.nums[V.length-1] >= BASE/2)
     {
         printf("yes normalized\n") ; 
@@ -414,11 +416,12 @@ static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Remi
         printf("no not normalized\n") ; 
 
     }
+    #endif
     
-    if (U.length == m + n)
-    {
-        // U.length++ ; 
-    }
+    /*
+        NOTE in this phase , U is supposed to get added a 0 on its left
+        make sure to have enough allocated space ...
+    */
     m = U.length - V.length ; 
     n = V.length ; 
     Qoeff->length = m ; 
@@ -505,12 +508,16 @@ static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Remi
     // bigra9m_assign(&D , );
     //     Set Q̂ to (U[n+j] × B + U[n−1+j]) ÷ V[n−1]; 
     //     Set R̂ to (U[n+j] × B + U[n−1+j]) % V[n−1]; 
+    #if DEBUG_KNUTHS
     printf("quoeff : ????\n");
     bigra9m_print(*Qoeff);
-    
+    #endif
     bigra9m_mod2(temp_U , temp_V , *Qoeff , Reminder) ; 
+    
+    #if DEBUG_KNUTHS
     printf("reminder : ????\n");
     bigra9m_print(*Reminder);
+    #endif
 
 }
 /*    uint64_t normalization_factor = 0 ; 
@@ -628,8 +635,8 @@ static void naive_division(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Reminder
 
 
 void bigra9m_div(BigInt a , BigInt b , BigInt *c ,  BigInt *d) {
-    repeated_subtraction_division(a , b , c , d) ; 
-    // knuths_algorithm_d(a , b , c , d) ; 
+    knuths_algorithm_d(a , b , c , d) ; 
+    // repeated_subtraction_division(a , b , c , d) ; 
 
 }
 
@@ -718,7 +725,6 @@ int bigra9m_isStrictlyBiggerThanNum(BigInt a , BigInt b) {
 
 uint64_t pow_ui64(uint64_t a , uint64_t b) {
     uint64_t r = 1 ;
-    printf("a= %lu , b = %lu \n" , a , b ) ; 
     for (size_t i = 0; i < b; i++)
     {
         r *= a ; 
@@ -799,8 +805,8 @@ static int fermat_primality_test_uint64(uint64_t p) {
     {
         a = (rand() % (p-1))  ;
         a = (a == 0 || a==1) ? 2 : a ;
-        printf("testing with a=%ld  p-1=%ld \tpow(a , p-1) %% p =%lu \n" , a , p-1   ,( pow_ui64(a , p-1) % p )  ) ; 
-        printf("pow(a , p-1):%lu  \n" ,   pow_ui64(a , p-1)   ) ; 
+        // printf("testing with a=%ld  p-1=%ld \tpow(a , p-1) %% p =%lu \n" , a , p-1   ,( pow_ui64(a , p-1) % p )  ) ; 
+        // printf("pow(a , p-1):%lu  \n" ,   pow_ui64(a , p-1)   ) ; 
         if ( pow_ui64(a , p-1) % p != 1)
         {
             return 1 ;
@@ -827,7 +833,7 @@ int bigra9m_fermat_primality_test(BigInt p) {
     // inc2.length = 0 ;
     bigra9m_assign_uint64_t(&s , S) ; 
     bigra9m_sub(p , inc , &p_min1) ; 
-    printf("hi\n");
+    // printf("hi\n");
     // bigra9m_init(&i) ;
     int j = 0 ; 
     while (!bigra9m_isBiggerThanNum(i , s))
@@ -836,7 +842,7 @@ int bigra9m_fermat_primality_test(BigInt p) {
         // printf("hi\n");
         bigra9m_assign_uint64_t(&a , rand() % 100 ) ; 
         bigra9m_mod(a , p_min1 , &a ) ;
-        printf("its not mod\n"); 
+        // printf("its not mod\n"); 
         // check if a = 0 OR a= 1
         if (bigra9m_isEqualNum(temp , inc) || bigra9m_isEqualNum(temp , inc2))
         {
@@ -845,21 +851,25 @@ int bigra9m_fermat_primality_test(BigInt p) {
         
         
         bigra9m_pow(a , p_min1 , &temp) ; 
-        printf("its not pow\n");
-        bigra9m_print(temp);  
-        bigra9m_print(p);  
+        // printf("its not pow\n");
+        // bigra9m_print(temp);  
+        // bigra9m_print(p);  
         bigra9m_mod(temp , p , &temp) ; 
-        printf("its not mod\n"); 
+        // printf("its not mod\n"); 
 
 
         if (!bigra9m_isEqualNum(temp , inc))
         {
+            printf("====================================\n");
             printf("p is composite\n") ; 
+            printf("====================================\n");
             return 1 ; 
         }
         bigra9m_add(i , inc , &i) ; 
     }
+    printf("====================================\n");
     printf("p could be prime\n") ;     
+    printf("====================================\n");
     return 0 ; 
 
 }
@@ -910,18 +920,18 @@ int main(int argc , char **argv) {
     bigra9m_init(&Q) ; 
     bigra9m_init(&R) ; 
 
-    bigra9m_assign_str(&U , argv[1]) ; 
-    bigra9m_assign_str(&V , argv[2]) ; 
+    // bigra9m_assign_str(&U , argv[1]) ; 
+    // bigra9m_assign_str(&V , argv[2]) ; 
 
-    knuths_algorithm_d(U , V , &Q , &R) ; 
+    // knuths_algorithm_d(U , V , &Q , &R) ; 
 
-    printf("final result : ") ; 
-    bigra9m_print(Q) ; 
-    printf("final reminder : ") ; 
-    bigra9m_print(R) ; 
+    // printf("final result : ") ; 
+    // bigra9m_print(Q) ; 
+    // printf("final reminder : ") ; 
+    // bigra9m_print(R) ; 
 
     
-    exit(EXIT_SUCCESS)  ; 
+    // exit(EXIT_SUCCESS)  ; 
 
 
 
@@ -934,6 +944,7 @@ int main(int argc , char **argv) {
         p = atoi(argv[1]) ; 
         bigra9m_assign_str(&p_big , argv[1]) ; 
     }
+    printf("testing on : ") ; 
     bigra9m_print(p_big) ; 
 
     int result2 = bigra9m_fermat_primality_test(p_big) ; 

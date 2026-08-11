@@ -420,7 +420,7 @@ static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Remi
     }
     m = U.length - V.length ; 
     n = V.length ; 
-    Qoeff->length = m+1 ; 
+    Qoeff->length = m ; 
 
     
     // step 2 : [Initilize]
@@ -507,6 +507,9 @@ static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Remi
     printf("quoeff : ????\n");
     bigra9m_print(*Qoeff);
     
+    bigra9m_mod2(temp_U , temp_V , *Qoeff , Reminder) ; 
+    printf("reminder : ????\n");
+    bigra9m_print(*Reminder);
 
 }
 /*    uint64_t normalization_factor = 0 ; 
@@ -748,15 +751,37 @@ void bigra9m_pow(BigInt base , BigInt pow , BigInt *res) {
 
 }
 
+
+
 void bigra9m_mod2(BigInt dividend , BigInt divisor , BigInt quoeff , BigInt *c) {
     BigInt temp , temp2; 
 
     bigra9m_init(&temp) ;
     bigra9m_init(&temp2) ;
-
+    #ifdef DEBUG_MOD2
+        printf("multiplying : ");
+        bigra9m_print(divisor) ; 
+        printf("and : ");
+        bigra9m_print(quoeff) ; 
+    #endif
     bigra9m_mul(divisor , quoeff , &temp) ; 
-    bigra9m_sub(dividend , temp , c);
+    #ifdef DEBUG_MOD2
 
+        printf("=  ");
+        bigra9m_print(temp) ; 
+    
+        printf("subtracting : ") ; 
+        bigra9m_print(dividend) ; 
+        printf("and : ") ; 
+        bigra9m_print(temp) ; 
+    #endif    
+    
+    bigra9m_sub(dividend , temp , c);
+    
+    #ifdef DEBUG_MOD2
+        printf("=  ");
+        bigra9m_print(*c) ; 
+    #endif
 }
 
 

@@ -10,6 +10,16 @@
 
 /* TODO : actually you need to fix bigra9m_mul cuz each time we need to initilize it before we call it !!!!!!!!!!!!!!!*/ 
 
+static int bigra9m_is_clean_lastdigit(BigInt a) {
+    return a.nums[a.length-1] > 0 ;
+}
+static void bigra9m_clean_lastdigit(BigInt *a) {
+    if (a != NULL && a->nums[a->length-1] ==0)
+    {
+        a->length-- ; 
+    }
+    
+} 
 
 
 void bigra9m_assign(BigInt *a , BigInt b  ) {
@@ -312,6 +322,12 @@ void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
             c->length -= (c->length/c->length) ; 
         }
     }    
+    // to actually clean the result and not left it with some useless 0s
+    while (!bigra9m_is_clean_lastdigit(*c))
+    {
+        bigra9m_clean_lastdigit(c) ; 
+    }
+    
 }
 
 

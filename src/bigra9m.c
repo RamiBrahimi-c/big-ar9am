@@ -11,10 +11,17 @@
 /* TODO : actually you need to fix bigra9m_mul cuz each time we need to initilize it before we call it !!!!!!!!!!!!!!!*/ 
 
 static int bigra9m_is_clean_lastdigit(BigInt a) {
+    if (a.length == 0)
+        return 1 ; 
     return a.nums[abs(a.length)-1] != 0  ;
 }
 static void bigra9m_clean_lastdigit(BigInt *a) {
-    if (a != NULL && a->nums[a->length-1] ==0)
+    if (a->length==0)
+    {
+        return ; 
+    }
+    
+    if (a != NULL && a->nums[abs(a->length)-1] ==0)
     {
         if (a->length > 0)
         {
@@ -280,7 +287,7 @@ void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
             c->nums[abs(a.length)] = overflow ; 
             c->length = a.length + (a.length/a.length) ; 
         }
-        if (c->nums[c->length-1]==0 && c->length != 0)
+        if (c->nums[abs(c->length)-1]==0 && c->length != 0)
         {
             c->length -= (c->length/c->length) ; 
         }        

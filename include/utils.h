@@ -1,17 +1,14 @@
 #include "../include/bigra9m.h"
 
+#define FANCY_DETAILED_PRINTING 0
+
 
 #define TEST_MULTIPLICATION(a_str , b_str) do\
 {   printf("================ TESTING MULTIPLICATION ================\n" );\
     BigInt a , b , c ;\
     bigra9m_assign_str(&a , a_str);\
     bigra9m_assign_str(&b , b_str);\
-    printf("a : \n" );\
-    bigra9m_print(a);\
-    printf("b : \n" );\
-    bigra9m_print(b);\
     bigra9m_mul(a , b , &c);\
-    printf("result : \n" );\
     bigra9m_print(c);\
     printf("=========================================================\n");\
 } while (0);
@@ -22,12 +19,7 @@
     BigInt a , b , c ;\
     bigra9m_assign_str(&a , a_str);\
     bigra9m_assign_str(&b , b_str);\
-    printf("a : \n" );\
-    bigra9m_print(a);\
-    printf("b : \n" );\
-    bigra9m_print(b);\
     bigra9m_add(a , b , &c);\
-    printf("result : \n" );\
     bigra9m_print(c);\
     printf("=========================================================\n");\
 } while (0);
@@ -38,12 +30,7 @@
     BigInt a , b , c ;\
     bigra9m_assign_str(&a , a_str);\
     bigra9m_assign_str(&b , b_str);\
-    printf("a : \n" );\
-    bigra9m_print(a);\
-    printf("b : \n" );\
-    bigra9m_print(b);\
     bigra9m_sub(a , b , &c);\
-    printf("result : \n" );\
     bigra9m_print(c);\
     printf("=========================================================\n");\
 } while (0);
@@ -56,16 +43,8 @@
     bigra9m_assign_str(&b , b_str);\
     bigra9m_init(&c );\
     bigra9m_init(&d );\
-    printf("a : \n" );\
-    bigra9m_print(a);\
-    printf("b : \n" );\
-    bigra9m_print(b);\
     bigra9m_div(a , b , &c , &d);\
-    printf("result : \n" );\
-    printf("Qoeff : " );\
     bigra9m_print(c);\
-    printf("Reminder : " );\
-    bigra9m_print(d);\
     printf("=========================================================\n");\
 } while (0);
 
@@ -75,12 +54,7 @@
     bigra9m_assign_str(&a , a_str);\
     bigra9m_assign_str(&b , b_str);\
     bigra9m_init(&c );\
-    printf("a : \n" );\
-    bigra9m_print(a);\
-    printf("b : \n" );\
-    bigra9m_print(b);\
     bigra9m_pow(a , b , &c );\
-    printf("result : \n" );\
     bigra9m_print(c);\
     printf("=========================================================\n");\
 } while (0);
@@ -93,12 +67,7 @@
     bigra9m_assign_str(&b , b_str);\
     bigra9m_init(&c );\
     bigra9m_init(&d );\
-    printf("a : \n" );\
-    bigra9m_print(a);\
-    printf("b : \n" );\
-    bigra9m_print(b);\
     bigra9m_mod(a , b  , &d );\
-    printf("result : \n" );\
     bigra9m_print(d);\
     printf("=========================================================\n");\
 } while (0);
@@ -110,14 +79,7 @@
     bigra9m_assign_str(&b , b_str);\
     bigra9m_assign_str(&c , c_str);\
     bigra9m_init(&d );\
-    printf("a : \n" );\
-    bigra9m_print(a);\
-    printf("b : \n" );\
-    bigra9m_print(b);\
-    printf("c : \n" );\
-    bigra9m_print(c);\
     bigra9m_mod2(a , b ,c   , &d );\
-    printf("result : \n" );\
     bigra9m_print(d);\
     printf("=========================================================\n");\
 } while (0);
@@ -127,11 +89,7 @@
     BigInt a , b ;\
     bigra9m_assign_str(&a , a_str);\
     bigra9m_assign_str(&b , b_str);\
-    printf("a : \n" );\
-    bigra9m_print(a);\
-    printf("b : \n" );\
-    bigra9m_print(b);\
-    printf("result : %s \n" , bigra9m_isEqualNum(a , b) == 0 ? "not equal" : "equal" );\
+    printf("%s\n" , bigra9m_isEqualNum(a , b) == 0 ? "False" : "True" );\
     printf("=========================================================\n");\
 } while (0);
 
@@ -140,11 +98,7 @@
     BigInt a , b ;\
     bigra9m_assign_str(&a , a_str);\
     bigra9m_assign_str(&b , b_str);\
-    printf("a : \n" );\
-    bigra9m_print(a);\
-    printf("b : \n" );\
-    bigra9m_print(b);\
-    printf("result : %s \n" , bigra9m_isStrictlyBiggerThanNum(a , b) == 0 ? "false" : "true" );\
+    printf("%s\n" , bigra9m_isStrictlyBiggerThanNum(a , b) == 0 ? "False" : "True" );\
     printf("=========================================================\n");\
 } while (0);
 
@@ -152,11 +106,7 @@
 {   printf("================ TESTING MULTIPLICATION with uint62_t ================\n" );\
     BigInt a  , c ;\
     bigra9m_assign_str(&a , a_str);\
-    printf("a : \n" );\
-    bigra9m_print(a);\
-    printf("b : %lu \n" , _b);\
     bigra9m_mul_uint64(a , _b , &c);\
-    printf("result : \n"  );\
     bigra9m_print(c);\
     printf("=========================================================\n");\
 } while (0);

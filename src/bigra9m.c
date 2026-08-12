@@ -11,12 +11,19 @@
 /* TODO : actually you need to fix bigra9m_mul cuz each time we need to initilize it before we call it !!!!!!!!!!!!!!!*/ 
 
 static int bigra9m_is_clean_lastdigit(BigInt a) {
-    return a.nums[a.length-1] > 0 ;
+    return a.nums[abs(a.length)-1] != 0  ;
 }
 static void bigra9m_clean_lastdigit(BigInt *a) {
     if (a != NULL && a->nums[a->length-1] ==0)
     {
-        a->length-- ; 
+        if (a->length > 0)
+        {
+            a->length-- ; 
+        } else {
+            a->length++ ; 
+
+        }
+        
     }
     
 } 
@@ -232,7 +239,7 @@ void bigra9m_sub(BigInt a , BigInt b , BigInt *c) {
         bigra9m_add(a , b , c) ;
         return ; 
     }
-    if ((a.length == b.length && a.nums[abs(a.length)-1] < b.nums[abs(b.length)-1]) ||
+    if ((a.length == b.length && !bigra9m_isBiggerThanNum(a , b)) ||
     abs(a.length) < abs(b.length) )
     {
         

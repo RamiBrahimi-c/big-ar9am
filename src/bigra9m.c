@@ -488,12 +488,15 @@ static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Remi
         if (bigra9m_is_negative(temp))
         {
             // step 6 : [Add back]
-            printf("panic\n"); 
-            // for debugging ...
-            printf("this happened when U : \n"); 
-            bigra9m_print(temp_U) ; 
-            printf("and V : \n"); 
-            bigra9m_print(temp_U) ; 
+            #if DEBUG_KNUTHS
+
+                printf("panic\n"); 
+                // for debugging ...
+                printf("this happened when U : \n"); 
+                bigra9m_print(temp_U) ; 
+                printf("and V : \n"); 
+                bigra9m_print(temp_U) ; 
+            #endif
             // exit(64) ;
             Qoeff->nums[j]-- ; 
             bigra9m_add(V , temp , &temp) ;
@@ -501,7 +504,7 @@ static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Remi
             k=0 ; 
             for (size_t i = j; i < j +  n + 1; i++)
             {
-                U.nums[j] = temp.nums[k]  ; 
+                U.nums[i] = temp.nums[k]  ; 
                 k++ ; 
             }
 

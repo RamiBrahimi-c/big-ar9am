@@ -400,13 +400,13 @@ static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Remi
     Qoeff->length = m +1; 
 
     // step 1 : [Normalize]
-    do {
+    while(V.nums[V.length-1] < BASE/2) {
         // uint64_t d = (uint64_t) (BASE-1) / V.nums[V.length-1] ; 
         uint64_t d = 2 ; 
         
         bigra9m_mul_uint64(U , d , &U) ;
         bigra9m_mul_uint64(V , d , &V) ;
-    } while(V.nums[V.length-1] < BASE/2) ;
+    }  
     
     #if DEBUG_KNUTHS
     if (V.nums[V.length-1] >= BASE/2)
@@ -424,7 +424,7 @@ static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Remi
     */
     m = U.length - V.length ; 
     n = V.length ; 
-    Qoeff->length = m ; 
+    Qoeff->length = m +1; 
 
     
     // step 2 : [Initilize]
@@ -482,6 +482,11 @@ static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Remi
         {
             // step 6 : [Add back]
             printf("panic\n"); 
+            // for debugging ...
+            printf("this happened when U : \n"); 
+            bigra9m_print(temp_U) ; 
+            printf("and V : \n"); 
+            bigra9m_print(temp_U) ; 
             // exit(64) ;
             Qoeff->nums[j]-- ; 
             bigra9m_add(V , temp , &temp) ;
@@ -508,6 +513,18 @@ static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Remi
     // bigra9m_assign(&D , );
     //     Set Q̂ to (U[n+j] × B + U[n−1+j]) ÷ V[n−1]; 
     //     Set R̂ to (U[n+j] × B + U[n−1+j]) % V[n−1]; 
+
+    while (!bigra9m_is_clean_lastdigit(*Qoeff))
+    {
+        bigra9m_clean_lastdigit(Qoeff) ; 
+    }
+    
+    while (!bigra9m_is_clean_lastdigit(*Reminder))
+    {
+        bigra9m_clean_lastdigit(Reminder) ; 
+    }
+    
+
     #if DEBUG_KNUTHS
     printf("quoeff : ????\n");
     bigra9m_print(*Qoeff);

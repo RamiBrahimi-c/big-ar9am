@@ -10,6 +10,7 @@
 #include "bigra9m.h"
 #include "utils.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 #if 0
     #define DEBUG
@@ -32,9 +33,9 @@ uint64_t string_to_uint62(char *str) {
 int main(int argc , char *argv[]) {
     if (argc > 1)
     {
-        printf("********** TESTING MODE *****************\n") ; 
+        // printf("********** TESTING MODE *****************\n") ; 
+        printf("%s %s %s = " ,argv[2] , argv[1] , argv[3] ) ;
         string_to_lowercase(argv[1]);
-
         if (strcmp(argv[1] , "sub")==0)
         {
             TEST_SUBTRACTION(argv[2] , argv[3]) ; 

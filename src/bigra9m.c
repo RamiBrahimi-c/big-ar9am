@@ -7,6 +7,7 @@
     #define DEBUG
 #endif
 
+#define DEBUG_KNUTHS 0
 
 /* TODO : actually you need to fix bigra9m_mul cuz each time we need to initilize it before we call it !!!!!!!!!!!!!!!*/ 
 
@@ -60,6 +61,8 @@ static int is_num(const char a) {
 void bigra9m_assign_str(BigInt *a , const char *num_str) {
     
     uchar_t *num_str_clean = strdup(num_str) ;
+    // cuz we might increment `num_str_clean` therefore it wont point exactly to the first allocated byte 
+    uchar_t *temp = num_str_clean ;
     if (num_str[0]== '-' && is_num(num_str[1]))
     {
         a->length = -1 ;
@@ -110,7 +113,7 @@ void bigra9m_assign_str(BigInt *a , const char *num_str) {
             j-- ; 
         }        
     }
-    free(num_str_clean);
+    free(temp);
 }
 
 
@@ -153,6 +156,16 @@ void bigra9m_print(BigInt number) {
 void bigra9m_add(BigInt a , BigInt b , BigInt *c ) {
     if (a.length * b.length < 0)
     {
+        if (bigra9m_is_negative(a))
+        {
+            a.length *= -1 ; 
+        }
+        if (bigra9m_is_negative(b))
+        {
+            b.length *= -1 ; 
+        }
+
+        
         bigra9m_sub(a , b , c) ; 
         return ;
     } 
@@ -392,7 +405,6 @@ static void repeated_subtraction_division(BigInt N , BigInt D ,BigInt *Qoeff , B
 }
 
 
-#define DEBUG_KNUTHS 0
 // fuck this algorithm
 // TODO : this algo stills need to do the length correctly plus calculating the reminder ..
 static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Reminder) {
@@ -480,12 +492,16 @@ static void knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Remi
         bigra9m_mul_uint64(V , q_hat , &temp2) ; 
         bigra9m_sub(temp , temp2 , &temp ) ; 
 
-        k=0 ; 
-        for (size_t i = j; i < j + n + 1; i++)
-        {
-            U.nums[i] = temp.nums[k]  ; 
-            k++ ; 
-        }
+        // if (!bigra9m_is_negative(temp))
+        
+            k=0 ; 
+            for (size_t i = j; i < j + n + 1; i++)
+            {
+                U.nums[i] = temp.nums[k]  ; 
+                k++ ; 
+
+            }
+        // U.length = 
 
         // step 5 : [Test Reminder]
 

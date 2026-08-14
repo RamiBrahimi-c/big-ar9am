@@ -900,8 +900,8 @@ int bigra9m_fermat_primality_test(BigInt p) {
     {
         // init a
         // printf("hi\n");
-        bigra9m_assign_uint64_t(&a , 2 ) ; 
-        // bigra9m_assign_uint64_t(&a , rand() % 100 ) ; 
+        // bigra9m_assign_uint64_t(&a , 2 ) ; 
+        bigra9m_assign_uint64_t(&a , rand() % 100 ) ; 
 
         bigra9m_mod(a , p_min1 , &a ) ;
         // printf("its not mod\n"); 
@@ -978,27 +978,33 @@ int main(int argc , char **argv) {
 
     // bigra9m_print(rrrr) ;
 
-    // exit(0) ; 
-
-    BigRa9m U , V  , Q , R;
+    // exit(0) ; 252493142
+    printf("argc : %d\n" , argc) ;
+    for (size_t i = 0; i < argc; i++)
+    {
+        printf("%s\n" , argv[i]) ; 
+    }
+     
+    /* BigRa9m U , V  , Q , R;
     bigra9m_init(&U) ; 
     bigra9m_init(&V) ; 
     bigra9m_init(&Q) ; 
     bigra9m_init(&R) ; 
 
-    // bigra9m_assign_str(&U , argv[1]) ; 
-    // bigra9m_assign_str(&V , argv[2]) ; 
-
+    bigra9m_assign_str(&U , "252493142") ; 
+    bigra9m_assign_str(&V , "13220") ; 
+    // bigra9m_print()
+    // bigra9m_sub(U , V , &Q ) ; 
     // knuths_algorithm_d(U , V , &Q , &R) ; 
 
-    // printf("final result : ") ; 
-    // bigra9m_print(Q) ; 
-    // printf("final reminder : ") ; 
-    // bigra9m_print(R) ; 
+    printf("final result : ") ; 
+    bigra9m_print(Q) ; 
+    printf("final reminder : ") ; 
+    bigra9m_print(R) ; 
 
     
-    // exit(EXIT_SUCCESS)  ; 
-
+    exit(EXIT_SUCCESS)  ; 
+ */
 
 
     BigInt p_big ;

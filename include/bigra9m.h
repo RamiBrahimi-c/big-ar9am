@@ -19,8 +19,9 @@ typedef struct BigRa9m BigRa9m ;
 
 struct BigRa9m
 {   
-    uint64_t nums[MAX_LEN] ; 
+    uint64_t *nums ; 
     int length ; // if length < 0 then the number is negative , if > 0 then its positive , if 0 its 0 -gmp style- 
+    int capacity ; 
 };
 
 
@@ -30,10 +31,8 @@ void bigra9m_print(BigInt number) ;
 //  - set the .nums[] array to 0
 //  - set .length to 0 
 //  in short set the struct to `0`
-void bigra9m_init(BigInt *) ;
+int bigra9m_init(BigInt *) ;
 
-// assigning BigInt b to BigInt a   (a = b) 
-void bigra9m_assign(BigInt *a , BigInt b  ) ;
 
 
 //  elementary opeartion gng (dummy not optimized not sure even if they are BUG-LESS ) 
@@ -59,9 +58,11 @@ void bigra9m_mod(BigInt dividend , BigInt divisor , BigInt *c) ;
 void bigra9m_mod2(BigInt dividend , BigInt divisor , BigInt quoeff , BigInt *c) ;
 
 
+
+// assigning BigInt b to BigInt a   (a = b) 
+void bigra9m_assign(BigInt *a , BigInt b  ) ;
 // assign (num_str) a number in string (char *) format to BigInt struct
 void bigra9m_assign_str(BigInt *a , const char *num_str) ;
-
 // assign a number x of type`uint64_t` to BigInt *a
 void bigra9m_assign_uint64_t(BigInt *a , uint64_t x) ;
 
@@ -74,6 +75,11 @@ int bigra9m_is_negative(BigInt a) ;
 int bigra9m_isBiggerThanNum(BigInt a , BigInt b) ;
 int bigra9m_isStrictlyBiggerThanNum(BigInt a , BigInt b) ;
 int bigra9m_isEqualNum(BigInt a , BigInt b) ;
+
+
+
+static int bigra9m_is_clean_lastdigit(BigInt a) ;
+static void bigra9m_clean_lastdigit(BigInt *a) ;
 
 
 #endif

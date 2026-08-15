@@ -1,8 +1,9 @@
-#include "../include/bigra9m.h"
+#include "../../include/bigra9m.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
+// NOTE : not configured yet with dynammic approach
 
 void bigra9m_mul_uint64(BigInt a , uint64_t b, BigInt *c) {
     BigInt *b_big = malloc(sizeof(BigInt)) ;

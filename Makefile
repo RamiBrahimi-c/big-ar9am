@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude/
-LDFLAGS = -lm
+LDFLAGS = -lm -g -lgmp
 SRCDIR = src
 OBJDIR = obj
 
@@ -20,7 +20,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 # Test - includes all source files recursively
 test:
-	$(CC) $(CFLAGS) tests/test_main.c src/*.c $(LDFLAGS) -o run_tests && ./run_tests
+	$(CC) $(CFLAGS) tests/test_main.c src/*.c src/brz/*.c $(LDFLAGS) -o run_tests && ./run_tests
 
 # Run specific test
 test-%:

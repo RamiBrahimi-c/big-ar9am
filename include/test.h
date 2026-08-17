@@ -8,8 +8,10 @@
     BigInt a , b , c ;\
     bigra9m_init_str(&a , a_str);\
     bigra9m_init_str(&b , b_str);\
+    bigra9m_init(&c);\
     bigra9m_mul(&a , &b , &c);\
     bigra9m_print(c);\
+    bigra9m_clears(&a , &b , &c , NULL);\
 } while (0);
 
 
@@ -18,8 +20,10 @@
     BigInt a , b , c ;\
     bigra9m_init_str(&a , a_str);\
     bigra9m_init_str(&b , b_str);\
+    bigra9m_init(&c);\
     bigra9m_add(a , b , &c);\
     bigra9m_print(c);\
+    bigra9m_clears(&a , &b , &c , NULL);\
 } while (0);
 
 
@@ -28,8 +32,10 @@
     BigInt a , b , c ;\
     bigra9m_init_str(&a , a_str);\
     bigra9m_init_str(&b , b_str);\
+    bigra9m_init(&c);\
     bigra9m_sub(a , b , &c);\
     bigra9m_print(c);\
+    bigra9m_clears(&a , &b , &c , NULL);\
 } while (0);
 
 
@@ -38,20 +44,21 @@
     BigInt a , b , c  , d;\
     bigra9m_init_str(&a , a_str);\
     bigra9m_init_str(&b , b_str);\
-    bigra9m_init(&c );\
-    bigra9m_init(&d );\
-    bigra9m_div(a , b , &c , &d);\
+    bigra9m_inits(&c , &d , NULL);\
+    bigra9m_div(&a , &b , &c , &d);\
     bigra9m_print(c);\
+    bigra9m_clears(&a , &b , &c  , &d, NULL);\
 } while (0);
 
 #define TEST_POWER_EXPO(a_str , b_str) do\
 {   \
-    BigInt a , b , c  , d;\
+    BigInt a , b , c  ;\
     bigra9m_init_str(&a , a_str);\
     bigra9m_init_str(&b , b_str);\
     bigra9m_init(&c );\
     bigra9m_pow(a , b , &c );\
     bigra9m_print(c);\
+    bigra9m_clears(&a , &b , &c  , NULL);\
 } while (0);
 
 
@@ -60,10 +67,10 @@
     BigInt a , b , c  , d;\
     bigra9m_init_str(&a , a_str);\
     bigra9m_init_str(&b , b_str);\
-    bigra9m_init(&c );\
-    bigra9m_init(&d );\
+    bigra9m_inits(&c , &d , NULL );\
     bigra9m_mod(a , b  , &d );\
     bigra9m_print(d);\
+    bigra9m_clears(&a , &b , &c  , &d, NULL);\
 } while (0);
 
 #define TEST_MODULO2(a_str , b_str , c_str) do\
@@ -75,6 +82,7 @@
     bigra9m_init(&d );\
     bigra9m_mod2(a , b ,c   , &d );\
     bigra9m_print(d);\
+    bigra9m_clears(&a , &b , &c , &d , NULL);\
 } while (0);
 
 #define TEST_EQ(a_str , b_str) do\
@@ -82,6 +90,7 @@
     BigInt a , b ;\
     bigra9m_init_str(&a , a_str);\
     bigra9m_init_str(&b , b_str);\
+    bigra9m_clears(&a , &b  , NULL);\
 } while (0);
 
 #define TEST_BG(a_str , b_str) do\
@@ -89,12 +98,15 @@
     BigInt a , b ;\
     bigra9m_init_str(&a , a_str);\
     bigra9m_init_str(&b , b_str);\
+    bigra9m_clears(&a , &b  , NULL);\
 } while (0);
 
 #define TEST_MULTIPLICATION_uint64_t(a_str , _b) do\
 {   \
     BigInt a  , c ;\
     bigra9m_init_str(&a , a_str);\
+    bigra9m_init(&c );\
     bigra9m_mul_uint64(&a , _b , &c);\
     bigra9m_print(c);\
+    bigra9m_clears(&a , &c , NULL);\
 } while (0);

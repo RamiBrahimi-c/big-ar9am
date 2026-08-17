@@ -5,7 +5,7 @@
 #define MAX(a,b) (a>b ? a : b) 
 #define MIN(a,b) (a<b ? a : b) 
 // literally copying gmp style .-.
-// reallocating `_newsize` to `_ptr` and initializing the new allocated space to 0 .
+// reallocating `ptr` to size of `_newsize * sizeof(uint64_t)` WITHOUT initializing the new allocated space to 0 .
 //  if realloc returns NULL we return -1 from wherever this macro is called . 
 #define BRZ_ALLOCATE_U64(_ptr , _newsize ) do \
 {\

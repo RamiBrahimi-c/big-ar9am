@@ -36,6 +36,10 @@ int bigra9m_init(BigInt *) ;
 // a function to handle variable length of parameters and initilize each one of them by calling `bigra9m_init` 
 int bigra9m_inits(BigInt * , ...) ;
 
+
+void bigra9m_init_str(BigInt *a , const char *num_str) ;
+
+
 // NOTE : maybe we should consider making every parameter a pointer 
 
 //  elementary opeartion gng (dummy not optimized not sure even if they are BUG-LESS ) 
@@ -46,7 +50,7 @@ void bigra9m_mul(BigInt *a , BigInt *b , BigInt *c) ;
 void bigra9m_sub(BigInt a , BigInt b , BigInt *c) ;
 void bigra9m_div(BigInt a , BigInt b , BigInt *c , BigInt *d) ;
 
-void bigra9m_mul_uint64(BigInt a , uint64_t b , BigInt *c) ;
+void bigra9m_mul_uint64(BigInt *a , uint64_t b , BigInt *c) ;
 void bigra9m_add_1(BigInt a , uint64_t b , BigInt *c ) ;
 
 
@@ -62,6 +66,9 @@ void bigra9m_mod(BigInt dividend , BigInt divisor , BigInt *c) ;
 void bigra9m_mod2(BigInt dividend , BigInt divisor , BigInt quoeff , BigInt *c) ;
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// NOTE : the functions below need to get called AFTER calling one of the **init** functions !!!!!
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // assigning BigInt b to BigInt a   (a = b) 
 void bigra9m_assign(BigInt *a , BigInt b  ) ;

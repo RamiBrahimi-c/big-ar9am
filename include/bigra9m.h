@@ -33,17 +33,21 @@ void bigra9m_print(BigInt number) ;
 //  in short set the struct to `0`
 int bigra9m_init(BigInt *) ;
 
+// a function to handle variable length of parameters and initilize each one of them by calling `bigra9m_init` 
+int bigra9m_inits(BigInt * , ...) ;
 
+// NOTE : maybe we should consider making every parameter a pointer 
 
 //  elementary opeartion gng (dummy not optimized not sure even if they are BUG-LESS ) 
 //  c is the result of a OP b (OP = * , + , - , /)
 //  c = a OP b 
 void bigra9m_add(BigInt a , BigInt b , BigInt *c ) ;
-void bigra9m_mul(BigInt a , BigInt b , BigInt *c) ;
+void bigra9m_mul(BigInt *a , BigInt *b , BigInt *c) ;
 void bigra9m_sub(BigInt a , BigInt b , BigInt *c) ;
 void bigra9m_div(BigInt a , BigInt b , BigInt *c , BigInt *d) ;
 
 void bigra9m_mul_uint64(BigInt a , uint64_t b , BigInt *c) ;
+void bigra9m_add_1(BigInt a , uint64_t b , BigInt *c ) ;
 
 
 // calculates `res` = base^(pow) 
@@ -64,7 +68,7 @@ void bigra9m_assign(BigInt *a , BigInt b  ) ;
 // assign (num_str) a number in string (char *) format to BigInt struct
 void bigra9m_assign_str(BigInt *a , const char *num_str) ;
 // assign a number x of type`uint64_t` to BigInt *a
-void bigra9m_assign_uint64_t(BigInt *a , uint64_t x) ;
+int bigra9m_assign_uint64_t(BigInt *a , uint64_t x) ;
 
 
 
@@ -78,8 +82,14 @@ int bigra9m_isEqualNum(BigInt a , BigInt b) ;
 
 
 
-static int bigra9m_is_clean_lastdigit(BigInt a) ;
-static void bigra9m_clean_lastdigit(BigInt *a) ;
+int bigra9m_is_clean_lastdigit(BigInt a) ;
+void bigra9m_clean_lastdigit(BigInt *a) ;
+
+// it cleans the BigInt that was set before by `bigra9m_init` or `bigra9m_inits` 
+// to free resources and avoid memory leaks ...
+void bigra9m_clear(BigInt *a) ; 
+// same as `bigra9m_clear` but handles one or more parameters .
+void bigra9m_clears(BigInt *a  , ...) ; 
 
 
 #endif

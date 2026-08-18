@@ -1,6 +1,7 @@
 #include "../../include/bigra9m.h"
-
-// NOTE : not configured yet with dynammic approach
+#include "../../include/utils.h"
+#include <stdlib.h>
+// NOTE : apparently configured with dynammic approach
 
 
 static void simple_addition(BigInt a , BigInt b , BigInt *c) {
@@ -98,10 +99,72 @@ void bigra9m_add(BigInt a , BigInt b , BigInt *c ) {
         }
 
         
-        bigra9m_sub(a , b , c) ; 
+        bigra9m_sub(&a , &b , c) ; 
         return ;
     }
+    // proper reallocation by our concept (which is idk what tbh); 
+    if (c->capacity < MAX(abs(a.length) , abs(b.length)) *2)
+    {
+        c->capacity = MAX(abs(a.length) , abs(b.length)) *2 ; 
+        c->nums =  realloc(c->nums , c->capacity * sizeof(uint64_t)) ; 
+        memset(c->nums , 0x0 , sizeof(uint64_t)*(c->capacity)) ; 
+    }
+    
 
     simple_addition(a, b , c) ; 
     
 }
+
+
+void bigra9m_add_1(BigInt a , uint64_t b , BigInt *c ) {
+    if (bigra9m_is_negative(a))
+    {
+        fprintf(stderr , "ERROR : works only when 'a' is POSITIVE\n") ; 
+        return ; 
+    }
+    
+
+        uint64_t overflow = b ;
+        uint64_t result  ;
+        for (size_t i = 0; i < abs(a.length); i++)
+        {
+            // if (i==0)
+            // {
+                // result = a.nums[i] + b + overflow ; 
+                /* code */
+            // } else {
+                result = a.nums[i]  + overflow ; 
+
+            // }
+            
+            c->nums[i] = (result % BASE)  ; 
+            if (result >= BASE)
+            {
+                overflow = result ;
+                overflow /= BASE ; 
+            } else {
+                overflow = 0 ; 
+            }
+            
+        }
+
+        c->length = a.length  ; 
+        if (overflow != 0)
+        {
+            c->nums[abs(a.length)] = overflow ; 
+            if (a.length == 0)
+            {
+                c->length = 1; 
+                /* code */
+            }else {
+                c->length = a.length + (a.length/abs(a.length)) ; 
+
+            }
+            
+        }
+
+
+
+}
+
+

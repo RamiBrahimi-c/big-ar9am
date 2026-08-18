@@ -68,7 +68,12 @@ void bigra9m_assign_str(BigInt *a , const char *num_str) {
 
 
 int bigra9m_assign_uint64_t(BigInt *a , uint64_t x) {
-
+    if (x == 0)
+    {
+        a->length = 0 ; 
+        return 0 ; 
+    }
+    
     // bigra9m_init(a);
     int i=0;
     int c;

@@ -1,12 +1,21 @@
 #include "../../include/bigra9m.h"
 // #include "bigra9m.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdarg.h>
+
+#define DEBUG 0
 
 void bigra9m_clear(BigInt *a) {
     a->capacity = 0 ; 
     a->length = 0 ;
+    #if DEBUG
+    printf("about to free : %p \n" , a->nums) ; 
+    #endif
     free(a->nums) ;  
+    #if DEBUG
+    printf("free'd successfully :  \n" ) ; 
+    #endif
 }
 
 

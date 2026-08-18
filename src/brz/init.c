@@ -12,15 +12,24 @@
 
 // NOTE : is configured with dynammic approach
 
+#define DEBUG 0
+
 int bigra9m_init(BigInt *a) {
     a->length = 0 ;
     a->capacity = 4 ; 
+    #if DEBUG
+    printf("about to allocate for %p\n" ,a->nums ) ; 
+    #endif
+    
     a->nums = malloc(sizeof(uint64_t)*a->capacity) ; 
     if (a->nums == NULL)
     {
         fprintf( stderr, "ERROR : could not initilize bigra9m ; malloc failed !\n") ; 
         return -1 ; 
     }
+    #if DEBUG
+    printf("allocated successfully %p\n" , a->nums) ; 
+    #endif
     
     memset(a->nums , 0 , a->capacity *sizeof(uint64_t)) ;
     return 0 ;

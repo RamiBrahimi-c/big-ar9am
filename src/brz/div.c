@@ -105,7 +105,7 @@ static void simple_knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigIn
 
 // fuck this algorithm
 // TODO : this algo stills need to do the length correctly plus calculating the reminder ..
-void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Reminder) {
+static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Reminder) {
     // BigInt U , V ; 
     // bigra9m_init_assign(&U , U_origin ) ; 
     // bigra9m_init_assign(&V , V_origin ) ; 

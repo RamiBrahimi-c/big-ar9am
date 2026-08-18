@@ -33,7 +33,7 @@
     bigra9m_init_str(&a , a_str);\
     bigra9m_init_str(&b , b_str);\
     bigra9m_init(&c);\
-    bigra9m_sub(a , b , &c);\
+    bigra9m_sub(&a , &b , &c);\
     bigra9m_print(c);\
     bigra9m_clears(&a , &b , &c , NULL);\
 } while (0);

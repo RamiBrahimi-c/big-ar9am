@@ -36,7 +36,7 @@ int main()
     {
         r = a + b ;
         r2 = a2 + b2 ;
-        bigra9m_sub(num , num2 , &num3) ; 
+        bigra9m_sub(&num , &num2 , &num3) ; 
         // bigra9m_add(num , num2 , &num3) ; 
         
         // printf("%u\t%lu\t" , r , r2) ;

@@ -32,7 +32,7 @@ int main()
 
         f = f *i ;
         bigra9m_init(&num3) ; 
-        bigra9m_mul(num , num2 , &num3) ; 
+        bigra9m_mul(&num , &num2 , &num3) ; 
         
         
         bigra9m_print(num3);

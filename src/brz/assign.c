@@ -51,11 +51,11 @@ void bigra9m_assign_str(BigInt *a , const char *num_str) {
 
     for (size_t i = 0; i < len; i++)
     {
-        printf("i=%ld\n" , i) ; 
+        // printf("i=%ld\n" , i) ; 
         // read one character or one digit
         uchar_t c = num_str_clean[i] ; 
         uint64_t val = c - '0' ; 
-        printf("val : %lu\n" , val) ; 
+        // printf("val : %lu\n" , val) ; 
         bigra9m_mul_uint64(a , base , a ) ;
         bigra9m_add_1(*a , val , a ) ;
     }

@@ -55,12 +55,18 @@ void static basic_subtraction(BigInt a , BigInt b , BigInt *c) {
         uint64_t result ;
         for (size_t i = 0; i < abs(a.length); i++)
         {
-            if (a.nums[i] >= (b.nums[i] + overflow))
+            uint64_t second_var = 0 ; 
+            if (i < min_len)
             {
-                result = a.nums[i] - (b.nums[i] + overflow) ; 
+                second_var = b.nums[i] ; 
+            }
+            
+            if (a.nums[i] >= (second_var + overflow))
+            {
+                result = a.nums[i] - (second_var + overflow) ; 
                 overflow = 0 ; 
             } else {
-                result = (a.nums[i] + BASE)  - (b.nums[i] + overflow) ; 
+                result = (a.nums[i] + BASE)  - (second_var + overflow) ; 
                 overflow = 1 ; 
             }
             j++ ; 
@@ -84,11 +90,23 @@ void static basic_subtraction(BigInt a , BigInt b , BigInt *c) {
 
 }
 
-
+#define SUB_DEBUG 0
 // fucking hell .
 // fuck this shit 
 // TODO : this is NOT bug-free !!!!!!!!!!!!! 
 void bigra9m_sub(BigInt *a , BigInt *b , BigInt *c) {
+    
+    #if SUB_DEBUG 
+    printf("==================================\n") ; 
+    printf("a : ") ; 
+    bigra9m_print(*a) ; 
+    printf("b : ") ; 
+    bigra9m_print(*b) ; 
+    printf("c : ") ; 
+    bigra9m_print(*c) ; 
+    printf("==================================\n") ; 
+    #endif
+
     BigInt temp_a , temp_b ; 
     // printf("calling inits from bigra9m_sub for temp_a %p and temp_b %p \n" , &temp_a , &temp_b) ;     
     // printf("temp_a.nums %p and temp_b.nums %p \n" , temp_a.nums , temp_b.nums) ;     

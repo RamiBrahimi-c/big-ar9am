@@ -209,7 +209,11 @@ static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Re
     #endif    
     // step 2 : [Initilize]
     j = m ; 
-
+    if (j < 0)
+    {
+        exit(55) ; 
+    }
+    
     BigInt temp , temp2;
     
     // printf("calling init from knuths_algorithm_d for temp:%p , temp2:%p" , &temp , &temp2) ; 
@@ -341,7 +345,13 @@ void bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
 
         return ; 
     }
-    
+    if (!bigra9m_isBiggerThanNum(*a , *b))
+    {
+        bigra9m_assign_uint64_t(c , 0) ; 
+        bigra9m_assign(d , *a) ; 
+        return ; 
+    }
+        
     int sign = 1 ; 
 
     if (a->length * b->length < 0)

@@ -35,10 +35,38 @@ static void repeated_subtraction_division(BigInt N , BigInt D ,BigInt *Qoeff , B
     
 }
 
-
+// here it is like 
+// the range provided concerns **a**
 static void brz_assign_range(BigInt *a ,BigInt b , int start , int end ) {
-    if (end < start || start < 0 || end < 0 || b.length < end + 1)
+    if (end < start || start < 0 || end < 0  )
     {
+        fprintf(stderr , "ERROR ; a.len = %d  start : %d  end %d \n" , a->length , start , end) ; 
+        return ; 
+    }
+    if (a->capacity < end - start + 1)
+    {
+        a->capacity = nextPowerOfTwo(end - start + 1) ; 
+        BRZ_ALLOCATE_U64(a->nums , a->capacity)
+        memset(a->nums + abs(a->length) , 0x0 , sizeof(uint64_t)*(a->capacity - abs(a->length))) ; 
+    }
+
+    int k = 0 ; 
+    for (size_t i = start; i <= end; i++)
+    {
+        a->nums[i] = b.nums[k] ; 
+        k++ ; 
+    }
+    // a->length = k ; 
+    
+    
+}
+
+// here it is like 
+// the range provided concerns **b**
+static void brz_assign_range2(BigInt *a ,BigInt b , int start , int end ) {
+    if (end < start || start < 0 || end < 0  )
+    {
+        fprintf(stderr , "ERROR ; a.len = %d  start : %d  end %d \n" , a->length , start , end) ; 
         return ; 
     }
     if (a->capacity < end - start + 1)
@@ -52,7 +80,8 @@ static void brz_assign_range(BigInt *a ,BigInt b , int start , int end ) {
     for (size_t i = start; i <= end; i++)
     {
         a->nums[k] = b.nums[i] ; 
-        k++ ; 
+        k++ ;
+
     }
     a->length = k ; 
     
@@ -62,7 +91,10 @@ static void brz_assign_range(BigInt *a ,BigInt b , int start , int end ) {
 
 // when n == 1 
 static void simple_knuths_algorithm_d(BigInt U , BigInt V ,BigInt *Qoeff , BigInt *Reminder) {
-    printf("simple knuth !!!") ; 
+    
+    #if DEBUG_KNUTHS
+        printf("simple knuth !!!") ; 
+    #endif 
     int n = U.length  ; 
     int j = n -1 ; 
     uint64_t r = 0 ; 
@@ -113,9 +145,9 @@ static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Re
     #if DEBUG_KNUTHS
         printf("knuth's algorithm here !!!!!\n");
         printf("DIVIDEND : \n") ; 
-        bigra9m_print(U); 
+        bigra9m_print(*U); 
         printf("DIVISOR : \n") ; 
-        bigra9m_print(V); 
+        bigra9m_print(*V); 
     #endif
     uint64_t D = (BASE-1) / V->nums[V->length-1] ;
     BigInt temp_U , temp_V ;
@@ -149,9 +181,14 @@ static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Re
     }  
     
     #if DEBUG_KNUTHS
-    if (V.nums[V.length-1] >= BASE/2)
+    if (V->nums[V->length-1] >= BASE/2)
     {
         printf("yes normalized\n") ; 
+        printf("DIVIDEND : \n") ; 
+        bigra9m_print(*U); 
+        printf("DIVISOR : \n") ; 
+        bigra9m_print(*V); 
+
     } else {
         printf("no not normalized\n") ; 
 
@@ -165,8 +202,11 @@ static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Re
     m = U->length - V->length ; 
     n = V->length ; 
     Qoeff->length = m +1; 
-
     
+    #if DEBUG_KNUTHS
+        printf("m = %d \n" , m) ; 
+        printf("n = %d \n" , n) ; 
+    #endif    
     // step 2 : [Initilize]
     j = m ; 
 
@@ -175,8 +215,14 @@ static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Re
     // printf("calling init from knuths_algorithm_d for temp:%p , temp2:%p" , &temp , &temp2) ; 
     bigra9m_inits(&temp , &temp2 , NULL) ; 
     do {
+        
         // step 3 : Calculate q^
-
+    #if DEBUG_KNUTHS
+        
+        printf("U->nums[j+n] = %lu \n" , U->nums[j+n] ) ; 
+        printf("U->nums[j+n-1] = %lu \n" , U->nums[j+n-1] ) ; 
+        printf("V->nums[n-1] = %lu \n" , V->nums[n-1] ) ; 
+    #endif
         uint64_t q_hat = (U->nums[j+n]*BASE + U->nums[j+n-1]) / V->nums[n-1] ; 
         uint64_t r_hat = (U->nums[j+n]*BASE + U->nums[j+n-1]) % V->nums[n-1] ; 
 
@@ -196,16 +242,26 @@ static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Re
 
         int k = 0 ;  
 
-        brz_assign_range(&temp , *U , j , j+ n ) ; 
+        brz_assign_range2(&temp , *U , j , j+ n ) ; 
         // temp now has digits of (U) from (j) to (n+j)
         
         bigra9m_assign_uint64_t(&temp2 , 0) ; 
 
         bigra9m_mul_uint64(V , q_hat , &temp2) ; 
         bigra9m_sub(&temp , &temp2 , &temp ) ; 
+        #if DEBUG_KNUTHS
 
+        printf("U before :") ; 
+        bigra9m_print(*U) ; 
+        printf("temp before :") ; 
+        bigra9m_print(temp) ; 
+        #endif
         brz_assign_range(U , temp , j , j + n) ; 
+    #if DEBUG_KNUTHS
         
+        printf("U after :") ; 
+        bigra9m_print(*U) ; 
+    #endif        
 
         // step 5 : [Test Reminder]
 
@@ -229,7 +285,7 @@ static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Re
             bigra9m_add(*V , temp , &temp) ;
             
 
-            brz_assign_range(&U , temp , j , j + n) ; 
+            brz_assign_range(U , temp , j , j + n) ; 
 
         }
         // step 7 : [Loop on j]

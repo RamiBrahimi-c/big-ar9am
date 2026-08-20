@@ -100,4 +100,10 @@ void bigra9m_clear(BigInt *a) ;
 void bigra9m_clears(BigInt *a  , ...) ; 
 
 
+int bigra9m_fermat_primality_test(BigInt p) ;
+// done with modular exponentiation
+int bigra9m_fermat_primality_test_fast(BigInt p) ;
+
+void modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, BigInt *res) ;
+
 #endif

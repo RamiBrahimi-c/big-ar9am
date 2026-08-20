@@ -9,6 +9,7 @@
 */
 #include "bigra9m.h"
 #include "utils.h"
+#include "test.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -34,7 +35,12 @@ int main(int argc , char *argv[]) {
     if (argc > 1)
     {
         // printf("********** TESTING MODE *****************\n") ; 
-        printf("%s %s %s = " ,argv[2] , argv[1] , argv[3] ) ;
+        
+        if (argc > 3 && strcmp(argv[1] , "mod_exp")==0)
+            printf("(%s ^ %s) %% %s = " ,argv[2]  , argv[3] , argv[4] ) ;
+        else if (argc > 3)
+            printf("%s %s %s = " ,argv[2] , argv[1] , argv[3] ) ;
+        
         string_to_lowercase(argv[1]);
         if (strcmp(argv[1] , "sub")==0)
         {
@@ -75,6 +81,12 @@ int main(int argc , char *argv[]) {
             TEST_MODULO2(argv[2] , argv[3] ,argv[4]) ; 
         }
 
+        if (strcmp(argv[1] , "mod_exp")==0)
+        {
+            // printf("huh\n") ; 
+            TEST_MODULO_EXPO(argv[2] , argv[3] ,argv[4]) ; 
+        }
+
         if (strcmp(argv[1] , "bg")==0)
         {
             TEST_BG(argv[2] , argv[3]) ; 
@@ -84,6 +96,18 @@ int main(int argc , char *argv[]) {
         {
             TEST_MULTIPLICATION_uint64_t(argv[2] , string_to_uint62(argv[3])) ; 
         }
+        // fermat test
+        if (strcmp(argv[1] , "prime_fr")==0)
+        {
+            TEST_PRIMALITY_FERMAT(argv[2]) ; 
+        }
+
+        // fast fermat test
+        if (strcmp(argv[1] , "prime_fr_f")==0)
+        {
+            TEST_PRIMALITY_FERMAT_FAST(argv[2]) ; 
+        }
+
         if (strcmp(argv[1] , "x")==0)
         {
             printf("result : %lu \n" , string_to_uint62(argv[2])) ;  

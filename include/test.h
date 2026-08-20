@@ -110,3 +110,38 @@
     bigra9m_print(c);\
     bigra9m_clears(&a , &c , NULL);\
 } while (0);
+
+#define TEST_PRIMALITY_FERMAT(a_str ) do\
+{   \
+    BigInt a   ;\
+    bigra9m_init_str(&a , a_str);\
+    int _result = bigra9m_fermat_primality_test(a );\
+    printf("a : ");\
+    bigra9m_print(a);\
+    printf("%s \n" , _result==0 ? "composite" : "prime");\
+    bigra9m_clears(&a  , NULL);\
+} while (0);
+
+#define TEST_PRIMALITY_FERMAT_FAST(a_str ) do\
+{   \
+    BigInt a   ;\
+    bigra9m_init_str(&a , a_str);\
+    int _result = bigra9m_fermat_primality_test_fast(a );\
+    printf("a : ");\
+    bigra9m_print(a);\
+    printf("%s \n" , _result==0 ? "composite" : "prime");\
+    bigra9m_clears(&a  , NULL);\
+} while (0);
+
+#define TEST_MODULO_EXPO(a_str , b_str , mod_str ) do\
+{   \
+    BigInt a , b , mod , res   ;\
+    bigra9m_init_str(&a , a_str);\
+    bigra9m_init_str(&b , b_str);\
+    bigra9m_init_str(&mod , mod_str);\
+    bigra9m_init(&res);\
+    modular_exponentiation(&a , &b , &mod , &res );\
+    bigra9m_print(res);\
+    bigra9m_clears(&a , &b , &mod , &res , NULL);\
+} while (0);
+

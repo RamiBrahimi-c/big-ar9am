@@ -91,6 +91,16 @@ int main(int argc , char *argv[]) {
         {
             TEST_BG(argv[2] , argv[3]) ; 
         }
+        // lower than
+        if (strcmp(argv[1] , "lw")==0)
+        {
+            TEST_LW(argv[2] , argv[3]) ; 
+        }
+        // lower than or equal
+        if (strcmp(argv[1] , "leq")==0)
+        {
+            TEST_LEQ(argv[2] , argv[3]) ; 
+        }
 
         if (strcmp(argv[1] , "mul_u64")==0)
         {

@@ -90,6 +90,25 @@
     BigInt a , b ;\
     bigra9m_init_str(&a , a_str);\
     bigra9m_init_str(&b , b_str);\
+    printf("%s\n" , bigra9m_isEqualNum(a , b) == 1 ? "True" : "False") ; \
+    bigra9m_clears(&a , &b  , NULL);\
+} while (0);
+
+#define TEST_LEQ(a_str , b_str) do\
+{   \
+    BigInt a , b ;\
+    bigra9m_init_str(&a , a_str);\
+    bigra9m_init_str(&b , b_str);\
+    printf("%s\n" , bigra9m_isLowerThanNum(a , b) == 1 ? "True" : "False") ; \
+    bigra9m_clears(&a , &b  , NULL);\
+} while (0);
+
+#define TEST_LW(a_str , b_str) do\
+{   \
+    BigInt a , b ;\
+    bigra9m_init_str(&a , a_str);\
+    bigra9m_init_str(&b , b_str);\
+    printf("%s\n" , bigra9m_isStrictlyLowerThanNum(a , b) == 1 ? "True" : "False") ; \
     bigra9m_clears(&a , &b  , NULL);\
 } while (0);
 
@@ -98,6 +117,7 @@
     BigInt a , b ;\
     bigra9m_init_str(&a , a_str);\
     bigra9m_init_str(&b , b_str);\
+    printf("%s\n" , bigra9m_isBiggerThanNum(a , b) == 1 ? "True" : "False") ; \
     bigra9m_clears(&a , &b  , NULL);\
 } while (0);
 

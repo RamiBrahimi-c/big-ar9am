@@ -345,10 +345,16 @@ void bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
 
         return ; 
     }
-    if (!bigra9m_isBiggerThanNum(*a , *b))
+    if (bigra9m_isStrictlyLowerThanNum(*a , *b))
     {
         bigra9m_assign_uint64_t(c , 0) ; 
         bigra9m_assign(d , *a) ; 
+        return ; 
+    }
+    if (bigra9m_isEqualNum(*a , *b))
+    {
+        bigra9m_assign_uint64_t(c , 1) ; 
+        bigra9m_assign_uint64_t(d , 0) ; 
         return ; 
     }
         

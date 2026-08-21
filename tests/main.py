@@ -47,6 +47,11 @@ if len(sys.argv) > 1:
             result = int(num1 / num2)
             print(f"{num1} {operation} {num2} = {result}")
 
+        case "mod_exp" :
+            num3 = int(sys.argv[4])
+            result = pow(num1 , num2 , num3)
+            print(f"({num1} ^ {num2}) % {num3} = {result}")
+
         case _ :
             print(f"idk what operation is this {operation}")
 else:

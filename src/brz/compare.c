@@ -1,6 +1,6 @@
 #include "../../include/bigra9m.h"
 
-
+// TODO : please test this with script.sh !!!!!!!!!!!!
 // NOTE : can work with dynammic approach (apparently ;-;)
 
 
@@ -93,6 +93,68 @@ int bigra9m_isStrictlyBiggerThanNum(BigInt a , BigInt b) {
         return 0 ; 
         
         // return a.nums[a.length-1] > b.nums[b.length-1] ; 
+    } else {
+        return 0; 
+    }
+    
+}
+
+
+// TODO : needs more testing
+int bigra9m_isLowerThanNum(BigInt a , BigInt b) {
+    if (a.length * b.length < 0)
+    {
+        return a.length < b.length ;   
+    } 
+    
+    if (a.length > b.length)
+    {
+        return 0; 
+    }else if (a.length < b.length) {
+        return 1; 
+
+    } else if (a.length == b.length && a.length != 0) {
+        for (int i = a.length -1 ; i >= 0; i--)
+        {
+            if (a.nums[i] == b.nums[i])
+            {
+                continue;
+            }
+            return a.nums[i] <= b.nums[i] ; 
+            
+        }
+        return 1 ; 
+       
+    } else {
+        return 1; 
+    }
+    
+}
+
+int bigra9m_isStrictlyLowerThanNum(BigInt a , BigInt b) {
+    if (a.length * b.length < 0)
+    {
+        return a.length < b.length ;   
+    } 
+    
+    if (a.length > b.length)
+    {
+        return 0; 
+    }else if (a.length < b.length) {
+        return 1; 
+
+    } else if (a.length == b.length && a.length != 0) {
+        for (int i = a.length -1 ; i >= 0; i--)
+        {
+            if (a.nums[i] == b.nums[i])
+            {
+                continue;
+            }
+            return a.nums[i] < b.nums[i] ; 
+            
+        }
+        return 0 ; 
+       
     } else {
         return 0; 
     }

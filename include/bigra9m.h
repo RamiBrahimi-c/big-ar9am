@@ -87,7 +87,8 @@ int bigra9m_is_negative(BigInt a) ;
 int bigra9m_isBiggerThanNum(BigInt a , BigInt b) ;
 int bigra9m_isStrictlyBiggerThanNum(BigInt a , BigInt b) ;
 int bigra9m_isEqualNum(BigInt a , BigInt b) ;
-
+int bigra9m_isLowerThanNum(BigInt a , BigInt b) ;
+int bigra9m_isStrictlyLowerThanNum(BigInt a , BigInt b) ;
 
 
 int bigra9m_is_clean_lastdigit(BigInt a) ;
@@ -105,5 +106,8 @@ int bigra9m_fermat_primality_test(BigInt p) ;
 int bigra9m_fermat_primality_test_fast(BigInt p) ;
 
 void modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, BigInt *res) ;
+
+
+
 
 #endif

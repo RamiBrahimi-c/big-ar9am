@@ -92,6 +92,9 @@ void bigra9m_add(BigInt a , BigInt b , BigInt *c ) {
         if (bigra9m_is_negative(a))
         {
             a.length *= -1 ; 
+            bigra9m_sub(&b , &a , c) ; 
+
+            return ;            
         }
         if (bigra9m_is_negative(b))
         {

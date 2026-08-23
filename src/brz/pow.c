@@ -89,6 +89,8 @@ static int getbit_bigra9m(BigInt a , int position) {
 #include <stdio.h>
 #include <stdlib.h>
 
+#define DEBUG_MOD_EXPO 0
+
 void modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, BigInt *res) {
     if (bigra9m_is_negative(*exponent))
     {
@@ -164,6 +166,8 @@ void modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, B
         bigra9m_mul(&r , &r , &r) ; 
         bigra9m_mod(r , *modulus , &r) ;
         #if DEBUG_MOD_EXPO
+            printf("r = \n"  ) ;
+            bigra9m_print(r) ;  
             printf("bit = %d\n" , bit ) ; 
 
         #endif
@@ -172,13 +176,24 @@ void modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, B
         {
             // printf("enter\n") ; 
             bigra9m_mul(&r , base , &r) ; 
+            #if DEBUG_MOD_EXPO
+            printf("bit is 1  \n"  ) ;
+            printf("r = \n"  ) ;
+            bigra9m_print(r) ;  
+            #endif            
             bigra9m_mod(r , *modulus , &r) ;
-            
+        #if DEBUG_MOD_EXPO
+            printf("r = \n"  ) ;
+            bigra9m_print(r) ;  
+
+        #endif            
         }
         
     }
     
     #if DEBUG_MOD_EXPO
+        printf("modulus : ") ; 
+        bigra9m_print(*modulus) ; 
         printf("r : ") ; 
         bigra9m_print(r) ; 
     #endif    

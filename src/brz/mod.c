@@ -36,11 +36,15 @@ void bigra9m_mod2(BigInt dividend , BigInt divisor , BigInt quoeff , BigInt *c) 
 
 
 }
-#define DEBUG_MOD 1
+#define DEBUG_MOD 0
 
 void bigra9m_mod(BigInt dividend , BigInt divisor , BigInt *c) {
     BigInt a ;
     bigra9m_init(&a) ; 
     bigra9m_div(&dividend , &divisor ,&a , c ) ; 
+    #if DEBUG_MOD 
+    printf("divisor is : ") ; 
+        bigra9m_print(a) ; 
+    #endif
     bigra9m_clear(&a) ; 
 }

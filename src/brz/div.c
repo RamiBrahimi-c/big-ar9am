@@ -222,10 +222,12 @@ static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Re
         
         // step 3 : Calculate q^
     #if DEBUG_KNUTHS
-        
         printf("U->nums[j+n] = %lu \n" , U->nums[j+n] ) ; 
         printf("U->nums[j+n-1] = %lu \n" , U->nums[j+n-1] ) ; 
         printf("V->nums[n-1] = %lu \n" , V->nums[n-1] ) ; 
+        
+        printf("U : ")  ;
+        bigra9m_print(*U) ; 
     #endif
         uint64_t q_hat = (U->nums[j+n]*BASE + U->nums[j+n-1]) / V->nums[n-1] ; 
         uint64_t r_hat = (U->nums[j+n]*BASE + U->nums[j+n-1]) % V->nums[n-1] ; 
@@ -252,22 +254,47 @@ static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Re
         bigra9m_assign_uint64_t(&temp2 , 0) ; 
 
         bigra9m_mul_uint64(V , q_hat , &temp2) ; 
+
+    #if DEBUG_KNUTHS
+
+        printf("temp2 : ") ; 
+        bigra9m_print(temp2) ; 
+        printf("temp before : ") ; 
+        bigra9m_print(temp) ; 
+
+
+        printf("after cleaning\n") ; 
+        printf("temp2 : ") ; 
+        bigra9m_print(temp2) ; 
+        printf("temp before : ") ; 
+        bigra9m_print(temp) ; 
+    #endif
         bigra9m_sub(&temp , &temp2 , &temp ) ; 
+    #if DEBUG_KNUTHS
+        
+        printf("temp after: ") ; 
+        bigra9m_print(temp) ;
+    #endif         
         #if DEBUG_KNUTHS
 
-        printf("U before :") ; 
-        bigra9m_print(*U) ; 
-        printf("temp before :") ; 
-        bigra9m_print(temp) ; 
+        // printf("U before :") ; 
+        // bigra9m_print(*U) ; 
+        // printf("temp before :") ; 
+        // bigra9m_print(temp) ; 
         #endif
         brz_assign_range(U , temp , j , j + n) ; 
     #if DEBUG_KNUTHS
         
-        printf("U after :") ; 
-        bigra9m_print(*U) ; 
+        // printf("U after :") ; 
+        // bigra9m_print(*U) ; 
     #endif        
-
-        // step 5 : [Test Reminder]
+    
+    // step 5 : [Test Reminder]
+    #if DEBUG_KNUTHS
+        
+        printf("q_hat : %lu \n" , q_hat) ; 
+        // bigra9m_print(*U) ; 
+    #endif        
 
 
         Qoeff->nums[j] = q_hat ; 

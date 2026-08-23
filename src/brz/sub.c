@@ -115,7 +115,17 @@ void bigra9m_sub(BigInt *a , BigInt *b , BigInt *c) {
     // printf("just before assigning temp_a.nums %p  temp_b.nums %p\n" , temp_a.nums , temp_b.nums ) ;  
     bigra9m_assign(&temp_a , *a) ; 
     bigra9m_assign(&temp_b , *b) ; 
-    
+
+    while (!bigra9m_is_clean_lastdigit(temp_a))
+    {
+        bigra9m_clean_lastdigit(&temp_a) ; 
+    }
+    while (!bigra9m_is_clean_lastdigit(temp_b))
+    {
+        bigra9m_clean_lastdigit(&temp_b) ; 
+    }
+                
+
     // printf("just after assigning temp_a.nums %p  temp_b.nums %p\n" , temp_a.nums , temp_b.nums ) ;  
     if (temp_a.length * temp_b.length < 0)
     {

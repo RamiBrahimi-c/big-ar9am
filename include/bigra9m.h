@@ -107,6 +107,7 @@ int bigra9m_fermat_primality_test_fast(BigInt p) ;
 
 void modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, BigInt *res) ;
 
+int bigra9m_miller_rabin(BigInt p ) ;
 
 
 

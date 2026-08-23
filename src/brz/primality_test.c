@@ -244,6 +244,25 @@ int bigra9m_miller_rabin(BigInt p ) {
     bigra9m_assign_uint64_t(&temp , 2) ; 
     bigra9m_sub(&p , &i , &p_min1) ; 
     
+    if (bigra9m_isEqualNum(p , i))
+    {
+        
+        bigra9m_clears(&i , &j, &inc , &inc2 , &a , &s, &p_min1 , &u_min1 , &z , &temp , NULL ) ;
+
+        return 0 ; 
+    }
+    
+    
+    if (bigra9m_isEqualNum(p , temp))
+    {
+        
+        bigra9m_clears(&i , &j, &inc , &inc2 , &a , &s, &p_min1 , &u_min1 , &z , &temp , NULL ) ;
+
+        return 1 ; 
+    }
+    
+
+
     BigInt u , r  ,res , useless ; 
     bigra9m_inits(&u , &r  , &res , &useless, NULL ) ;
     bigra9m_assign_uint64_t(&u ,0 ) ; 
@@ -342,7 +361,11 @@ int bigra9m_miller_rabin(BigInt p ) {
 
         bigra9m_add_1(i , 1 , &i) ; 
     }
+
     
+    bigra9m_clears(&i , &j, &inc , &inc2 , &a , &s, &p_min1 , &u_min1 , &z , &temp , NULL ) ;
+    bigra9m_clears(&u , &r  , &res , &useless, NULL ) ;
+
     return 1 ; 
 }
 

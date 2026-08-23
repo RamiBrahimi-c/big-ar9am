@@ -117,6 +117,12 @@ int main(int argc , char *argv[]) {
         {
             TEST_PRIMALITY_FERMAT_FAST(argv[2]) ; 
         }
+        // miller-rabin test
+        if (strcmp(argv[1] , "prime_mr")==0)
+        {
+            TEST_PRIMALITY_MILLER_RABIN(argv[2]) ; 
+        }
+
 
         if (strcmp(argv[1] , "x")==0)
         {

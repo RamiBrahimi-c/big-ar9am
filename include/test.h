@@ -136,9 +136,7 @@
     BigInt a   ;\
     bigra9m_init_str(&a , a_str);\
     int _result = bigra9m_fermat_primality_test(a );\
-    printf("a : ");\
-    bigra9m_print(a);\
-    printf("%s \n" , _result==0 ? "composite" : "prime");\
+    printf("%s\n" , _result==0 ? "composite" : "prime");\
     bigra9m_clears(&a  , NULL);\
 } while (0);
 
@@ -147,9 +145,16 @@
     BigInt a   ;\
     bigra9m_init_str(&a , a_str);\
     int _result = bigra9m_fermat_primality_test_fast(a );\
-    printf("a : ");\
-    bigra9m_print(a);\
-    printf("%s \n" , _result==0 ? "composite" : "prime");\
+    printf("%s\n" , _result==0 ? "composite" : "prime");\
+    bigra9m_clears(&a  , NULL);\
+} while (0);
+
+#define TEST_PRIMALITY_MILLER_RABIN(a_str ) do\
+{   \
+    BigInt a   ;\
+    bigra9m_init_str(&a , a_str);\
+    int _result = bigra9m_miller_rabin(a  );\
+    printf("%s\n" , _result==0 ? "composite" : "prime");\
     bigra9m_clears(&a  , NULL);\
 } while (0);
 

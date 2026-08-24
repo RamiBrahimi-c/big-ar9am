@@ -91,6 +91,11 @@ int main(int argc , char *argv[]) {
         {
             TEST_BG(argv[2] , argv[3]) ; 
         }
+
+        if (strcmp(argv[1] , "beq")==0)
+        {
+            TEST_BEQ(argv[2] , argv[3]) ; 
+        }
         // lower than
         if (strcmp(argv[1] , "lw")==0)
         {
@@ -122,7 +127,36 @@ int main(int argc , char *argv[]) {
         {
             TEST_PRIMALITY_MILLER_RABIN(argv[2]) ; 
         }
+        
+        if (strcmp(argv[1] , "rng")==0)
+        {
+            TEST_RNG(argv[2]) ; 
+        }
 
+        if (strcmp(argv[1] , "rng_bits")==0)
+        {
+            TEST_RNG_bits(argv[2]) ; 
+        }
+        
+        if (strcmp(argv[1] , "rng_prime")==0)
+        {
+            TEST_RNG_PRIME(argv[2]) ; 
+        }
+
+        if (strcmp(argv[1] , "rng_prime_bits")==0)
+        {
+            TEST_RNG_PRIME_bits(argv[2]) ; 
+        }
+
+        if (strcmp(argv[1] , "even")==0)
+        {
+            TEST_EVEN(argv[2]) ; 
+        }
+
+        if (strcmp(argv[1] , "odd")==0)
+        {
+            TEST_ODD(argv[2]) ; 
+        }
 
         if (strcmp(argv[1] , "x")==0)
         {

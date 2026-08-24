@@ -16,21 +16,21 @@ int main()
     uint64_t a2 = 0 ; 
 
 
-    BigInt a   ,b, c ;
+    BigInt a , b , c , d ;
     
-    bigra9m_inits(&a , &b , &c , NULL) ;
-
-    // bigra9m_assign_uint64_t(&a , 120021) ; 
-    // bigra9m_assign_uint64_t(&c , 12) ;
-    bigra9m_assign_str(&a , "099973243349486286531393852507758875105273682217456") ; 
-    bigra9m_assign_str(&c , "99973243349486286531393852507758875105273682217464") ; 
-    
-    // bigra9m_assign_uint64_t(&a , 90000) ; 
+    bigra9m_inits( &a, &b, &c , &d , NULL) ; 
+    bigra9m_assign_str( &a , "2") ; 
+    bigra9m_assign_str(&b , "2") ; 
     printf("a : ") ; 
     bigra9m_print(a) ; 
+    printf("b : ") ; 
+    bigra9m_print(b) ; 
     
-    bigra9m_sub(&a , &c , &a) ; 
     // bigra9m_add_1(a , 10000 , &a) ;
+    bigra9m_div(&a , &b , &c , &d) ; 
+    // bigra9m_sub(&a , &a , &a) ; 
+    // knuths_algorithm_d(a , b , &c , &d) ; 
+    
     printf("after : \n") ; 
     printf("a : ") ; 
     bigra9m_print(a) ; 
@@ -38,8 +38,11 @@ int main()
     bigra9m_print(b) ; 
     printf("c : ") ; 
     bigra9m_print(c) ; 
+    printf("d : ") ; 
+    bigra9m_print(d) ; 
 
+    // bigra9m_clear(&b) ; 
+    bigra9m_clears(&a, &b, &c , &d , NULL) ; 
 
-    bigra9m_clears(&a , &b , &c , NULL) ; 
 
 }

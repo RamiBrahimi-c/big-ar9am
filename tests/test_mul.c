@@ -1,55 +1,43 @@
 /*
-    Program to calculate factorial of 1 up to N (could be 100 , 10000 , 100000000 , ...)
-    chose this approach to validate bigra9m_mul(BigInt *,BigInt *,BigInt *)
 */
 #include <stdio.h>
-#include <stdlib.h>
 #include <stdint.h>
-#include "bigra9m.h"
+#include <stdlib.h>
+#include <string.h>
+#include "../include/bigra9m.h"
+#include "../include/utils.h"
+#include "../include/test.h"
 
 #define N 100
 
 int main()
 {
 
-    BigInt temp2 , temp , num , num2 , num3 ;
+    uint64_t a2 = 0 ; 
 
 
-    bigra9m_assign_str(&temp2 , "1") ; 
-    bigra9m_assign_str(&temp , "1") ; 
-    bigra9m_assign_str(&num , "1") ; 
-    bigra9m_assign_str(&num2 , "1") ; 
-    bigra9m_assign_str(&num3 , "1") ; 
+    BigInt a  , c  ,d , e , f;
     
+    // bigra9m_init(&c) ; 
+    bigra9m_init_str(&a , "213304013") ; 
+    bigra9m_init_str(&c , "-1529457609") ; 
+    printf("a : ") ; 
+    bigra9m_print(a) ; 
+    printf("c : ") ; 
+    bigra9m_print(c) ; 
+    printf("after : \n") ; 
+
+    bigra9m_mul(&a , &c , &a) ; 
+    // bigra9m_mul_uint64(a , 10 , &a) ; 
+    // bigra9m_add_1(a , 10000 , &a) ;
+    printf("a : ") ; 
+    bigra9m_print(a) ; 
+    printf("c : ") ; 
+    bigra9m_print(c) ; 
 
 
-    uint64_t f = 1 ; 
+    // bigra9m_inits(&d , &e ,  &f, NULL) ;
+    
+    bigra9m_clears(&a , &c , NULL) ; 
 
-
-    printf("===========================\n") ;
-    for (size_t i = 1; i < N; i++)
-    {
-
-        f = f *i ;
-        bigra9m_init(&num3) ; 
-        bigra9m_mul(num , num2 , &num3) ; 
-        
-        
-        bigra9m_print(num3);
-        bigra9m_assign(&num , num3) ; 
-        
-        
-        bigra9m_add(temp , num2 , &temp2) ;
-        bigra9m_assign(&num2 , temp2) ; 
-        
-        
-        if (num.length > MAX_LEN || num2.length > MAX_LEN || num3.length > MAX_LEN )
-        {
-            printf("FATAL ERROR !!!!!!!!!!!!!\n") ; 
-            exit(EXIT_FAILURE) ; 
-        }
-        
-    }
-
-    exit(EXIT_SUCCESS) ; 
 }

@@ -8,9 +8,8 @@
 int main() {
 
     mpz_t a , b , c ;
-
+    // mpz_add_ui()
     mpz_inits(a , b , c , NULL) ; 
-
     mpz_set_str(a , "123" , 10) ; 
     mpz_set_str(b , "600" , 10) ; 
     mpz_set_str(c , "544" , 10) ; 
@@ -20,8 +19,8 @@ int main() {
     gmp_printf("b : %Zd\n" , b) ; 
     gmp_printf("c : %Zd\n" , c) ; 
 
-    // mpz_sub(c , a , c) ; 
-    mpz_mod(a , b , c) ; 
+    mpz_sub(c , a , c) ; 
+    // mpz_mod(a , b , c) ; 
 
     printf("after : \n");
     gmp_printf("a : %Zd\n" , a) ; 

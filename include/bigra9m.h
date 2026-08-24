@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <string.h>
 
-
+#include "RandomLib---Cross-Platform-Random-Number-Generator/random.h"
 
 #define BASE 100
 #define MAX_LEN 10000
@@ -56,7 +56,7 @@ void bigra9m_add_1(BigInt a , uint64_t b , BigInt *c ) ;
 
 
 // calculates `res` = base^(pow) 
-void bigra9m_pow(BigInt base , BigInt pow , BigInt *res) ;
+void bigra9m_pow(BigInt *base , BigInt *pow , BigInt *res) ;
 
 // calculates `c` = `divedend` % `divisor` 
 void bigra9m_mod(BigInt dividend , BigInt divisor , BigInt *c) ;
@@ -91,6 +91,9 @@ int bigra9m_isLowerThanNum(BigInt a , BigInt b) ;
 int bigra9m_isStrictlyLowerThanNum(BigInt a , BigInt b) ;
 
 
+int bigra9m_isOdd(BigInt *a) ;
+int bigra9m_isEven(BigInt *a) ;
+
 int bigra9m_is_clean_lastdigit(BigInt a) ;
 void bigra9m_clean_lastdigit(BigInt *a) ;
 
@@ -108,6 +111,13 @@ int bigra9m_fermat_primality_test_fast(BigInt p) ;
 void modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, BigInt *res) ;
 
 int bigra9m_miller_rabin(BigInt p ) ;
+
+
+int setrandom_bigra9m(BigInt *a  , int bits) ;
+int setrandom_bigra9m2(BigInt *a , BigInt *high )  ;
+
+int generate_prime_bigra9m(BigInt *a , BigInt *high) ;
+int generate_prime_bigra9m2(BigInt *a , int bits) ;
 
 
 

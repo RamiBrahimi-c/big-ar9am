@@ -158,6 +158,11 @@ int main(int argc , char *argv[]) {
             TEST_ODD(argv[2]) ; 
         }
 
+        if (strcmp(argv[1] , "gcd")==0)
+        {
+            TEST_GCD(argv[2] , argv[3]) ; 
+        }
+
         if (strcmp(argv[1] , "x")==0)
         {
             printf("result : %lu \n" , string_to_uint62(argv[2])) ;  

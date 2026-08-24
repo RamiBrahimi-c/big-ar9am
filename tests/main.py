@@ -1,4 +1,5 @@
 import os
+import math
 
 def multiply(a , p, b , q, base):                            # Operands containing rightmost digits at index 1 
     product = [0] * 20                                        # Allocate space for result
@@ -51,6 +52,10 @@ if len(sys.argv) > 1:
             num3 = int(sys.argv[4])
             result = pow(num1 , num2 , num3)
             print(f"({num1} ^ {num2}) % {num3} = {result}")
+
+        case "gcd" :
+            num3 = math.gcd(num1 , num2)
+            print(f"{num1} gcd {num2} = {num3}")
 
         case _ :
             print(f"idk what operation is this {operation}")

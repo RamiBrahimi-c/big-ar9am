@@ -116,8 +116,8 @@ int bigra9m_miller_rabin(BigInt p ) ;
 int setrandom_bigra9m(BigInt *a  , int bits) ;
 int setrandom_bigra9m2(BigInt *a , BigInt *high )  ;
 
-int generate_prime_bigra9m(BigInt *a , BigInt *high) ;
-int generate_prime_bigra9m2(BigInt *a , int bits) ;
+int generate_prime_bigra9m(BigInt *a , int bits) ;
+int generate_prime_bigra9m2(BigInt *a , BigInt *high) ;
 
 
 

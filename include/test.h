@@ -56,7 +56,7 @@
     bigra9m_init_str(&a , a_str);\
     bigra9m_init_str(&b , b_str);\
     bigra9m_init(&c );\
-    bigra9m_pow(a , b , &c );\
+    bigra9m_pow(&a , &b , &c );\
     bigra9m_print(c);\
     bigra9m_clears(&a , &b , &c  , NULL);\
 } while (0);
@@ -112,12 +112,21 @@
     bigra9m_clears(&a , &b  , NULL);\
 } while (0);
 
-#define TEST_BG(a_str , b_str) do\
+#define TEST_BEQ(a_str , b_str) do\
 {   \
     BigInt a , b ;\
     bigra9m_init_str(&a , a_str);\
     bigra9m_init_str(&b , b_str);\
     printf("%s\n" , bigra9m_isBiggerThanNum(a , b) == 1 ? "True" : "False") ; \
+    bigra9m_clears(&a , &b  , NULL);\
+} while (0);
+
+#define TEST_BG(a_str , b_str) do\
+{   \
+    BigInt a , b ;\
+    bigra9m_init_str(&a , a_str);\
+    bigra9m_init_str(&b , b_str);\
+    printf("%s\n" , bigra9m_isStrictlyBiggerThanNum(a , b) == 1 ? "True" : "False") ; \
     bigra9m_clears(&a , &b  , NULL);\
 } while (0);
 
@@ -168,5 +177,62 @@
     modular_exponentiation(&a , &b , &mod , &res );\
     bigra9m_print(res);\
     bigra9m_clears(&a , &b , &mod , &res , NULL);\
+} while (0);
+
+
+#define TEST_RNG(a_str ) do\
+{   \
+    BigInt a , b   ;\
+    bigra9m_init_str(&a , a_str);\
+    bigra9m_init(&b );\
+    setrandom_bigra9m2( &b , &a ) ;  \
+    bigra9m_print(b) ; \
+    bigra9m_clears(&a , &b  , NULL);\
+} while (0);
+
+#define TEST_RNG_PRIME(a_str ) do\
+{   \
+    BigInt a , b   ;\
+    bigra9m_init_str(&a , a_str);\
+    bigra9m_init(&b );\
+    generate_prime_bigra9m2( &b , &a ) ;  \
+    bigra9m_print(b) ; \
+    bigra9m_clears(&a , &b  , NULL);\
+} while (0);
+
+#define TEST_RNG_PRIME_bits(a_str ) do\
+{   int a ; \
+    BigInt  b   ;\
+    a = atoi(a_str);\
+    printf("bits : %d \n" , a) ; \
+    bigra9m_init(&b );\
+    generate_prime_bigra9m( &b , a ) ;  \
+    bigra9m_print(b) ; \
+    bigra9m_clears( &b  , NULL);\
+} while (0);
+
+#define TEST_RNG_bits(a_str ) do\
+{   int a ;\
+    BigInt  b   ;\
+    a = atoi(a_str);\
+    printf("bits : %d \n" , a) ; \
+    bigra9m_init(&b );\
+    setrandom_bigra9m( &b , a ) ;  \
+    bigra9m_print(b) ; \
+    bigra9m_clears( &b  , NULL);\
+} while (0);
+
+#define TEST_EVEN(a_str ) do\
+{    BigInt  a , b   ;\
+    bigra9m_init_str(&b , a_str );\
+    printf("%s\n" , bigra9m_isEven(&b)==1 ? "True" : "False") ; \
+    bigra9m_clears( &b  , NULL);\
+} while (0);
+
+#define TEST_ODD(a_str ) do\
+{    BigInt  a , b   ;\
+    bigra9m_init_str(&b , a_str );\
+    printf("%s\n" , bigra9m_isOdd(&b)==1 ? "True" : "False") ; \
+    bigra9m_clears( &b  , NULL);\
 } while (0);
 

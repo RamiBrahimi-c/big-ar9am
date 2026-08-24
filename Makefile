@@ -20,11 +20,11 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 # Test - includes all source files recursively
 test:
-	$(CC) $(CFLAGS) tests/test_main.c src/*.c src/brz/*.c $(LDFLAGS) -o run_tests && ./run_tests
+	$(CC) $(CFLAGS) tests/test_main.c src/*.c src/brz/*.c include/RandomLib---Cross-Platform-Random-Number-Generator/random_interface.c $(LDFLAGS) -o run_tests && ./run_tests
 
 # Run specific test
 test-%:
-	$(CC) $(CFLAGS) tests/test_$*.c $(shell find src/ -type f -name '*.c' ! -name 'main.c') $(LDFLAGS) -o ./tests/output/bin/run_tests_$* && ./tests/output/bin/run_tests_$*
+	$(CC) $(CFLAGS) tests/test_$*.c $(shell find src/ -type f -name '*.c' ! -name 'main.c') include/RandomLib---Cross-Platform-Random-Number-Generator/random_interface.c $(LDFLAGS) -o ./tests/output/bin/run_tests_$* && ./tests/output/bin/run_tests_$*
 
 .PHONY: clean test
 

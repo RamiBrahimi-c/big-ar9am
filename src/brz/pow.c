@@ -16,32 +16,56 @@ uint64_t pow_ui64(uint64_t a , uint64_t b) {
 
 
 // bro this NEEDS MORE investegations
-void bigra9m_pow(BigInt base , BigInt pow , BigInt *res) {
-    BigInt i , inc , copy ; 
+void bigra9m_pow(BigInt *base , BigInt *pow , BigInt *res) {
+    BigInt i  , copy ; 
     bigra9m_inits(&i ,&copy , NULL  );
+    #if POW_DEBUG 
+        printf("base : ") ;
+        bigra9m_print(*base) ;  
+        printf("pow : ") ; 
+        bigra9m_print(*pow) ;  
+    #endif
     
-    
-    bigra9m_assign_uint64_t(&i , 2);
-    // bigra9m_assign_str(&inc , "1");
-    // bigra9m_assign_str(res , "1");
-    bigra9m_assign(&copy , base);
-    // bigra9m_init(res );
-    int j = 0;
-    
-    while (!bigra9m_isStrictlyBiggerThanNum(i , pow))
+    bigra9m_assign_uint64_t(&i , 1);
+    bigra9m_assign(&copy , *base);
+
+
+    if (base == res || pow == res)
     {
-        #if POW_DEBUG 
-            printf("==== iteration : %d======\n" , j) ; 
-        #endif
-        // bigra9m_print(base);
-        // bigra9m_print(copy);
+        BigInt temp_a , temp_b ;
+
+        bigra9m_init_assign(&temp_a , *base);
+        bigra9m_init_assign(&temp_b , *pow);
+
+        while (bigra9m_isStrictlyLowerThanNum(i , temp_b))
+        {
+            #if POW_DEBUG 
+                // printf("==== iteration : %d======\n" , j) ; 
+            #endif
+            
+            bigra9m_mul(&copy , &temp_a , res);
+            bigra9m_assign(&copy , *res);
+            bigra9m_add_1(i , 1 , &i) ;
+        }
         
-        bigra9m_mul(&base , &copy , res);
-        bigra9m_assign(&copy , *res);
-        bigra9m_add_1(i , 1 , &i) ;
-        j++ ; 
-        // bigra9m_print(*res);
+        bigra9m_clears(&temp_a ,&temp_b , NULL  );
+
     }
+    else
+    {
+        while (bigra9m_isStrictlyLowerThanNum(i , *pow))
+        {
+            #if POW_DEBUG 
+                // printf("==== iteration : %d======\n" , j) ; 
+            #endif
+            
+            bigra9m_mul(&copy , base , res);
+            bigra9m_assign(&copy , *res);
+            bigra9m_add_1(i , 1 , &i) ;
+        }
+    }
+    
+    
     bigra9m_clears(&i ,&copy , NULL  );
     
 }

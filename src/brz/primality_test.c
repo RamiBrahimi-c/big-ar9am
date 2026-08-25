@@ -188,7 +188,7 @@ int bigra9m_fermat_primality_test_fast(BigInt p) {
             bigra9m_print(p_min1) ; 
         #endif
             
-            modular_exponentiation(&a , &p_min1 , &p , &temp ) ; 
+            bigra9m_modular_exponentiation(&a , &p_min1 , &p , &temp ) ; 
         // bigra9m_pow(a , p_min1 , &temp) ; 
         // bigra9m_mod(temp , p , &temp) ; 
 
@@ -318,7 +318,7 @@ int bigra9m_miller_rabin(BigInt p ) {
         bigra9m_print(a) ; 
         #endif 
         
-        modular_exponentiation(&a , &r , &p , &z ) ; 
+        bigra9m_modular_exponentiation(&a , &r , &p , &z ) ; 
         #if DEBUG_MILLER_RABIN 
             printf("z : ") ; 
             bigra9m_print(z) ; 
@@ -338,7 +338,7 @@ int bigra9m_miller_rabin(BigInt p ) {
         {
             while (bigra9m_isLowerThanNum(j , u_min1))
             {
-                modular_exponentiation(&z , &temp , &p , &z ) ; 
+                bigra9m_modular_exponentiation(&z , &temp , &p , &z ) ; 
                 #if DEBUG_MILLER_RABIN 
 
                 printf("========== inside j loop ========== \n") ;

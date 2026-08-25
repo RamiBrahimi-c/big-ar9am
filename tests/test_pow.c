@@ -57,7 +57,7 @@ int main()
 
 
     // bigra9m_pow(&a , &a  , &c ) ;
-    modular_exponentiation(&a , &b , &c ,&d ) ;
+    bigra9m_modular_exponentiation(&a , &b , &c ,&d ) ;
 
     printf("a : ") ; 
     bigra9m_print(a) ; 

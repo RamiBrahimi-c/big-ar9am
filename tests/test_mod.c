@@ -79,7 +79,7 @@ int main(int argc , char* argv[])
     bigra9m_print(c) ; 
     printf("after : \n") ; 
 
-    modular_exponentiation(&a , &c , &d , &e) ; 
+    bigra9m_modular_exponentiation(&a , &c , &d , &e) ; 
     // bigra9m_modinverse(&a , &c , &d) ; 
 
 

@@ -115,7 +115,7 @@ static int getbit_bigra9m(BigInt a , int position) {
 
 #define DEBUG_MOD_EXPO 0
 
-void modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, BigInt *res) {
+void bigra9m_modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, BigInt *res) {
     if (bigra9m_is_negative(*exponent))
     {
         fprintf(stderr , "ERROR : exponent can NOT be negative \n") ;

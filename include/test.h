@@ -174,7 +174,7 @@
     bigra9m_init_str(&b , b_str);\
     bigra9m_init_str(&mod , mod_str);\
     bigra9m_init(&res);\
-    modular_exponentiation(&a , &b , &mod , &res );\
+    bigra9m_modular_exponentiation(&a , &b , &mod , &res );\
     bigra9m_print(res);\
     bigra9m_clears(&a , &b , &mod , &res , NULL);\
 } while (0);

@@ -53,6 +53,13 @@ if len(sys.argv) > 1:
             result = pow(num1 , num2 , num3)
             print(f"({num1} ^ {num2}) % {num3} = {result}")
 
+        case "mod_inv" :
+            if math.gcd(num1 , num2 ) != 1 :
+                print(f"{num1} {operation} {num2} = pass")
+            else :  
+                result = pow(num1 , -1 , num2)
+                print(f"{num1} {operation} {num2} = {result}")
+
         case "gcd" :
             num3 = math.gcd(num1 , num2)
             print(f"{num1} gcd {num2} = {num3}")

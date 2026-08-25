@@ -246,3 +246,16 @@
     bigra9m_clears( &a , &b , &c  , NULL);\
 } while (0);
 
+#define TEST_MODULO_INVERSE(a_str , b_str) do\
+{   \
+    BigInt a , b , c  , d ;\
+    bigra9m_init_str(&a , a_str);\
+    bigra9m_init_str(&b , b_str);\
+    bigra9m_inits(&c , &d , NULL );\
+    bigra9m_gcd(&a , &b , &d) ;\
+    if (!bigra9m_isEqual_uint64(d , 1)) {printf("pass\n");  } \
+    else { \
+    bigra9m_modinverse(&a , &b  , &c );\
+    bigra9m_print(c);}\
+    bigra9m_clears(&a , &b , &c  , &d, NULL);\
+} while (0);

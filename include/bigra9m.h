@@ -126,6 +126,7 @@ int generate_prime_bigra9m2(BigInt *a , BigInt *high) ;
 
 
 void bigra9m_gcd(BigInt *a , BigInt *b , BigInt *c) ;
+void bigra9m_modinverse(BigInt *a , BigInt *b , BigInt *c) ;
 
 
 #endif

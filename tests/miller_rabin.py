@@ -70,11 +70,11 @@ def miller_rabin(p , u , r) :
                 if z == p-1 : # this line is crucial ...
                     break 
                 if z == 1 : 
-                    return f"p:{p} is composite"
+                    return f"composite"
             if z != p-1 : 
-                return f"p:{p} is composite"
+                return f"composite"
 
-    return f"p:{p} is likely prime"
+    return f"prime"
 
 # factorize_for_miller_rabin(29)
 if len(sys.argv) > 1:

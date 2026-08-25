@@ -87,6 +87,12 @@ int main(int argc , char *argv[]) {
             TEST_MODULO_EXPO(argv[2] , argv[3] ,argv[4]) ; 
         }
 
+        if (strcmp(argv[1] , "mod_inv")==0)
+        {
+            // printf("huh\n") ; 
+            TEST_MODULO_INVERSE(argv[2] , argv[3] ) ; 
+        }
+
         if (strcmp(argv[1] , "bg")==0)
         {
             TEST_BG(argv[2] , argv[3]) ; 

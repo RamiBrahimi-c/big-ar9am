@@ -90,6 +90,7 @@ int bigra9m_isEqualNum(BigInt a , BigInt b) ;
 int bigra9m_isLowerThanNum(BigInt a , BigInt b) ;
 int bigra9m_isStrictlyLowerThanNum(BigInt a , BigInt b) ;
 
+int bigra9m_isEqual_uint64(BigInt a , uint64_t b) ;
 
 int bigra9m_isOdd(BigInt *a) ;
 int bigra9m_isEven(BigInt *a) ;

@@ -180,3 +180,12 @@ int bigra9m_isEven(BigInt *a) {
     return a->nums[0] % 2 == 0 ; 
 }
 
+int bigra9m_isEqual_uint64(BigInt a , uint64_t b) {
+    BigRa9m temp ; // im too lazy gng
+    bigra9m_init(&temp) ;
+    bigra9m_assign_uint64_t(&temp , b) ; 
+    int result = bigra9m_isEqualNum(a , temp) ;  
+    bigra9m_clear(&temp) ; 
+
+    return result ; 
+}

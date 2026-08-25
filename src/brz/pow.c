@@ -69,6 +69,7 @@ void bigra9m_pow(BigInt *base , BigInt *pow , BigInt *res) {
     bigra9m_clears(&i ,&copy , NULL  );
     
 }
+#include <stdio.h>
 
 #include <math.h>
 // this shit is not ot when base is 100
@@ -110,7 +111,6 @@ static int getbit_bigra9m(BigInt a , int position) {
       
 }
 
-#include <stdio.h>
 #include <stdlib.h>
 
 #define DEBUG_MOD_EXPO 0
@@ -121,7 +121,6 @@ void modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, B
         fprintf(stderr , "ERROR : exponent can NOT be negative \n") ;
         return ; 
     }
-
     BigInt r ,reminder , coefficient ,  temp , temp_2;
     bigra9m_init_assign(&temp , *exponent) ; 
     bigra9m_inits(&temp_2 , &reminder , &coefficient , NULL ) ; 
@@ -184,6 +183,10 @@ void modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, B
             bigra9m_print(coefficient) ; 
             printf("reminder : ") ; 
             bigra9m_print(reminder) ;
+            printf("r = \n"  ) ;
+            bigra9m_print(r) ;  
+            printf("modulus = \n"  ) ;
+            bigra9m_print(*modulus) ;  
         #endif
         
 
@@ -193,9 +196,9 @@ void modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, B
             printf("r = \n"  ) ;
             bigra9m_print(r) ;  
             printf("bit = %d\n" , bit ) ; 
-
+            
         #endif
-        // printf("for i=%d we have getbit_bigra9m(*exponent , i)= %d\n" , i , getbit_bigra9m(*exponent , i)) ; 
+            // printf("for i=%d we have getbit_bigra9m(*exponent , i)= %d\n" , i , getbit_bigra9m(*exponent , i)) ; 
         if (bit==1)
         {
             // printf("enter\n") ; 
@@ -206,23 +209,25 @@ void modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, B
             bigra9m_print(r) ;  
             #endif            
             bigra9m_mod(r , *modulus , &r) ;
-        #if DEBUG_MOD_EXPO
+            #if DEBUG_MOD_EXPO
             printf("r = \n"  ) ;
             bigra9m_print(r) ;  
-
-        #endif            
+            
+            #endif            
         }
         
     }
     
     #if DEBUG_MOD_EXPO
-        printf("modulus : ") ; 
-        bigra9m_print(*modulus) ; 
-        printf("r : ") ; 
-        bigra9m_print(r) ; 
+    printf("modulus : ") ; 
+    bigra9m_print(*modulus) ; 
+    printf("r : ") ; 
+    bigra9m_print(r) ; 
     #endif    
     bigra9m_assign(res , r) ;     
 
+    free(buffer) ; 
+    bigra9m_clears(&temp_2 , &reminder , &coefficient , NULL ) ; 
     bigra9m_clears(&r , &temp , NULL) ; 
 } 
 

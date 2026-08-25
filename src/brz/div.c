@@ -459,3 +459,107 @@ void bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
     // repeated_subtraction_division(a , b , c , d) ; 
 
 }
+
+
+void bigra9m_div2(BigInt *a , BigInt *b , BigInt *c ) {
+    if (bigra9m_is_zero(*b) ) {
+        fprintf(stderr , "ERROR : trying to devide on 0 !\n" ) ;
+        return ; 
+    }
+
+    if (bigra9m_is_zero(*a) )
+    {
+        bigra9m_assign_uint64_t(c , 0) ; 
+
+        return ; 
+    }
+    if (bigra9m_isStrictlyLowerThanNum(*a , *b))
+    {
+        bigra9m_assign_uint64_t(c , 0) ; 
+        return ; 
+    }
+    if (bigra9m_isEqualNum(*a , *b))
+    {
+        bigra9m_assign_uint64_t(c , 1) ; 
+        return ; 
+    }
+        
+    int sign = 1 ; 
+
+    if (a->length * b->length < 0)
+    {
+        sign = -1 ; 
+    }
+
+    if (a==c || b==c)
+    {
+        BigInt  temp_a , temp_b ; 
+        
+        // printf("calling init from bigra9m_div for temp_a %p , temp_b %p" , &temp_a , &temp_b) ; 
+        bigra9m_inits(  &temp_a , &temp_b  , NULL) ; 
+
+        bigra9m_assign(&temp_a , *a) ; 
+        bigra9m_assign(&temp_b , *b) ; 
+
+        // c gotta be initilized 
+        memset(c->nums , 0x0 , sizeof(uint64_t)*c->capacity) ; 
+        
+        // lets allocate for our result ...
+
+        if (nextPowerOfTwo(abs(temp_a.length)-abs(temp_b.length) + 1 ) >  c->capacity  ) {
+            c->capacity = nextPowerOfTwo(abs(temp_a.length)-abs(temp_b.length) + 1) ;
+            BRZ_ALLOCATE_U64(c->nums , c->capacity ) 
+            memset(c->nums + abs(c->length)  , 0 , sizeof(uint64_t)*(c->capacity -  abs(c->length) )) ;
+
+        }
+        BigInt d ; 
+        bigra9m_init(&d) ; 
+        // basecase_multiplication(temp_a , temp_b , c) ; 
+        knuths_algorithm_d(&temp_a , &temp_b , c , &d) ; 
+
+        c->length *= sign ; 
+        
+        // printf("calling clear from bigra9m_div for temp_a temp_b") ; 
+        bigra9m_clears(&temp_a , &temp_b ,  &d, NULL) ; 
+        
+    } else {
+        BigInt   temp_a , temp_b ; 
+        // printf("else calling init from bigra9m_div for temp_a %p , temp_b %p" , &temp_a , &temp_b) ; 
+        bigra9m_inits( &temp_a , &temp_b , NULL) ; 
+
+        bigra9m_assign(&temp_a , *a) ; 
+        bigra9m_assign(&temp_b , *b) ; 
+        
+        // c gotta be initilized 
+        // memset(c->nums , 0x0 , sizeof(uint64_t)*c->capacity) ; 
+        // printf("uh?\n") ; 
+        
+        // lets allocate for our result ...
+        if (nextPowerOfTwo(abs(a->length)-abs(b->length) + 1 ) >  c->capacity  ) {
+            c->capacity = nextPowerOfTwo(abs(a->length)-abs(b->length) + 1) ;
+            BRZ_ALLOCATE_U64(c->nums , c->capacity ) 
+            memset(c->nums + abs(c->length)  , 0 , sizeof(uint64_t)*(c->capacity -  abs(c->length) )) ;
+
+        }
+        BigInt d ; 
+        bigra9m_init(&d) ; 
+
+        knuths_algorithm_d(&temp_a , &temp_b , c , &d) ; 
+        // printf("======================== knuth done \n") ; 
+        // basecase_multiplication(*a , *b , c) ; 
+        c->length *= sign ; 
+        // printf("what?\n") ;
+        
+        // printf("calling clear from bigra9m_div for temp_a %p temp_b %p" , &temp_a , &temp_b) ; 
+        // printf("temp_a.nums = %p \n" , temp_a.nums) ;
+        // bigra9m_clear(&temp_a ) ; 
+        bigra9m_clears(&temp_a , &temp_b  , &d, NULL) ; 
+    }
+
+
+    // knuths_algorithm_d(a , b , c , d) ; 
+    // repeated_subtraction_division(a , b , c , d) ; 
+
+}
+
+

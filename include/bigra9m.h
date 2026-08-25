@@ -51,6 +51,9 @@ void bigra9m_mul(BigInt *a , BigInt *b , BigInt *c) ;
 void bigra9m_sub(BigInt *a , BigInt *b , BigInt *c) ;
 void bigra9m_div(BigInt *a , BigInt *b , BigInt *c , BigInt *d) ;
 
+void bigra9m_div2(BigInt *a , BigInt *b , BigInt *c ) ;
+
+
 void bigra9m_mul_uint64(BigInt *a , uint64_t b , BigInt *c) ;
 void bigra9m_add_1(BigInt a , uint64_t b , BigInt *c ) ;
 

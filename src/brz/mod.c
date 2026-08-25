@@ -101,6 +101,9 @@ void bigra9m_modinverse(BigInt *a , BigInt *m , BigInt *c) {
         if (bigra9m_is_zero(m_s))
         {
             bigra9m_assign_uint64_t(c , 0) ; 
+
+            // bigra9m_clears(, NULL) ; 
+            bigra9m_clears(&x0 , &x1 , &q , &t , &m0 , &a_s , &m_s , &temp , &temp_a , &big_1  , NULL) ; 
             return ;
         }
         
@@ -174,7 +177,7 @@ void bigra9m_modinverse(BigInt *a , BigInt *m , BigInt *c) {
 
     bigra9m_assign(c , x1) ; 
     
-    bigra9m_clears(&x0 , &x1 , &q , &t , &m0 , &a_s , &m_s , &temp , &temp_a , NULL) ; 
+    bigra9m_clears(&x0 , &x1 , &q , &t , &m0 , &a_s , &m_s , &temp , &temp_a  , &big_1, NULL) ; 
 }
 
 

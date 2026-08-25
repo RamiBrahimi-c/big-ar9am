@@ -35,8 +35,8 @@ void bigra9m_assign_str(BigInt *a , const char *num_str) {
         // num_str_clean = num_str  ;  
         
     } else {
-        // a->length = 0 ;
-        bigra9m_init(a) ; 
+        a->length = 0 ;
+        // bigra9m_init(a) ; 
         free(num_str_clean) ; 
         return ; 
     }

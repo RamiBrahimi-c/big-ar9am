@@ -352,6 +352,9 @@ int bigra9m_miller_rabin(BigInt p ) {
                 
                 if (bigra9m_isEqualNum(z , inc2 ))
                 {
+                    bigra9m_clears(&i , &j, &inc , &inc2 , &a , &s, &p_min1 , &u_min1 , &z , &temp , NULL ) ;
+                    bigra9m_clears(&u , &r  , &res , &useless, NULL ) ;
+
                     return 0 ;
                 }
                 
@@ -359,6 +362,9 @@ int bigra9m_miller_rabin(BigInt p ) {
             }
             if (!bigra9m_isEqualNum(z , p_min1 ))
             {
+                bigra9m_clears(&i , &j, &inc , &inc2 , &a , &s, &p_min1 , &u_min1 , &z , &temp , NULL ) ;
+                bigra9m_clears(&u , &r  , &res , &useless, NULL ) ;
+
                 return 0 ;
             }
 

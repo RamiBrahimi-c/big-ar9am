@@ -36,9 +36,11 @@ int bigra9m_init(BigInt *) ;
 // a function to handle variable length of parameters and initilize each one of them by calling `bigra9m_init` 
 int bigra9m_inits(BigInt * , ...) ;
 
-
+// init our BigRa9m from a string , like init and assign at the same time ; 
 void bigra9m_init_str(BigInt *a , const char *num_str) ;
+// init our BigInt from another BigInt , like init and assogn from another BigInt 
 int bigra9m_init_assign(BigInt *a , BigInt b  ) ;
+
 
 
 // NOTE : maybe we should consider making every parameter a pointer 
@@ -50,12 +52,16 @@ void bigra9m_add(BigInt a , BigInt b , BigInt *c ) ;
 void bigra9m_mul(BigInt *a , BigInt *b , BigInt *c) ;
 void bigra9m_sub(BigInt *a , BigInt *b , BigInt *c) ;
 void bigra9m_div(BigInt *a , BigInt *b , BigInt *c , BigInt *d) ;
-
+// same as div , we just dont need the reminder here 
 void bigra9m_div2(BigInt *a , BigInt *b , BigInt *c ) ;
 
-
+// `c = a * b` calculates product of BigInt `a` with a uint64_t `b`
+// **NOTE** : `a` could be negative here .
 void bigra9m_mul_uint64(BigInt *a , uint64_t b , BigInt *c) ;
+// `c = a + b` calculates addition of BigInt `a` with a uint64_t `b`
+// **NOTE** : `a` could **NOT** be negative here .
 void bigra9m_add_1(BigInt a , uint64_t b , BigInt *c ) ;
+
 
 
 // calculates `res` = base^(pow) 
@@ -81,25 +87,52 @@ void bigra9m_assign_str(BigInt *a , const char *num_str) ;
 // assign a number x of type`uint64_t` to BigInt *a
 int bigra9m_assign_uint64_t(BigInt *a , uint64_t x) ;
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/// Functions below are like comparison functions and returns 0 (False) or 1 (True) ///////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+// a == 0 ? 
 int bigra9m_is_zero(BigInt a) ;
+// a > 0 ? strictly positive 
 int bigra9m_is_positive(BigInt a) ;
+// a < 0 ? negative positive
 int bigra9m_is_negative(BigInt a) ;
 
+// a >= b
 int bigra9m_isBiggerThanNum(BigInt a , BigInt b) ;
+// a > b
 int bigra9m_isStrictlyBiggerThanNum(BigInt a , BigInt b) ;
+// a == b
 int bigra9m_isEqualNum(BigInt a , BigInt b) ;
+// a < b
 int bigra9m_isLowerThanNum(BigInt a , BigInt b) ;
+// a <= b
 int bigra9m_isStrictlyLowerThanNum(BigInt a , BigInt b) ;
 
+// a == b , b is uint64_t here 
 int bigra9m_isEqual_uint64(BigInt a , uint64_t b) ;
 
+// a % 2 == 1
 int bigra9m_isOdd(BigInt *a) ;
+// a % 2 == 0
 int bigra9m_isEven(BigInt *a) ;
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/// Functions below doesnt touch memory but just manipulate length ////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// is last digit not a zero ?
 int bigra9m_is_clean_lastdigit(BigInt a) ;
+// if last digit is not a zero then get rid of it .
 void bigra9m_clean_lastdigit(BigInt *a) ;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/// Functions below are necessary cuz they are the responsible for freeing memory , /////////////// 
+/// of course , after calling one of the `init` functions previously //////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 // it cleans the BigInt that was set before by `bigra9m_init` or `bigra9m_inits` 
 // to free resources and avoid memory leaks ...
@@ -108,24 +141,36 @@ void bigra9m_clear(BigInt *a) ;
 void bigra9m_clears(BigInt *a  , ...) ; 
 
 
+
+// fermat test on primality
 int bigra9m_fermat_primality_test(BigInt p) ;
-// done with modular exponentiation
+// fermat test but done with modular exponentiation and is very fast
 int bigra9m_fermat_primality_test_fast(BigInt p) ;
 
-void modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, BigInt *res) ;
+// modular exponentiation to calculate : 
+// `res = (base ^ exponent) % modulus `
+void bigra9m_modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *modulus, BigInt *res) ;
 
+// miller-rabin test for primality 
 int bigra9m_miller_rabin(BigInt p ) ;
 
-
+// set a random BigRa9m in range 0..(2^bits -1)
 int setrandom_bigra9m(BigInt *a  , int bits) ;
+// set a random BigRa9m in range 0..high
 int setrandom_bigra9m2(BigInt *a , BigInt *high )  ;
 
+
+// set a random prime BigRa9m in range 0..(2^bits -1)
 int generate_prime_bigra9m(BigInt *a , int bits) ;
+// set a random prime BigRa9m in range 0..high
 int generate_prime_bigra9m2(BigInt *a , BigInt *high) ;
 
 
-
+// calculates grand common divisor between `a` and `b`
+// `c = gcd(a,b)`
 void bigra9m_gcd(BigInt *a , BigInt *b , BigInt *c) ;
+// calculates the modulo inverse of `a` , 
+// `c = a^(-1) mod b `, or `a * c = 1 mod b` 
 void bigra9m_modinverse(BigInt *a , BigInt *b , BigInt *c) ;
 
 

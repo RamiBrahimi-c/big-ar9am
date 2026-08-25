@@ -78,7 +78,7 @@ static void simple_addition(BigInt a , BigInt b , BigInt *c) {
         if (overflow != 0)
         {
             c->nums[abs(umm->length)] = overflow ; 
-            c->length = umm->length + (umm->length/umm->length) ; 
+            c->length = umm->length + (umm->length/abs(umm->length)) ; 
         }
     }
 

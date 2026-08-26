@@ -27,3 +27,5 @@ lib/
 release/
 *.tar.gz
 *.zip
+
+make_release.sh

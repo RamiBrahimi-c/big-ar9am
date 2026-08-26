@@ -8,7 +8,7 @@ int main() {
     BigInt a ; 
     bigra9m_init(&a ) ; 
 
-    bigra9m_assign_uint64_t(&a , 13) ; 
+    bigra9m_assign_uint64_t(&a , 45) ; 
     
     int result = bigra9m_miller_rabin(a  ) ; 
     printf("%s \n" , result==0 ? "composite" : "prime");

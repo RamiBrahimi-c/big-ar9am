@@ -13,13 +13,11 @@ long1num() {
     echo $a
 }
 
-prgrm=$1
-file_name=$2
-
 passed=0
 failed=0
 
 NUMBER_OF_TESTS=10000
+operation="mod_inv"
 
 standard_path="./tests/output/bin/"
 test_c_prgrm_name="run_tests_main"
@@ -29,7 +27,6 @@ full_c_path="$standard_path$test_c_prgrm_name"
 full_py_path="$test_python_prgrm_name"
 python_interpreter="python3"
 
-operation=" mod_inv "
 # echo $full_path
 # pwd
 for ((i=0; i<$NUMBER_OF_TESTS; i++)) do
@@ -45,8 +42,8 @@ for ((i=0; i<$NUMBER_OF_TESTS; i++)) do
     echo "num2: $NUM2"
     echo "num3: $NUM3"
     numbers="$NUM1 $NUM2"
-    full_c_test_line="$full_c_path$operation$numbers"
-    full_py_test_line="$full_py_path$operation$numbers"
+    full_c_test_line="$full_c_path $operation $numbers"
+    full_py_test_line="$full_py_path $operation $numbers"
     # result_one=$("$full_test_line")
     result_in_c=$("$full_c_path" $operation "$NUM1" "$NUM2" "$NUM3")
     result_in_py=$(python3 "$full_py_path" $operation "$NUM1" "$NUM2" "$NUM3")

@@ -94,6 +94,6 @@ int main(int argc , char* argv[])
 
     // bigra9m_inits(&d , &e ,  &f, NULL) ;
     
-    bigra9m_clears(&a , &c , &d , NULL) ; 
+    bigra9m_clears(&a , &c , &d , &e, NULL) ; 
 
 }

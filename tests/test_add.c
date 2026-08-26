@@ -13,28 +13,41 @@
 int main()
 {
 
-    uint64_t a2 = 0 ; 
-
-
-    BigInt a  , c ;
+    BigRa9m a , b , c ; // or BigInt BigRa9m a , b , c ;  
     
-    bigra9m_inits(&c , &a , NULL) ; 
-    // bigra9m_assign_uint64_t(&a , 90000) ; 
-    bigra9m_assign_str(&a , "-1") ; 
-    bigra9m_assign_str(&c , "12496655418685785816424231563469859388159210277182") ; 
+
+    // make sure to initilize it first !!!
+    // (use one of the 'inits' functions )
+    bigra9m_inits(&a , &b , NULL) ;
+    bigra9m_init_str(&c , "123456789987654321") ;
+    
+    
+    // lats assign some HUGE numbers !!!
+    bigra9m_assign_str(&a , "-123456876432654321351000650100000") ; 
+    bigra9m_assign_uint64_t(&b , 0x123456789 ) ; 
+    
+    // now we print numbers to check 
     printf("a : ") ; 
     bigra9m_print(a) ; 
+    printf("b : ") ; 
+    bigra9m_print(b) ; 
     printf("c : ") ; 
     bigra9m_print(c) ;
 
+    // do some operation on it 
+    bigra9m_add(a , b , &c) ;
     
-    bigra9m_add(a , c , &a) ;
+
+    // print results : 
     printf("a : ") ; 
     bigra9m_print(a) ; 
+    printf("b : ") ; 
+    bigra9m_print(b) ; 
     printf("c : ") ; 
     bigra9m_print(c) ; 
 
-
+    // please clean your memory when you finish working !!!!!!
+    bigra9m_clears(&a , &b , &c , NULL) ; 
 
 
 }

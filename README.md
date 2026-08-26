@@ -2,7 +2,20 @@
 
 A self-contained arbitrary-precision arithmetic library written in C. Supports large integer operations including addition, subtraction, multiplication, division, modular arithmetic, GCD, primality testing, and more.
 
-it only depends on C lib 
+it only depends on standard C lib . 
+
+## Table of Contents
+- [Important Note](#important-note)
+- [Is It Valid](#is-it-valid)
+- [Features](#features)
+- [Algorithms](#algorithms)
+- [Requirements](#requirements)
+- [Building](#building)
+- [Usage](#usage)
+- [Testing](#testing)
+- [Known Issues](#known-issues)
+- [Future Improvements](#future-improvements)
+
 
 ## Important Note : 
 
@@ -17,7 +30,7 @@ also there is perhaps some bugs or perhaps memory leaks (this will be discussed 
 * **Computationally** : I used differential testing *Python 3.12.3* --thank you python-- , means i tested results from both python and my big num side to side for the thousands of times on randomized input like `$SRANDOM` , you can check `script.sh` for that or read this section **[differential testing](#differential-testing-)** !!!!!
 
 
-* **Memory leaks and traditional C issues** : the lib allocates and frees memory dynamically in continious way , i used [valgrind](https://valgrind.org/) to make sure each functions doesn't leak any memory
+* **Memory leaks and traditional C issues** : the lib allocates and frees memory dynamically in continuous way , i used [valgrind](https://valgrind.org/) to make sure each functions doesn't leak any memory
 
 
 ## Features
@@ -120,7 +133,7 @@ int main()
     bigra9m_init_str(&c , "123456789987654321") ;
     
     
-    // lats assign some HUGE numbers !!!
+    // lets assign some HUGE numbers !!!
     bigra9m_assign_str(&a , "-123456876432654321351000650100000") ; 
     bigra9m_assign_uint64_t(&b , 0x123456789 ) ; 
     
@@ -273,8 +286,8 @@ bits : 256
 
 
 ### uni-tests : 
-or kind off , they are found in `tests/` in this format exactly : `tests/test_*` : 
-where each functions is testes 
+or kind of , they are found in `tests/` in this format exactly : `tests/test_*` : 
+where each functions is tested
 
 ```bash
 # to compile and run a uni-test in tests/test_example.c : 
@@ -295,3 +308,40 @@ so if you want to run `N` test side to side with py :
 - check `line 20` in `tests/script.sh` and edit `operation` for the operation you want to test (**NOTE** : the operation should be one of the ones mentioned in the table plus it should be in `tests/main.py` , right now there are not a lot of operations in the py file ~~) .
 
 **NOTE** it also worth mentioning that right now if we encounter a difference in results the test is stopped immediately ! (maybe i need to figure out smth better) .    
+
+
+## Known Issues
+
+i wont be hard on it but 
+
+- [ ] Multiplication algorithm is O(n²) - slow for very large numbers
+- [ ] Division could be optimized further ?
+- [ ] Some edge cases with negative numbers might not be fully tested
+- [ ] Fermat primality test can be fooled by Carmichael numbers
+- [ ] No constant-time operations (not suitable for cryptographic use against side-channel attacks)
+- [ ] the base choice is not really wise 
+- [ ] the bigra9m_print just works with the current *BASE* which is *100* 
+
+
+## Future Improvements
+
+- [ ] Implement Karatsuba multiplication for better performance
+- [ ] Add elliptic curve operations
+- [ ] Implement Barrett reduction for faster modular arithmetic
+- [ ] Add constant-time operations for cryptographic safety
+- [ ] Optimize division algorithm
+- [ ] Add more primality tests (Solovay-Strassen, Baillie-PSW)
+- [ ] Create proper API documentation
+- [ ] Add benchmarks
+
+
+## Acknowledgments
+-  knuth's art of computer programming volume 2 . (especially section 4.3.1 page 272 about the algorithm d )
+
+- [Python](https://www.python.org/) for differential testing
+- [Valgrind](https://valgrind.org/) for memory checking
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

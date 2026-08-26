@@ -22,3 +22,8 @@ a.out
 run_tests
 
 lib/
+
+
+release/
+*.tar.gz
+*.zip

@@ -170,7 +170,8 @@ int main()
 .
 ├── include/          # Header files
 │   ├── bigra9m.h    # Main library header
-│   └── ...
+│   ├── test.h       # important macros for `tests/test_main.c`
+│   └── utils.h      # some useful utils/macros/functions used to help with dynamically allocating 
 ├── src/             # Source files
 │   ├── main.c       # Main program (useless)
 │   └── brz/         # Library implementation

@@ -320,8 +320,8 @@ i wont be hard on it but
 - [ ] Some edge cases with negative numbers might not be fully tested
 - [ ] Fermat primality test can be fooled by Carmichael numbers
 - [ ] No constant-time operations (not suitable for cryptographic use against side-channel attacks)
-- [ ] the base choice is not really wise 
-- [ ] the bigra9m_print just works with the current *BASE* which is *100* 
+- [x] the base choice is not really wise 
+- [x] the bigra9m_print just works with the current *BASE* which is *100* 
 
 
 ## Future Improvements

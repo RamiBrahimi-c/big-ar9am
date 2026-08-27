@@ -7,7 +7,7 @@
 
 #include "RandomLib---Cross-Platform-Random-Number-Generator/random.h"
 
-#define BASE 100
+#define BASE ((1ULL<<32))
 #define MAX_LEN 10000
 
 

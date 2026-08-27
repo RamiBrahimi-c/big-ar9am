@@ -374,8 +374,8 @@ void bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
     }
     if (bigra9m_isStrictlyLowerThanNum(*a , *b))
     {
+        bigra9m_assign(d , *a) ; // interestingly when c = a the reverse order gives a bug >-<
         bigra9m_assign_uint64_t(c , 0) ; 
-        bigra9m_assign(d , *a) ; 
         return ; 
     }
     if (bigra9m_isEqualNum(*a , *b))

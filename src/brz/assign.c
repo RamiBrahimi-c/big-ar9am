@@ -76,7 +76,7 @@ int bigra9m_assign_uint64_t(BigInt *a , uint64_t x) {
     
     // bigra9m_init(a);
     int i=0;
-    int c;
+    uint64_t c;
     while (x > 0)
     {
         c = x % BASE ;

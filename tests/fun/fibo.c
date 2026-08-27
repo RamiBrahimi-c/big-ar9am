@@ -25,25 +25,24 @@ int main()
 
 
     BigInt temp2 , temp , num , num2 , num3 ;
+
+    bigra9m_inits(&temp2 , &temp , &num , &num2 , &num3 , NULL) ; 
     
-    bigra9m_assign_str(&temp2 , "1") ; 
-    bigra9m_assign_str(&temp , "1") ; 
-    bigra9m_assign_str(&num , "0") ; 
-    bigra9m_assign_str(&num2 , "1") ; 
-    bigra9m_assign_str(&num3 , "1") ; 
+    bigra9m_assign_uint64_t(&temp2 , 1) ; 
+    bigra9m_assign_uint64_t(&temp , 1) ; 
+    bigra9m_assign_uint64_t(&num , 0) ; 
+    bigra9m_assign_uint64_t(&num2 , 1) ; 
+    bigra9m_assign_uint64_t(&num3 , 1) ; 
     
 
 
-    for (size_t i = 1; i < 100; i++)
+    for (size_t i = 1; i < 1000; i++)
     {
-        r = a + b ;
         r2 = a2 + b2 ;
         bigra9m_add(num , num2 , &num3) ; 
         
-        bigra9m_print(num3) ; 
+        // bigra9m_print(num3) ; 
         
-        a = b ;
-        b = r ; 
         
         
         a2 = b2 ;
@@ -52,12 +51,12 @@ int main()
         bigra9m_assign(&num , num2 ) ; 
         bigra9m_assign(&num2 , num3) ; 
 
-        if (num.length > MAX_LEN || num2.length > MAX_LEN || num3.length > MAX_LEN )
-        {
-            printf("FATAL ERROR !!!!!!!!!!!!!\n") ; 
-            exit(EXIT_FAILURE) ; 
-        }
         
 
     }
+
+    printf("result : ") ; 
+    bigra9m_print(num3) ; 
+
+
 }

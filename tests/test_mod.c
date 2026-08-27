@@ -70,27 +70,29 @@ int main(int argc , char* argv[])
     bigra9m_init(&e) ; 
     // bigra9m_init_str(&a , "347743917315751756602767635338") ; 
     // bigra9m_init_str(&c , "27189594572672358713") ; 
-    bigra9m_init_str(&a , "720345492") ; 
-    bigra9m_init_str(&c , "1217007970222890782168670757093700580186946994928410939559160094010355364677598288516263055662615203741679206348400644292906592198925206720672617760471") ; 
-    bigra9m_init_str(&d , "10077888510094265010058794928453996837131964607675418300131786246016662743339366290465040835562407373039467469206297641234746021900731213230123047536670145") ; 
+    bigra9m_init_str(&a , "22369039492316613062") ; 
+    bigra9m_init_str(&c , "4250978899") ; 
+    bigra9m_init_str(&d , "12") ; 
     printf("a : ") ; 
     bigra9m_print(a) ; 
     printf("c : ") ; 
     bigra9m_print(c) ; 
+    
+    // bigra9m_modular_exponentiation(&a , &c , &d , &e) ; 
+    bigra9m_modinverse(&a , &c , &d) ; 
+    
+    printf("=========================================\n") ; 
     printf("after : \n") ; 
-
-    bigra9m_modular_exponentiation(&a , &c , &d , &e) ; 
-    // bigra9m_modinverse(&a , &c , &d) ; 
-
-
-    printf("a : ") ; 
-    bigra9m_print(a) ; 
-    printf("c : ") ; 
-    bigra9m_print(c) ; 
+    printf("=========================================\n") ; 
+    
+    // printf("a : ") ; 
+    // bigra9m_print(a) ; 
+    // printf("c : ") ; 
+    // bigra9m_print(c) ; 
     printf("d : ") ; 
     bigra9m_print(d) ; 
-    printf("e : ") ; 
-    bigra9m_print(e) ; 
+    // printf("e : ") ; 
+    // bigra9m_print(e) ; 
 
     // bigra9m_inits(&d , &e ,  &f, NULL) ;
     

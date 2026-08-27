@@ -17,10 +17,10 @@ int main()
 
 
     BigInt a , b , c , d ;
-    
     bigra9m_inits( &a, &b, &c , &d , NULL) ; 
-    bigra9m_assign_str( &a , "2") ; 
-    bigra9m_assign_str(&b , "2") ; 
+    bigra9m_assign_str( &a , "45454") ; 
+    printf("wtf\n") ; 
+    bigra9m_assign_str(&b , "12") ; 
     printf("a : ") ; 
     bigra9m_print(a) ; 
     printf("b : ") ; 

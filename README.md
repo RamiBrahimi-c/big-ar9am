@@ -5,14 +5,14 @@ A self-contained arbitrary-precision arithmetic library written in C. Supports l
 it only depends on standard C lib . 
 
 ## Table of Contents
-- [Important Note](#important-note)
-- [Is It Valid](#is-it-valid)
+- [Important Note](#important-note-)
+- [Is It Valid](#is-it-valid-)
 - [Features](#features)
-- [Algorithms](#algorithms)
+- [Algorithms](#algorithms-)
 - [Requirements](#requirements)
 - [Building](#building)
 - [Usage](#usage)
-- [Testing](#testing)
+- [Testing](#testing-)
 - [Known Issues](#known-issues)
 - [Future Improvements](#future-improvements)
 

@@ -195,7 +195,7 @@
     BigInt a , b   ;\
     bigra9m_init_str(&a , a_str);\
     bigra9m_init(&b );\
-    generate_prime_bigra9m2( &b , &a ) ;  \
+    generate_prime_bigra9m( &b , &a ) ;  \
     bigra9m_print(b) ; \
     bigra9m_clears(&a , &b  , NULL);\
 } while (0);
@@ -206,7 +206,19 @@
     a = atoi(a_str);\
     printf("bits : %d \n" , a) ; \
     bigra9m_init(&b );\
-    generate_prime_bigra9m( &b , a ) ;  \
+    generate_prime_bigra9m2( &b , a ) ;  \
+    bigra9m_print(b) ; \
+    bigra9m_clears( &b  , NULL);\
+} while (0);
+
+// exactly bits-length
+#define TEST_RNG_PRIME_bits2(a_str ) do\
+{   int a ; \
+    BigInt  b   ;\
+    a = atoi(a_str);\
+    printf("bits : %d \n" , a) ; \
+    bigra9m_init(&b );\
+    generate_prime_bigra9m3( &b , a ) ;  \
     bigra9m_print(b) ; \
     bigra9m_clears( &b  , NULL);\
 } while (0);

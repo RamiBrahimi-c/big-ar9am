@@ -4,6 +4,10 @@
 #include <math.h>
  
 #define DEBUG_RANDOM_bits 0
+#define DEBUG_RANDOM 0
+#define DEBUG_RANDOM_PRIME 0
+#define DEBUG_RANDOM_PRIME_bits 0
+#define DEBUG_RANDOM_PRIME_bits2 0
 
 
 int setrandom_bigra9m(BigInt *a  , int bits)  {
@@ -36,9 +40,6 @@ int setrandom_bigra9m(BigInt *a  , int bits)  {
 
     }
 
-    if (max_len > 100)
-    a->length = max_len -10;
-    else 
     a->length = max_len ;
     
 
@@ -84,11 +85,26 @@ int setrandom_bigra9m(BigInt *a  , int bits)  {
     bigra9m_print(max) ; 
     #endif
 
+
+    int high_limb_index = abs(max.length) - 1;
+
     do
     {
-        for (int i = 0; i < abs(a->length); i++)
+        
+        a->nums[high_limb_index] = getRandomU64_t(max.nums[high_limb_index] + 1) ;  
+
+        for (int i = high_limb_index - 1; i >= 0 ; i--)
         {
-            a->nums[i] = getRandomU64_t(BASE) ; 
+            if (bigra9m_isBiggerThanNum(*a , max))
+            {
+                break; 
+                
+            } else {
+                a->nums[i] = getRandomU64_t(BASE) ; 
+                
+            }
+            
+            
         }
     
         while (!bigra9m_is_clean_lastdigit(*a))
@@ -96,8 +112,8 @@ int setrandom_bigra9m(BigInt *a  , int bits)  {
             bigra9m_clean_lastdigit(a) ; 
         }
         #if DEBUG_RANDOM_bits            
-        printf("candidate : ") ; 
-        bigra9m_print(*a) ;
+            printf("candidate : ") ; 
+            bigra9m_print(*a) ;
         #endif
         // exit(EXIT_FAILURE ) ;  
     } while (bigra9m_isBiggerThanNum(*a , max));
@@ -110,7 +126,6 @@ int setrandom_bigra9m(BigInt *a  , int bits)  {
     bigra9m_clears(&num , &divisor , &max ,&Bits , &temp , &temp2 , NULL) ; 
 }
 
-#define DEBUG_RANDOM 0
 
 int setrandom_bigra9m2(BigInt *a , BigInt *high )  {
     if (bigra9m_is_negative(*high))
@@ -135,13 +150,31 @@ int setrandom_bigra9m2(BigInt *a , BigInt *high )  {
     #if DEBUG_RANDOM
     printf("a.len : %d\n" , a->length) ; 
     #endif
+
+
+    int high_limb_index = abs(high->length) - 1;
     
     do
     {
-        for (int i = 0; i < abs(a->length); i++)
+
+        a->nums[high_limb_index] = getRandomU64_t(high->nums[high_limb_index] + 1) ;  
+
+        for (int i = high_limb_index - 1; i >= 0 ; i--)
         {
-            a->nums[i] = getRandomU64_t(BASE) ; 
+            if (bigra9m_isBiggerThanNum(*a , *high))
+            {
+                break; 
+                
+            } else {
+                a->nums[i] = getRandomU64_t(BASE) ; 
+                
+            }
+            
+            
         }
+
+        printf("candidate : ") ; 
+        bigra9m_print(*a) ; 
     } while (bigra9m_isBiggerThanNum(*a , *high));
     
     while (!bigra9m_is_clean_lastdigit(*a))
@@ -156,10 +189,8 @@ int setrandom_bigra9m2(BigInt *a , BigInt *high )  {
     // bigra9m_clear(&num) ; 
 }
 
-#define DEBUG_RANDOM_PRIME 0
 
-
-int generate_prime_bigra9m2(BigInt *a , BigInt *high) {
+int generate_prime_bigra9m(BigInt *a , BigInt *high) {
 
 
     do
@@ -177,9 +208,8 @@ int generate_prime_bigra9m2(BigInt *a , BigInt *high) {
 
 }
 
-#define DEBUG_RANDOM_PRIME_bits 0
 
-int generate_prime_bigra9m(BigInt *a , int bits) {
+int generate_prime_bigra9m2(BigInt *a , int bits) {
 
 
     do
@@ -195,6 +225,39 @@ int generate_prime_bigra9m(BigInt *a , int bits) {
     } while (bigra9m_isEven(a) ||  bigra9m_miller_rabin(*a) == 0);
     
     #if DEBUG_RANDOM_PRIME_bits
+        printf("is prime ? : %d \n" , bigra9m_miller_rabin(*a)) ; 
+    #endif
+}
+
+
+#define LIMB_BITS 64
+int generate_prime_bigra9m3(BigInt *a , int bits) {
+
+    int candidates_num = 0 ; 
+    do
+    {
+        setrandom_bigra9m(a , bits) ; 
+        
+        int limb_index = (bits - 1) / LIMB_BITS;
+        int bit_position = (bits - 1) % LIMB_BITS;
+        
+        a->nums[0] |= 0x1 ; 
+        a->nums[limb_index] |= (1u << bit_position);
+        
+        // printf("index : %d \n" , limb_index) ; 
+        // printf("bit position : %d \n" , bit_position) ; 
+        
+        #if DEBUG_RANDOM_PRIME_bits2
+        printf("candidate is even ?: %d \n" , bigra9m_isEven(a)) ; 
+        bigra9m_print(*a) ; 
+        #endif
+
+        candidates_num++ ; 
+    
+    } while (  bigra9m_miller_rabin(*a) == 0);
+
+    printf("we tested : %d \n" , candidates_num) ; 
+    #if DEBUG_RANDOM_PRIME_bits2
         printf("is prime ? : %d \n" , bigra9m_miller_rabin(*a)) ; 
     #endif
 }

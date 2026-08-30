@@ -252,7 +252,12 @@ $  ./tests/output/bin/run_tests_main rng_prime 10000000000
 # generate a prime in the range of 0 .. 2^(256)-1
 $  ./tests/output/bin/run_tests_main rng_prime_bits 256
 bits : 256 
-101876121015626550205299187703281901724950158779190367067505951870900097443787
+31024956291324549512809092473497486619527665424938344891865858460781360719627
+
+# generate a prime with exactly 256-bits
+$  ./tests/output/bin/run_tests_main rng_prime_bits2 256
+bits : 256 
+90671637999748794998145908032471757153928019144514771379102616782791123821279
 
 
 ```
@@ -282,6 +287,7 @@ bits : 256
 |       **odd**      | checks if number is odd                                                                                |        num1 % 2 == 1        |            1            |
 |       **rng**      | generate random number in the range 0 to ( max -1 )                                                    |              /              |            1            |
 |    **rng_bits**    | generate random number in the range 0 to 2^(max) - 1                                                   |              /              |            1            |
+|    **rng_bits2**   | generate random number with exactly bits length                                                        |              /              |            1            |
 |    **rng_prime**   | generate random prime number in the range 0 to ( max -1 )                                              |              /              |            1            |
 | **rng_prime_bits** | generate random prime number in the range 0 to 2^(max) - 1                                             |              /              |            1            |
 

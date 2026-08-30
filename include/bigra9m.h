@@ -160,10 +160,12 @@ int setrandom_bigra9m(BigInt *a  , int bits) ;
 int setrandom_bigra9m2(BigInt *a , BigInt *high )  ;
 
 
-// set a random prime BigRa9m in range 0..(2^bits -1)
-int generate_prime_bigra9m(BigInt *a , int bits) ;
 // set a random prime BigRa9m in range 0..high
-int generate_prime_bigra9m2(BigInt *a , BigInt *high) ;
+int generate_prime_bigra9m(BigInt *a , BigInt *high) ;
+// set a random prime BigRa9m in range 0..(2^bits -1)
+int generate_prime_bigra9m2(BigInt *a , int bits) ;
+// set a random prime BigRa9m to exactly bits-length random prime number (meant to be used in for cryptography)
+int generate_prime_bigra9m3(BigInt *a , int bits) ;
 
 
 // calculates grand common divisor between `a` and `b`

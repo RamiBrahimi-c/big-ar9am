@@ -372,12 +372,26 @@ void bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
 
         return ; 
     }
+
+    int prev_a_len = a->length ; 
+    int prev_b_len = b->length ; 
+
+    a->length = abs(a->length) ; 
+    b->length = abs(b->length) ; 
+
     if (bigra9m_isStrictlyLowerThanNum(*a , *b))
     {
+        a->length = prev_a_len ; 
+        b->length = prev_b_len ; 
         bigra9m_assign(d , *a) ; // interestingly when c = a the reverse order gives a bug >-<
         bigra9m_assign_uint64_t(c , 0) ; 
         return ; 
     }
+
+    a->length = prev_a_len ; 
+    b->length = prev_b_len ; 
+    
+    // printf("what?\n") ;
     if (bigra9m_isEqualNum(*a , *b))
     {
         bigra9m_assign_uint64_t(c , 1) ; 
@@ -428,7 +442,9 @@ void bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
         bigra9m_inits( &temp_a , &temp_b , NULL) ; 
 
         bigra9m_assign(&temp_a , *a) ; 
-        bigra9m_assign(&temp_b , *b) ; 
+        bigra9m_assign(&temp_b , *b) ;
+        temp_a.length = abs(temp_a.length) ;  
+        temp_b.length = abs(temp_b.length) ;  
         
         // c gotta be initilized 
         // memset(c->nums , 0x0 , sizeof(uint64_t)*c->capacity) ; 

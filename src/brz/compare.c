@@ -50,7 +50,7 @@ int bigra9m_isBiggerThanNum(BigInt a , BigInt b) {
     }else if (a.length < b.length) {
         return 0; 
 
-    } else if (a.length == b.length && a.length != 0) {
+    } else if (a.length == b.length && a.length > 0) {
         for (int i = abs(a.length) -1 ; i >= 0; i--)
         {
             if (a.nums[i] == b.nums[i])
@@ -62,8 +62,17 @@ int bigra9m_isBiggerThanNum(BigInt a , BigInt b) {
         }
         return 1 ; 
        
-    } else {
-        return 0; 
+    } else if (a.length == b.length && a.length < 0 ) {
+        for (int i = abs(a.length) -1 ; i >= 0; i--)
+        {
+            if (a.nums[i] == b.nums[i])
+            {
+                continue;
+            }
+            return a.nums[i] <= b.nums[i] ; 
+            
+        }
+        return 1; 
     }
     
 }
@@ -80,7 +89,7 @@ int bigra9m_isStrictlyBiggerThanNum(BigInt a , BigInt b) {
     }else if (a.length < b.length) {
         return 0; 
 
-    } else if (a.length == b.length && a.length != 0) {
+    } else if (a.length == b.length && a.length > 0) {
         for (int i = abs(a.length) -1 ; i >= 0; i--)
         {
             if (a.nums[i] == b.nums[i])
@@ -93,7 +102,17 @@ int bigra9m_isStrictlyBiggerThanNum(BigInt a , BigInt b) {
         return 0 ; 
         
         // return a.nums[a.length-1] > b.nums[b.length-1] ; 
-    } else {
+    } else if (a.length == b.length && a.length < 0 ) {
+        for (int i = abs(a.length) -1 ; i >= 0; i--)
+        {
+            if (a.nums[i] == b.nums[i])
+            {
+                continue;
+            }
+            return a.nums[i] < b.nums[i] ; 
+            
+        }
+
         return 0; 
     }
     
@@ -113,7 +132,7 @@ int bigra9m_isLowerThanNum(BigInt a , BigInt b) {
     }else if (a.length < b.length) {
         return 1; 
 
-    } else if (a.length == b.length && a.length != 0) {
+    } else if (a.length == b.length && a.length > 0 ) {
         for (int i = abs(a.length) -1 ; i >= 0; i--)
         {
             if (a.nums[i] == b.nums[i])
@@ -125,7 +144,18 @@ int bigra9m_isLowerThanNum(BigInt a , BigInt b) {
         }
         return 1 ; 
        
-    } else {
+    } else if (a.length == b.length && a.length < 0 ) {
+        for (int i = abs(a.length) -1 ; i >= 0; i--)
+        {
+            if (a.nums[i] == b.nums[i])
+            {
+                continue;
+            }
+            return a.nums[i] >= b.nums[i] ; 
+            
+        }
+        return 1 ; 
+
         return 1; 
     }
     
@@ -143,7 +173,7 @@ int bigra9m_isStrictlyLowerThanNum(BigInt a , BigInt b) {
     }else if (a.length < b.length) {
         return 1; 
 
-    } else if (a.length == b.length && a.length != 0) {
+    } else if (a.length == b.length && a.length > 0) {
         for (int i = abs(a.length) -1 ; i >= 0; i--)
         {
             if (a.nums[i] == b.nums[i])
@@ -155,7 +185,17 @@ int bigra9m_isStrictlyLowerThanNum(BigInt a , BigInt b) {
         }
         return 0 ; 
        
-    } else {
+    } else if (a.length == b.length && a.length < 0 ) {
+        for (int i = abs(a.length) -1 ; i >= 0; i--)
+        {
+            if (a.nums[i] == b.nums[i])
+            {
+                continue;
+            }
+            return a.nums[i] > b.nums[i] ; 
+            
+        }
+ 
         return 0; 
     }
     

@@ -150,18 +150,54 @@ void bigra9m_sub(BigInt *a , BigInt *b , BigInt *c) {
     c->length = 1 ; 
     // printf("this : ?\n") ;
     // printf("before basic subtraction temp_a.nums %p  temp_b.nums %p\n" , temp_a.nums , temp_b.nums ) ;  
-    if ((!bigra9m_isBiggerThanNum(temp_a , temp_b))  )
+    if (bigra9m_is_positive(temp_a))
     {
-        
-        c->length = -1 ; 
-        // swap 
-        
-        basic_subtraction(temp_b , temp_a , c) ; 
-        
+        // printf("bro?\n") ; 
+        if ((!bigra9m_isBiggerThanNum(temp_a , temp_b))  )
+        {
+            
+            c->length = -1 ; 
+            // swap 
+            
+            basic_subtraction(temp_b , temp_a , c) ; 
+            
+        } else  {
+            basic_subtraction(temp_a , temp_b , c) ; 
+            
+            // c->length = (a.length/a.length) ; 
+        }
     } else  {
-        basic_subtraction(temp_a , temp_b , c) ; 
-        
-        // c->length = (a.length/a.length) ; 
+        if ((bigra9m_isLowerThanNum(temp_a , temp_b))  )
+        {
+            if (bigra9m_is_negative(temp_b))
+            {
+                temp_b.length *= -1 ; 
+            }
+            if (bigra9m_is_negative(temp_a))
+            {
+                temp_a.length *= -1 ; 
+            }
+            c->length = -1 ; 
+            
+            
+            basic_subtraction(temp_a , temp_b , c) ; 
+            
+        } else  {
+            if (bigra9m_is_negative(temp_b))
+            {
+                temp_b.length *= -1 ; 
+            }
+            if (bigra9m_is_negative(temp_a))
+            {
+                temp_a.length *= -1 ; 
+            }
+
+            // swap 
+            basic_subtraction(temp_b , temp_a   , c) ; 
+            
+
+        }
+
     }
     // printf("after basic subtraction temp_a.nums %p  temp_b.nums %p\n" , temp_a.nums , temp_b.nums ) ;  
     // printf("after basic subtraction temp_a.nums %p \n" , temp_a.nums ) ;  

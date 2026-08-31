@@ -13,7 +13,7 @@ void bigra9m_print(BigInt number) {
         printf("-");
         number.length *= -1 ; 
     } else if (!number.length) {
-        printf("0") ; 
+        printf("0\n") ; 
         return ; 
     }
 

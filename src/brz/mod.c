@@ -114,29 +114,30 @@ void bigra9m_modinverse(BigInt *a , BigInt *m , BigInt *c) {
         bigra9m_assign(&t , x0) ;
         
         #if DEBUG_MID_INV
-        printf("before op : \n") ; 
-        printf("q : ") ; 
-        bigra9m_print(q) ; 
-        printf("x0 : ") ; 
-        bigra9m_print(x0) ;
+            printf("before op : \n") ; 
+            printf("q : ") ; 
+            bigra9m_print(q) ; 
+            printf("x0 : ") ; 
+            bigra9m_print(x0) ;
         #endif
         
         bigra9m_mul(&q , &x0 , &temp) ;
         
         #if DEBUG_MID_INV
-        printf("result : ") ; 
-        bigra9m_print(temp) ; 
-        
-        printf("x1 : ") ; 
-        bigra9m_print(x1) ; 
+            printf("result : ") ; 
+            bigra9m_print(temp) ; 
+
+            printf("x1 : ") ; 
+            bigra9m_print(x1) ; 
         #endif
         
         bigra9m_sub(&x1 , &temp , &x0) ; 
+
         #if DEBUG_MID_INV
-        printf("x0 : ") ; 
-        bigra9m_print(x0) ; 
-        
-        printf("end op : \n") ;
+            printf("x0 : ") ; 
+            bigra9m_print(x0) ; 
+
+            printf("end op : \n") ;
         #endif
 
         if (bigra9m_is_negative(x0))

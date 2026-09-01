@@ -256,8 +256,8 @@ int generate_prime_bigra9m3(BigInt *a , int bits) {
     
     } while (  bigra9m_miller_rabin(*a) == 0);
 
-    printf("we tested : %d \n" , candidates_num) ; 
     #if DEBUG_RANDOM_PRIME_bits2
+        printf("we tested : %d \n" , candidates_num) ; 
         printf("is prime ? : %d \n" , bigra9m_miller_rabin(*a)) ; 
     #endif
 }

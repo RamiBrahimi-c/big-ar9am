@@ -166,7 +166,7 @@ void bigra9m_sub(BigInt *a , BigInt *b , BigInt *c) {
             
             // c->length = (a.length/a.length) ; 
         }
-    } else  {
+    } else if(bigra9m_is_negative(temp_a)) {
         if ((bigra9m_isLowerThanNum(temp_a , temp_b))  )
         {
             if (bigra9m_is_negative(temp_b))
@@ -198,6 +198,10 @@ void bigra9m_sub(BigInt *a , BigInt *b , BigInt *c) {
 
         }
 
+    } else { // means a is 0 
+
+        temp_b.length *= -1 ; 
+        bigra9m_assign(c , temp_b) ;  
     }
     // printf("after basic subtraction temp_a.nums %p  temp_b.nums %p\n" , temp_a.nums , temp_b.nums ) ;  
     // printf("after basic subtraction temp_a.nums %p \n" , temp_a.nums ) ;  

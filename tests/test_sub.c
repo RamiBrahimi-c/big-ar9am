@@ -22,14 +22,16 @@ int main()
 
     // bigra9m_assign_uint64_t(&a , 120021) ; 
     // bigra9m_assign_uint64_t(&c , 12) ;
-    bigra9m_assign_str(&a , "099973243349486286531393852507758875105273682217456") ; 
-    bigra9m_assign_str(&c , "99973243349486286531393852507758875105273682217464") ; 
+    bigra9m_assign_str(&a , "-1688433243809358094") ; 
+    bigra9m_assign_str(&c , "-6629447832680730951") ; 
     
     // bigra9m_assign_uint64_t(&a , 90000) ; 
     printf("a : ") ; 
-    bigra9m_print(a) ; 
+    bigra9m_print(a) ;
+    printf("c : ") ; 
+    bigra9m_print(c) ; 
     
-    bigra9m_sub(&a , &c , &a) ; 
+    bigra9m_sub(&a , &c  , &a) ; 
     // bigra9m_add_1(a , 10000 , &a) ;
     printf("after : \n") ; 
     printf("a : ") ; 

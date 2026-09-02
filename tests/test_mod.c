@@ -57,7 +57,7 @@ int main(int argc , char* argv[])
 {
     if (argc > 1)
     {
-        printf("in uint64_t %lld \n" , modInverse(6525349 , 5066801)) ;
+        printf("in uint64_t %lld \n" , modInverse(13793 , 329)) ;
         return 0 ; 
     }
     
@@ -70,8 +70,8 @@ int main(int argc , char* argv[])
     bigra9m_init(&e) ; 
     // bigra9m_init_str(&a , "347743917315751756602767635338") ; 
     // bigra9m_init_str(&c , "27189594572672358713") ; 
-    bigra9m_init_str(&a , "22369039492316613062") ; 
-    bigra9m_init_str(&c , "4250978899") ; 
+    bigra9m_init_str(&a , "13793") ; 
+    bigra9m_init_str(&c , "329") ; 
     bigra9m_init_str(&d , "12") ; 
     printf("a : ") ; 
     bigra9m_print(a) ; 

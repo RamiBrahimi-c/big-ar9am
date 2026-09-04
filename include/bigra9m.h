@@ -104,9 +104,9 @@ int bigra9m_isBiggerThanNum(BigInt a , BigInt b) ;
 int bigra9m_isStrictlyBiggerThanNum(BigInt a , BigInt b) ;
 // a == b
 int bigra9m_isEqualNum(BigInt a , BigInt b) ;
-// a < b
-int bigra9m_isLowerThanNum(BigInt a , BigInt b) ;
 // a <= b
+int bigra9m_isLowerThanNum(BigInt a , BigInt b) ;
+// a < b
 int bigra9m_isStrictlyLowerThanNum(BigInt a , BigInt b) ;
 
 // a == b , b is uint64_t here 

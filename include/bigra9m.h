@@ -176,4 +176,25 @@ void bigra9m_gcd(BigInt *a , BigInt *b , BigInt *c) ;
 void bigra9m_modinverse(BigInt *a , BigInt *b , BigInt *c) ;
 
 
+// *****************************************************************************************************************************
+// *****************************************************************************************************************************
+// these section has 2 interesting functions , import/export 
+// *import* : from a buffer or an array of length @count and size of @size for each cell into a BigRa9m @rop
+// *export* : from a BigRa9m @rop into a buffer or an array of length @countp and size of @size for each cell  
+// *****************************************************************************************************************************
+// *****************************************************************************************************************************
+
+// NOTES : also i might go back and do :
+// TODO : consider this signature : 
+//      bigra9m_import(BigInt *rop , size_t count, int order, size_t size, int endian, size_t nails , const void *op)                       
+//      bigra9m_export(BigInt *rop , size_t *countp, int order, size_t size, int endian, size_t nails, , const void *op)                       
+// (pov : maybe not with @nails)
+
+// TODO : a further explanation is needed here !!! on how these 2 work exactly
+
+
+void bigra9m_import(BigInt *rop, size_t count, size_t size , const void *op) ;
+void bigra9m_export(void *rop, size_t *countp , size_t size, const BigInt* op) ; 
+
+
 #endif

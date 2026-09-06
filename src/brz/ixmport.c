@@ -98,15 +98,25 @@ void bigra9m_export(void *rop, size_t *countp , size_t size, const BigInt* op)  
     *countp = ceil(op->length * sizeof(uint32_t) / size) ;
     *countp = (*countp == 0) ? 1 : *countp ; 
 
+    size_t j = 0 ;
     for (size_t i = 0; i < op->length ; i++)
     {
         // grab `size`-bits 
         uint32_t temp = op->nums[i] ; 
         // put them here : 
-        buf[i + 3]  = (temp & 0xff000000) >> 24  ; 
-        buf[i + 2]  = (temp & 0x00ff0000) >> 16  ; 
-        buf[i + 1]  = (temp & 0x0000ff00) >> 8   ; 
-        buf[i ]     =  temp & 0x000000ff          ; 
+        #if 1
+        buf[j + 3]  = (temp & 0xff000000) >> 24  ; 
+        buf[j + 2]  = (temp & 0x00ff0000) >> 16  ; 
+        buf[j + 1]  = (temp & 0x0000ff00) >> 8   ; 
+        buf[j ]     =  temp & 0x000000ff         ; 
+        #else
+        buf[i ]     = (temp & 0xff000000) >> 24  ; 
+        buf[i + 1]  = (temp & 0x00ff0000) >> 16  ; 
+        buf[i + 2]  = (temp & 0x0000ff00) >> 8   ; 
+        buf[i + 3]  =  temp & 0x000000ff         ; 
+        
+        #endif
+        j += 4 ; 
     }
     
 

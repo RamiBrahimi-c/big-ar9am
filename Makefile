@@ -1,7 +1,7 @@
 CC = gcc
 AR = ar
 ARFLAGS = rcs
-CFLAGS = -Wall -Wextra -Iinclude/ -MMD -MP
+CFLAGS = -Wall -Wextra -Iinclude/ -MMD -MP -fPIC
 LDFLAGS = -lm -g 
 SRCDIR = src
 OBJDIR = obj

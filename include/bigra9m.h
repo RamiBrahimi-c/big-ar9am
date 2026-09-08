@@ -167,6 +167,8 @@ int generate_prime_bigra9m2(BigInt *a , int bits) ;
 // set a random prime BigRa9m to exactly bits-length random prime number (meant to be used in for cryptography)
 int generate_prime_bigra9m3(BigInt *a , int bits) ;
 
+int bigra9m_nextprime(BigInt *a , BigInt *b) ;
+
 
 // calculates grand common divisor between `a` and `b`
 // `c = gcd(a,b)`

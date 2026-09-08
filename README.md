@@ -349,6 +349,13 @@ i wont be hard on it but
 - [Valgrind](https://valgrind.org/) for memory checking
 
 
+## Contributing
+
+Bug reports and suggestions are welcome! Feel free to open an issue if you find something wrong.
+
+**Note:** This is a personal project and I prefer to write the code myself including: adding features/algorithms, controlling basic API definitions. That being said, pull requests may not be merged, but I truly appreciate bug reports and will credit anyone who helps spot issues.
+
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

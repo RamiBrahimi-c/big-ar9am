@@ -24,7 +24,7 @@ int bigra9m_isEqualNum(BigInt a , BigInt b) {
         return 0; 
     }
 
-    for (size_t i = 0; i < a.length; i++)
+    for (size_t i = 0; i < abs(a.length); i++)
     {
         if (a.nums[i] != b.nums[i])
         {
@@ -74,6 +74,8 @@ int bigra9m_isBiggerThanNum(BigInt a , BigInt b) {
         }
         return 1; 
     }
+
+    return 1 ; 
     
 }
 
@@ -116,6 +118,7 @@ int bigra9m_isStrictlyBiggerThanNum(BigInt a , BigInt b) {
         return 0; 
     }
     
+    return 0 ; 
 }
 
 
@@ -156,8 +159,8 @@ int bigra9m_isLowerThanNum(BigInt a , BigInt b) {
         }
         return 1 ; 
 
-        return 1; 
     }
+    return 1; 
     
 }
 
@@ -199,6 +202,7 @@ int bigra9m_isStrictlyLowerThanNum(BigInt a , BigInt b) {
         return 0; 
     }
     
+    return 0; 
 }
 
 

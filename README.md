@@ -124,7 +124,7 @@ gcc -I../include my_program.c -L../lib -lbigra9m -o my_program
 int main()
 {
 
-    BigRa9m a , b , c ; // or BigInt BigRa9m a , b , c ;  
+    BigRa9m a , b , c ; // or BigInt a , b , c ;  
     
 
     // make sure to initilize it first !!!

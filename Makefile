@@ -2,7 +2,7 @@ CC = gcc
 AR = ar
 ARFLAGS = rcs
 CFLAGS = -Wall -Wextra -Iinclude/ -MMD -MP -fPIC
-LDFLAGS = -lm -g 
+LDFLAGS = -lm -g
 SRCDIR = src
 OBJDIR = obj
 BINDIR = bin
@@ -11,6 +11,7 @@ TESTDIR = tests
 TESTOUTPUTDIR = $(TESTDIR)/output/bin
 LIBNAME = bigra9m
 STATIC_LIB = $(LIBDIR)/lib$(LIBNAME).a
+SHARED_LIB = $(LIBDIR)/lib$(LIBNAME).so
 
 # Find all .c files recursively, excluding main.c for library objects
 LIB_SOURCES = $(shell find $(SRCDIR) -type f -name '*.c' ! -name 'main.c')
@@ -29,12 +30,18 @@ DEPS = $(OBJECTS:.o=.d) $(MAIN_OBJECT:.o=.d)
 .SECONDARY: $(TEST_BINS)
 
 # Default target - builds static library and main binary
-all: $(STATIC_LIB) $(BINDIR)/main
+all: $(STATIC_LIB) $(SHARED_LIB) $(BINDIR)/main
 
 # Create static library from all objects (except main.o)
 $(STATIC_LIB): $(OBJECTS)
 	@mkdir -p $(LIBDIR)
 	$(AR) $(ARFLAGS) $@ $^
+	@echo "Created $@"
+
+# Create shared library from all objects (except main.o)
+$(SHARED_LIB): $(OBJECTS)
+	@mkdir -p $(LIBDIR)
+	$(CC) -shared $^ -o $@
 	@echo "Created $@"
 
 # Main target - links against static library
@@ -63,19 +70,21 @@ test: $(TEST_BINS)
 		./$$test_bin || exit 1; \
 	done
 
-# Pattern rule for test binaries - link against static library
+# Pattern rule for test binaries - link against static library explicitly
 $(TESTOUTPUTDIR)/run_tests_%: $(TESTDIR)/test_%.c $(STATIC_LIB)
 	@mkdir -p $(TESTOUTPUTDIR)
-	$(CC) $(CFLAGS) $< -L$(LIBDIR) -l$(LIBNAME) $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $< $(STATIC_LIB) $(LDFLAGS) -o $@
 
 # Run specific test
 test-%: $(TESTOUTPUTDIR)/run_tests_%
 	./$(TESTOUTPUTDIR)/run_tests_$*
 
-.PHONY: all clean test main lib
+.PHONY: all clean test main lib shared
 
 # Build only the library
-lib: $(STATIC_LIB)
+lib: $(STATIC_LIB) $(SHARED_LIB)
+
+shared: $(SHARED_LIB)
 
 # Clean targets
 clean:

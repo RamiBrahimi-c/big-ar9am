@@ -87,6 +87,11 @@ void bigra9m_assign_str(BigInt *a , const char *num_str) ;
 // assign a number x of type`uint64_t` to BigInt *a
 int bigra9m_assign_uint64_t(BigInt *a , uint64_t x) ;
 
+// returns a NULL ('\0') terminated string (array of chars) that represents `number` in ASCII
+// NOTE : whoever calls this function is responsible for freeing this memory (char * array returned) .
+char *bigra9m_get_str(BigInt *number) ; 
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /// Functions below are like comparison functions and returns 0 (False) or 1 (True) ///////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////

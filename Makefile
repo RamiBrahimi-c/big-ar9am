@@ -70,7 +70,7 @@ test: $(TEST_BINS)
 		./$$test_bin || exit 1; \
 	done
 
-# Pattern rule for test binaries - link against static library explicitly
+# Pattern rule for test binaries - link against static library
 $(TESTOUTPUTDIR)/run_tests_%: $(TESTDIR)/test_%.c $(STATIC_LIB)
 	@mkdir -p $(TESTOUTPUTDIR)
 	$(CC) $(CFLAGS) $< $(STATIC_LIB) $(LDFLAGS) -o $@

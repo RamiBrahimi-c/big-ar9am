@@ -1,5 +1,5 @@
 #include "bigra9m.h"
-
+#include <stdlib.h>
 
 
  int bigra9m_is_clean_lastdigit(BigInt a) {

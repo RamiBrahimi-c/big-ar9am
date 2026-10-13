@@ -11,24 +11,24 @@
 // NOTE : configured with dynammic approach ???
 #define FERMAT_DEBUG 0
 
-static int fermat_primality_test_uint64(uint64_t p) {
-    srand(time(NULL)) ; 
-    size_t s = S , a;
-    for (size_t i = 0; i < s; i++)
-    {
-        a = (rand() % (p-1))  ;
-        a = (a == 0 || a==1) ? 2 : a ;
-        // printf("testing with a=%ld  p-1=%ld \tpow(a , p-1) %% p =%lu \n" , a , p-1   ,( pow_ui64(a , p-1) % p )  ) ; 
-        // printf("pow(a , p-1):%lu  \n" ,   pow_ui64(a , p-1)   ) ; 
-        if ( pow_ui64(a , p-1) % p != 1)
-        {
-            return 0 ;
-        }
+// static int fermat_primality_test_uint64(uint64_t p) {
+//     srand(time(NULL)) ; 
+//     size_t s = S , a;
+//     for (size_t i = 0; i < s; i++)
+//     {
+//         a = (rand() % (p-1))  ;
+//         a = (a == 0 || a==1) ? 2 : a ;
+//         // printf("testing with a=%ld  p-1=%ld \tpow(a , p-1) %% p =%lu \n" , a , p-1   ,( pow_ui64(a , p-1) % p )  ) ; 
+//         // printf("pow(a , p-1):%lu  \n" ,   pow_ui64(a , p-1)   ) ; 
+//         if ( pow_ui64(a , p-1) % p != 1)
+//         {
+//             return 0 ;
+//         }
          
-    }
-    return 1 ; 
+//     }
+//     return 1 ; 
     
-}
+// }
 
 int bigra9m_fermat_primality_test(BigInt p) {
     #if FERMAT_DEBUG

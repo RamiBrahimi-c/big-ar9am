@@ -94,7 +94,7 @@ void static basic_subtraction(BigInt a , BigInt b , BigInt *c) {
 // fucking hell .
 // fuck this shit 
 // TODO : this is NOT bug-free !!!!!!!!!!!!! 
-void bigra9m_sub(BigInt *a , BigInt *b , BigInt *c) {
+int bigra9m_sub(BigInt *a , BigInt *b , BigInt *c) {
     
     #if SUB_DEBUG 
     printf("==================================\n") ; 
@@ -134,7 +134,7 @@ void bigra9m_sub(BigInt *a , BigInt *b , BigInt *c) {
         // printf("calling clears from bigra9m_sub for temp_a %p and temp_b %p \n" , &temp_a , &temp_b) ;     
         bigra9m_clears(&temp_a , &temp_b , NULL) ; 
         
-        return ; 
+        return 0; 
     } 
     
     // printf("before allocation temp_a.nums %p  temp_b.nums %p\n" , temp_a.nums , temp_b.nums ) ;  
@@ -220,5 +220,7 @@ void bigra9m_sub(BigInt *a , BigInt *b , BigInt *c) {
         bigra9m_clean_lastdigit(c) ; 
     }
     
+    
+    return 0;
 }
 

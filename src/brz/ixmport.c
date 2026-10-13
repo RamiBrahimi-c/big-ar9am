@@ -34,7 +34,7 @@ uint32_t buf_to_u64(uchar_t *buf , size_t len , size_t *new_len) {
 
 
 
-void bigra9m_import(BigInt *rop, size_t count, size_t size , const void *op) {
+int bigra9m_import(BigInt *rop, size_t count, size_t size , const void *op) {
     const uint8_t *orig_buf = (const uint8_t *) op ; 
     
     int index = 0 ; 
@@ -51,7 +51,7 @@ void bigra9m_import(BigInt *rop, size_t count, size_t size , const void *op) {
     if (dest==NULL)
     {
         fprintf(stderr , "ERROR : malloc failed allocating %ld byte :(\n" , sizeof(uint32_t) * len ) ; 
-        return ; 
+        return 1; 
     }
      
     rop->length = len ; 
@@ -76,19 +76,19 @@ void bigra9m_import(BigInt *rop, size_t count, size_t size , const void *op) {
     // } else if (size > 4) {
 
     // }
-    
+    return 0;
 
 
 }
 
 
 
-void bigra9m_export(void *rop, size_t *countp , size_t size, const BigInt* op)  {
+int bigra9m_export(void *rop, size_t *countp , size_t size, const BigInt* op)  {
 
     if (bigra9m_is_zero(*op))
     {
         *countp = 0 ; 
-        return ; 
+        return 0; 
     }
     
     // basic core here is that we deal with `rop` as an array of bytes ... (i dont give a damn shit about endianess or anything else , )
@@ -119,5 +119,5 @@ void bigra9m_export(void *rop, size_t *countp , size_t size, const BigInt* op)  
         j += 4 ; 
     }
     
-
+    return 0;
 }

@@ -172,9 +172,11 @@ int setrandom_bigra9m2(BigInt *a , BigInt *high )  {
             
             
         }
-
+        
+        #if DEBUG_RANDOM
         printf("candidate : ") ; 
-        bigra9m_print(*a) ; 
+        bigra9m_print(*a) ;
+        #endif 
     } while (bigra9m_isBiggerThanNum(*a , *high));
     
     while (!bigra9m_is_clean_lastdigit(*a))
@@ -261,3 +263,35 @@ int generate_prime_bigra9m3(BigInt *a , int bits) {
         printf("is prime ? : %d \n" , bigra9m_miller_rabin(*a)) ; 
     #endif
 }
+
+#define DEBUG_RANDOM_NEXTPRIME 0
+
+int bigra9m_nextprime(BigInt *a , BigInt *b) {
+
+    int candidates_num = 0 ; 
+    bigra9m_assign(b , *a) ; 
+    if (bigra9m_isEven(b))
+    {
+        b->nums[0] |= 0x1 ; 
+    }
+    while (  !bigra9m_miller_rabin(*b) )
+    {
+
+        #if DEBUG_RANDOM_NEXTPRIME
+        printf("candidate :  \n" ) ; 
+        bigra9m_print(*b) ; 
+        #endif
+
+        bigra9m_add_1(*b , 2 , b) ; 
+        candidates_num++ ; 
+    
+    } 
+
+    #if DEBUG_RANDOM_NEXTPRIME
+        printf("we tested : %d \n" , candidates_num) ; 
+        printf("is prime ? : %d \n" , bigra9m_miller_rabin(*a)) ; 
+    #endif
+}
+
+
+

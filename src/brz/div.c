@@ -37,11 +37,11 @@ static void repeated_subtraction_division(BigInt N , BigInt D ,BigInt *Qoeff , B
 
 // here it is like 
 // the range provided concerns **a**
-static void brz_assign_range(BigInt *a ,BigInt b , int start , int end ) {
+static int brz_assign_range(BigInt *a ,BigInt b , int start , int end ) {
     if (end < start || start < 0 || end < 0  )
     {
         fprintf(stderr , "ERROR ; a.len = %d  start : %d  end %d \n" , a->length , start , end) ; 
-        return ; 
+        return 1; 
     }
     if (a->capacity < end - start + 1)
     {
@@ -58,16 +58,16 @@ static void brz_assign_range(BigInt *a ,BigInt b , int start , int end ) {
     }
     // a->length = k ; 
     
-    
+    return 0;
 }
 
 // here it is like 
 // the range provided concerns **b**
-static void brz_assign_range2(BigInt *a ,BigInt b , int start , int end ) {
+static int brz_assign_range2(BigInt *a ,BigInt b , int start , int end ) {
     if (end < start || start < 0 || end < 0  )
     {
         fprintf(stderr , "ERROR ; a.len = %d  start : %d  end %d \n" , a->length , start , end) ; 
-        return ; 
+        return 1; 
     }
     if (a->capacity < end - start + 1)
     {
@@ -85,7 +85,7 @@ static void brz_assign_range2(BigInt *a ,BigInt b , int start , int end ) {
     }
     a->length = k ; 
     
-    
+    return 0;
 }
 
 
@@ -359,10 +359,10 @@ static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Re
 
 
 
-void bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
+int bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
     if (bigra9m_is_zero(*b) ) {
         fprintf(stderr , "ERROR : trying to devide on 0 !\n" ) ;
-        return ; 
+        return 1; 
     }
 
     if (bigra9m_is_zero(*a) )
@@ -370,7 +370,7 @@ void bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
         bigra9m_assign_uint64_t(c , 0) ; 
         bigra9m_assign(d , *a ) ; 
 
-        return ; 
+        return 0; 
     }
 
     int prev_a_len = a->length ; 
@@ -385,7 +385,7 @@ void bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
         b->length = prev_b_len ; 
         bigra9m_assign(d , *a) ; // interestingly when c = a the reverse order gives a bug >-<
         bigra9m_assign_uint64_t(c , 0) ; 
-        return ; 
+        return 0; 
     }
 
     a->length = prev_a_len ; 
@@ -396,7 +396,7 @@ void bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
     {
         bigra9m_assign_uint64_t(c , 1) ; 
         bigra9m_assign_uint64_t(d , 0) ; 
-        return ; 
+        return 0; 
     }
         
     int sign = 1 ; 
@@ -470,6 +470,7 @@ void bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
         bigra9m_clears(&temp_a , &temp_b , NULL) ; 
     }
 
+    return 0;
 
     // knuths_algorithm_d(a , b , c , d) ; 
     // repeated_subtraction_division(a , b , c , d) ; 
@@ -477,27 +478,27 @@ void bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
 }
 
 
-void bigra9m_div2(BigInt *a , BigInt *b , BigInt *c ) {
+int bigra9m_div2(BigInt *a , BigInt *b , BigInt *c ) {
     if (bigra9m_is_zero(*b) ) {
         fprintf(stderr , "ERROR : trying to devide on 0 !\n" ) ;
-        return ; 
+        return 1; 
     }
 
     if (bigra9m_is_zero(*a) )
     {
         bigra9m_assign_uint64_t(c , 0) ; 
 
-        return ; 
+        return 0; 
     }
     if (bigra9m_isStrictlyLowerThanNum(*a , *b))
     {
         bigra9m_assign_uint64_t(c , 0) ; 
-        return ; 
+        return 0; 
     }
     if (bigra9m_isEqualNum(*a , *b))
     {
         bigra9m_assign_uint64_t(c , 1) ; 
-        return ; 
+        return 0; 
     }
         
     int sign = 1 ; 
@@ -572,7 +573,7 @@ void bigra9m_div2(BigInt *a , BigInt *b , BigInt *c ) {
         bigra9m_clears(&temp_a , &temp_b  , &d, NULL) ; 
     }
 
-
+    return 0;
     // knuths_algorithm_d(a , b , c , d) ; 
     // repeated_subtraction_division(a , b , c , d) ; 
 

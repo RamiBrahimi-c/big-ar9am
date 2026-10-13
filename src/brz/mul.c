@@ -63,11 +63,11 @@ static void basecase_multiplication(BigInt a , BigInt b , BigInt *result) {
 }
 
 // REQUIRES FOR C TO BE INITILIZED PROPERLY ...
-void bigra9m_mul(BigInt *a , BigInt *b , BigInt *c) {
+int bigra9m_mul(BigInt *a , BigInt *b , BigInt *c) {
     if (bigra9m_is_zero(*a) ||  bigra9m_is_zero(*b))
     {
         bigra9m_assign_uint64_t(c , 0) ; 
-        return ; 
+        return 1; 
     }
     
 
@@ -129,4 +129,5 @@ void bigra9m_mul(BigInt *a , BigInt *b , BigInt *c) {
     
     c->length *= sign ; 
 
+    return 0;
 }

@@ -113,7 +113,7 @@ int bigra9m_assign_uint64_t(BigInt *a , uint64_t x) {
 }
 
 // IMPORTANT : here we pretend like a went through init before
-void bigra9m_assign(BigInt *a , BigInt b  ) {
+int bigra9m_assign(BigInt *a , BigInt b  ) {
 
     a->length = b.length ; 
     // a->capacity = b.capacity ; 
@@ -129,6 +129,7 @@ void bigra9m_assign(BigInt *a , BigInt b  ) {
     // memcpy(a , &b , sizeof(BigInt)) ; 
 
     // a->length = b.length ; 
+    return 0;
 }
 
 

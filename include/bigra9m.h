@@ -49,11 +49,11 @@ int bigra9m_init_assign(BigInt *a , BigInt b  ) ;
 //  c is the result of a OP b (OP = * , + , - , /)
 //  c = a OP b 
 void bigra9m_add(BigInt a , BigInt b , BigInt *c ) ;
-void bigra9m_mul(BigInt *a , BigInt *b , BigInt *c) ;
-void bigra9m_sub(BigInt *a , BigInt *b , BigInt *c) ;
-void bigra9m_div(BigInt *a , BigInt *b , BigInt *c , BigInt *d) ;
+int bigra9m_mul(BigInt *a , BigInt *b , BigInt *c) ;
+int bigra9m_sub(BigInt *a , BigInt *b , BigInt *c) ;
+int bigra9m_div(BigInt *a , BigInt *b , BigInt *c , BigInt *d) ;
 // same as div , we just dont need the reminder here 
-void bigra9m_div2(BigInt *a , BigInt *b , BigInt *c ) ;
+int bigra9m_div2(BigInt *a , BigInt *b , BigInt *c ) ;
 
 // `c = a * b` calculates product of BigInt `a` with a uint64_t `b`
 // **NOTE** : `a` could be negative here .
@@ -81,7 +81,7 @@ void bigra9m_mod2(BigInt dividend , BigInt divisor , BigInt quoeff , BigInt *c) 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // assigning BigInt b to BigInt a   (a = b) 
-void bigra9m_assign(BigInt *a , BigInt b  ) ;
+int bigra9m_assign(BigInt *a , BigInt b  ) ;
 // assign (num_str) a number in string (char *) format to BigInt struct
 void bigra9m_assign_str(BigInt *a , const char *num_str) ;
 // assign a number x of type`uint64_t` to BigInt *a
@@ -200,8 +200,8 @@ void bigra9m_modinverse(BigInt *a , BigInt *b , BigInt *c) ;
 // TODO : a further explanation is needed here !!! on how these 2 work exactly
 
 
-void bigra9m_import(BigInt *rop, size_t count, size_t size , const void *op) ;
-void bigra9m_export(void *rop, size_t *countp , size_t size, const BigInt* op) ; 
+int bigra9m_import(BigInt *rop, size_t count, size_t size , const void *op) ;
+int bigra9m_export(void *rop, size_t *countp , size_t size, const BigInt* op) ; 
 
 
 #endif

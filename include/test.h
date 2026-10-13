@@ -234,6 +234,18 @@
     bigra9m_clears( &b  , NULL);\
 } while (0);
 
+#define TEST_RNG_NEXTPRIME(a_str ) do\
+{   \
+    BigInt  a , b   ;\
+    bigra9m_inits(&a , &b , NULL) ;  \
+    bigra9m_assign_str(&a , a_str );\
+    printf("next prime to : ");\
+    bigra9m_print(a) ; \
+    bigra9m_nextprime( &a , &b ) ;  \
+    bigra9m_print(b) ; \
+    bigra9m_clears(&a ,  &b  , NULL);\
+} while (0);
+
 #define TEST_EVEN(a_str ) do\
 {    BigInt  a , b   ;\
     bigra9m_init_str(&b , a_str );\
@@ -271,3 +283,6 @@
     bigra9m_print(c);}\
     bigra9m_clears(&a , &b , &c  , &d, NULL);\
 } while (0);
+
+
+

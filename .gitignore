@@ -29,3 +29,5 @@ release/
 *.zip
 
 make_release.sh
+
+*.exe

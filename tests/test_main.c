@@ -159,6 +159,11 @@ int main(int argc , char *argv[]) {
             TEST_RNG_PRIME_bits2(argv[2]) ; 
         }
 
+        if (strcmp(argv[1] , "rng_prime_next")==0)
+        {
+            TEST_RNG_NEXTPRIME(argv[2]) ; 
+        }
+
         if (strcmp(argv[1] , "even")==0)
         {
             TEST_EVEN(argv[2]) ; 

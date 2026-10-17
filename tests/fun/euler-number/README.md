@@ -56,6 +56,8 @@ with these parameters is 9999 digit and error : by `143256971402539987228`
 
 result is arranged 75 decimal places on each line , same style as [reference](https://mathshistory.st-andrews.ac.uk/HistTopics/e_10000/)
  
+**NOTE** you can also find the result attached in a text file (arranged in the same way) [here](./final_output.txt)
+
 here is exactly `9999` digit of `euler number` scaled by `10^9998` :
 
 

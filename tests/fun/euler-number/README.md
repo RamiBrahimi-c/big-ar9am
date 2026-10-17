@@ -1,3 +1,5 @@
+# Computing 9999 digits of Euler's number with bigra9m
+
 ## lets calculate 9999 digit of euler number 
 
 Used like a reference for testing (HUGE THANKS) : [10000 digits of e](https://mathshistory.st-andrews.ac.uk/HistTopics/e_10000/)
@@ -30,16 +32,16 @@ $ ./euler.exe
 
 ## Notes & Benchmarks
 
-full logs of running the executable program with `time` command can be found [here](full_logs.txt)
+full logs of running the executable program with `time` command can be found [here](final_output.txt)
 
 
-it should be noted that this record is done with the *version v1.0.1*.
+it should be noted that this record is done with the *BigRa9m version v1.0.1*.
 which can explain why it almost took **23 minutes** to do the calculation ..
 since it has no fancy algorithms at all , every algorithm used in simple 4 arithmetics is the classic/standard way .
 
 
 Also the [reference](https://mathshistory.st-andrews.ac.uk/HistTopics/e_10000/) has exactly 10000 digit , the best i could have done for now 
-with these parameters is 9999 digit and error : by `143256971402539987228`
+with these parameters is 9999 digit .
 
 **Parameters :**
 ```c

@@ -14,6 +14,7 @@ it only depends on standard C lib .
 - [Usage](#usage)
 - [Testing](#testing-)
 - [Known Issues](#known-issues)
+- [Version](#version)
 - [Future Improvements](#future-improvements)
 
 
@@ -341,6 +342,10 @@ i wont be hard on it but
 - [ ] Create proper API documentation
 - [ ] Add benchmarks
 
+
+## Version 
+
+v1.0.1 , Basic algorithms and more bugs catched .
 
 ## Acknowledgments
 -  knuth's art of computer programming volume 2 . (especially section 4.3.1 page 272 about the algorithm d )

@@ -4,6 +4,10 @@ A self-contained arbitrary-precision arithmetic library written in C. Supports l
 
 it only depends on standard C lib . 
 
+
+*   [check 9999 digit of `euler number`](./tests/fun/euler-number/README.md)    
+
+
 ## Table of Contents
 - [Important Note](#important-note-)
 - [Is It Valid](#is-it-valid-)

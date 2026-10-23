@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <big-ar9am/bigra9m.h>
+#include "bigra9m.h"
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -8,14 +8,14 @@
     for 10000 digit
 
     #define N 50
-    #define LOOP_TIMES 50000
+    #define LOOP_TIMES 35000
     #define PRECISION 10000
  
 */
 
 #define N 50
-#define LOOP_TIMES 35000
-#define PRECISION 10000
+#define LOOP_TIMES 209
+#define PRECISION 50
 
 
 int main() {

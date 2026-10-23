@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/bash
 
 
 # NOTE this is a proof like for cross compiling and the target here is windows 

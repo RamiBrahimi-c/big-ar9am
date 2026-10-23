@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/bash
 
 set -xe
 # i know it looks ugly but whatever

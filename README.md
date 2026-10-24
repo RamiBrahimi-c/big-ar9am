@@ -6,6 +6,7 @@ it only depends on standard C lib .
 
 
 *   [check 9999 digit of `euler number` calculated with this library](./tests/fun/euler-number/README.md)    
+*   [check 10000 digit of `√2`  calculated with this library](./tests/fun/sqrt2/README.md)    
 
 
 

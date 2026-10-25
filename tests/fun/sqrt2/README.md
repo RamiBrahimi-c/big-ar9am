@@ -4,7 +4,7 @@
 
 Used like a reference for testing (HUGE THANKS) : [10000 digits of √2](https://nerdparadise.com/math/reference/2sqrt10000)
 
-and also the `main.py` (VERY HUGE THANKS TO PYTHON FOR EXISTING) provided in this repository .
+and also the [main.py](./main.py) (VERY HUGE THANKS TO PYTHON FOR EXISTING) provided in this repository .
 
 
 

@@ -25,7 +25,8 @@ static inline int nextPowerOfTwo(int n) {
     result |= result >> 4;
     result |= result >> 8;
     result |= result >> 16;
-    result |= result >> 32;
+    // it is an UB why did you let it all this time ...
+    // result |= result >> 32;
     result++;
     
     // If n was already a power of 2, double the result

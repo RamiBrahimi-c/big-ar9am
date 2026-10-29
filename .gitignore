@@ -31,3 +31,9 @@ release/
 make_release.sh
 
 *.exe
+
+
+tests/fun/sqrt2/notes.md
+tests/fun/golden-ratio/full_logs.txt
+tests/fun/golden-ratio/output-py.txt
+

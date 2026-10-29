@@ -37,7 +37,7 @@ full logs of running the executable program with `time` command can be found [he
 
 
 it should be noted that this record is done with the *BigRa9m version v1.0.1*.
-which can explain why it almost took **28 minutes** to do the calculation ..
+which can explain why it almost took **25 minutes** to do the calculation ..
 since it has no fancy algorithms at all , every algorithm used in simple 4 arithmetics is the classic/standard way .
 
 

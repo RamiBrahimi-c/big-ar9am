@@ -490,11 +490,25 @@ int bigra9m_div2(BigInt *a , BigInt *b , BigInt *c ) {
 
         return 0; 
     }
+    int prev_a_len = a->length ; 
+    int prev_b_len = b->length ; 
+
+    a->length = abs(a->length) ; 
+    b->length = abs(b->length) ; 
+
+
+
     if (bigra9m_isStrictlyLowerThanNum(*a , *b))
     {
+        a->length = prev_a_len ; 
+        b->length = prev_b_len ; 
         bigra9m_assign_uint64_t(c , 0) ; 
         return 0; 
     }
+
+    a->length = prev_a_len ; 
+    b->length = prev_b_len ; 
+        
     if (bigra9m_isEqualNum(*a , *b))
     {
         bigra9m_assign_uint64_t(c , 1) ; 
@@ -546,7 +560,9 @@ int bigra9m_div2(BigInt *a , BigInt *b , BigInt *c ) {
 
         bigra9m_assign(&temp_a , *a) ; 
         bigra9m_assign(&temp_b , *b) ; 
-        
+        temp_a.length = abs(temp_a.length) ;  
+        temp_b.length = abs(temp_b.length) ;  
+                
         // c gotta be initilized 
         // memset(c->nums , 0x0 , sizeof(uint64_t)*c->capacity) ; 
         // printf("uh?\n") ; 

@@ -33,10 +33,12 @@ void bigra9m_pow(BigInt *base , BigInt *pow , BigInt *res) {
     if (base == res || pow == res)
     {
         BigInt temp_a , temp_b ;
-
+        
         bigra9m_init_assign(&temp_a , *base);
         bigra9m_init_assign(&temp_b , *pow);
-
+        
+        // TODO: this really needs a re-check
+        bigra9m_assign(res, *base) ;   
         while (bigra9m_isStrictlyLowerThanNum(i , temp_b))
         {
             #if POW_DEBUG 
@@ -53,6 +55,8 @@ void bigra9m_pow(BigInt *base , BigInt *pow , BigInt *res) {
     }
     else
     {
+        // TODO: this really needs a re-check
+        bigra9m_assign(res, *base) ;   
         while (bigra9m_isStrictlyLowerThanNum(i , *pow))
         {
             #if POW_DEBUG 

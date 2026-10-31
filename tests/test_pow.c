@@ -42,9 +42,9 @@ int main()
     BigInt a   ,b, c , d;
     
     bigra9m_inits(&a , &b , &c , &d , NULL) ;
-    bigra9m_assign_str(&a , "2") ; 
-    bigra9m_assign_str(&b , "3") ; 
-    bigra9m_assign_str(&c , "3") ; 
+    bigra9m_assign_str(&a , "1") ; 
+    bigra9m_assign_str(&b , "12") ; 
+    bigra9m_assign_str(&c , "67") ; 
     // bigra9m_assign_str(&c , "12496655418685785816424231563469859388159210277183") ; 
 
     printf("a : ") ; 
@@ -56,8 +56,8 @@ int main()
 
 
 
-    // bigra9m_pow(&a , &a  , &c ) ;
-    bigra9m_modular_exponentiation(&a , &b , &c ,&d ) ;
+    bigra9m_pow(&a , &b  , &b ) ;
+    // bigra9m_modular_exponentiation(&a , &b , &c ,&d ) ;
 
     printf("a : ") ; 
     bigra9m_print(a) ; 

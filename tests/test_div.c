@@ -18,16 +18,16 @@ int main()
 
     BigInt a , b , c , d ;
     bigra9m_inits( &a, &b, &c , &d , NULL) ; 
-    bigra9m_assign_str( &a , "45454") ; 
-    printf("wtf\n") ; 
-    bigra9m_assign_str(&b , "12") ; 
+    bigra9m_assign_str(&a , "-100000000000000000000") ; 
+    bigra9m_assign_str(&b , "3") ; 
     printf("a : ") ; 
     bigra9m_print(a) ; 
     printf("b : ") ; 
     bigra9m_print(b) ; 
     
     // bigra9m_add_1(a , 10000 , &a) ;
-    bigra9m_div(&a , &b , &c , &d) ; 
+    // bigra9m_div(&a , &b , &c , &d) ; 
+    bigra9m_div2(&a , &b , &c ) ; 
     // bigra9m_sub(&a , &a , &a) ; 
     // knuths_algorithm_d(a , b , &c , &d) ; 
     

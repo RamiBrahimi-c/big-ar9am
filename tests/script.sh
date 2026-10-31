@@ -21,7 +21,7 @@ passed=0
 failed=0
 
 NUMBER_OF_TESTS=10000
-operation="mul"
+operation="pow"
 
 standard_path="./tests/output/bin/"
 test_c_prgrm_name="run_tests_main"
@@ -35,9 +35,9 @@ python_interpreter="python3"
 # pwd
 for ((i=0; i<$NUMBER_OF_TESTS; i++)) do
     # NUM1=$((SRANDOM % 10000000))
-    NUM1=$(long3num)
+    NUM1=$(long1num)
     # NUM2=$(( SRANDOM % 10000000 ))
-    NUM2=$(long3num)
+    NUM2=$(long1num)
     # NUM2=$(( (SRANDOM % (NUM1 / 200 + 1)) + 2 ))
     NUM3=$((SRANDOM   ))
 

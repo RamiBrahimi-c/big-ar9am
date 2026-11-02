@@ -2,6 +2,7 @@
 #include "../../include/utils.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // TODO: these things are messy as hell and need to get checked AGAIN !!!!!!!!!!!
 
@@ -21,7 +22,7 @@ static int is_num(const char a) {
 // TODO : replace atoi() with strtol ... 
 void bigra9m_assign_str(BigInt *a , const char *num_str) {
     
-    uchar_t *num_str_clean = strdup(num_str) ;
+    uchar_t *num_str_clean = (uchar_t*) strdup(num_str) ;
     // cuz we might increment `num_str_clean` therefore it wont point exactly to the first allocated byte 
     uchar_t *temp = num_str_clean ;
     int sign = 1 ; 
@@ -75,7 +76,7 @@ int bigra9m_assign_uint64_t(BigInt *a , uint64_t x) {
     }
     
     // bigra9m_init(a);
-    int i=0;
+    size_t i=0;
     uint64_t c;
     while (x > 0)
     {
@@ -84,7 +85,7 @@ int bigra9m_assign_uint64_t(BigInt *a , uint64_t x) {
         i++;
         x /= BASE ;
         a->length = i ;
-        if (a->capacity < i*2)
+        if ((size_t) a->capacity < i*2)
         {
             a->capacity = nextPowerOfTwo(a->capacity) ; 
             // printf("reallocating with %d \n" , a->capacity) ; 
@@ -109,7 +110,7 @@ int bigra9m_assign_uint64_t(BigInt *a , uint64_t x) {
         a->nums[i-j-1] = temp ; 
     }
     
-    
+    return 0;
 }
 
 // IMPORTANT : here we pretend like a went through init before

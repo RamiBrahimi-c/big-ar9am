@@ -65,7 +65,6 @@ int bigra9m_fermat_primality_test(BigInt p) {
 
     // printf("hi\n");
     // bigra9m_init(&i) ;
-    int j = 0 ; 
     while (!bigra9m_isBiggerThanNum(i , s))
     {
         #if FERMAT_DEBUG
@@ -163,7 +162,6 @@ int bigra9m_fermat_primality_test_fast(BigInt p) {
 
     // printf("hi\n");
     // bigra9m_init(&i) ;
-    int j = 0 ; 
     while (!bigra9m_isBiggerThanNum(i , s))
     {
         #if FERMAT_DEBUG

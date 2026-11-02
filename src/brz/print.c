@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 
 // NOTE : can work with dynammic approach
 #define DEBUG_PRINT 0
@@ -20,7 +21,7 @@ void bigra9m_print(BigInt number) {
     #if 1
 
     
-    int total_num = ceil(log2(BASE) * abs(number.length)) -1;
+    size_t total_num = (size_t) ceil(log2(BASE) * abs(number.length)) -1;
     total_num = total_num < 1 ? 1 : total_num ;   
     uchar_t *buffer = calloc(total_num ,sizeof(uchar_t) ) ; // calloc instead of malloc just so that valgrind shuts up
     if (buffer == NULL)
@@ -34,7 +35,6 @@ void bigra9m_print(BigInt number) {
     
     
     bigra9m_assign_uint64_t(&base , 10) ;  
-    int counter = 0 ; 
     // printf("total num : %d \n", total_num ) ; 
     for (size_t i = 0; i < total_num; i++)
     {
@@ -85,7 +85,7 @@ void bigra9m_print(BigInt number) {
         break; ; 
     }
     
-    for (int i = 0; i < total_num ; i++)
+    for (size_t i = 0; i < total_num ; i++)
     {
         // if ((buffer[buffer[total_num- i - 1 ]] ^ 0x0) == 0 )
         // continue;

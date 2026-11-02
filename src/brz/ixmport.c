@@ -29,7 +29,7 @@ uint32_t buf_to_u64(uchar_t *buf , size_t len , size_t *new_len) {
         
     }
     
-
+    return 0;
 }
 
 
@@ -37,8 +37,6 @@ uint32_t buf_to_u64(uchar_t *buf , size_t len , size_t *new_len) {
 int bigra9m_import(BigInt *rop, size_t count, size_t size , const void *op) {
     const uint8_t *orig_buf = (const uint8_t *) op ; 
     
-    int index = 0 ; 
-    int dense_index = 0 ; 
 
     size_t full_capac = count * size ;
     
@@ -99,7 +97,7 @@ int bigra9m_export(void *rop, size_t *countp , size_t size, const BigInt* op)  {
     *countp = (*countp == 0) ? 1 : *countp ; 
 
     size_t j = 0 ;
-    for (size_t i = 0; i < op->length ; i++)
+    for (size_t i = 0; i <(size_t) op->length ; i++)
     {
         // grab `size`-bits 
         uint32_t temp = op->nums[i] ; 

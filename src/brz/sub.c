@@ -6,7 +6,7 @@
 // IMPORTANT NOTE : more tests needed !!!
 
 
-void static basic_subtraction(BigInt a , BigInt b , BigInt *c) {
+static void basic_subtraction(BigInt a , BigInt b , BigInt *c) {
     if (abs(a.length) == abs(b.length))
     {
         uint64_t overflow = 0 ;
@@ -38,14 +38,11 @@ void static basic_subtraction(BigInt a , BigInt b , BigInt *c) {
         
     } else {
         size_t min_len = (abs(a.length) < abs(b.length)) ? abs(a.length) : abs(b.length) ;
-        size_t max_len ;
         BigInt *umm ;
         if (abs(a.length) > abs(b.length))
         {
-            max_len = abs(a.length) ;
             umm = &a ; 
         } else {
-            max_len = abs(b.length) ;
             umm = &b ; 
             
         }

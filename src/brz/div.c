@@ -1,5 +1,6 @@
 #include "../../include/bigra9m.h"
 #include "../../include/utils.h"
+#include <string.h>
 
 // NOTE : not configured yet with dynammic approach
 // NOTE : more tests needed !!!!
@@ -51,7 +52,7 @@ static int brz_assign_range(BigInt *a ,BigInt b , int start , int end ) {
     }
 
     int k = 0 ; 
-    for (size_t i = start; i <= end; i++)
+    for (size_t i = start; i <=(size_t) end; i++)
     {
         a->nums[i] = b.nums[k] ; 
         k++ ; 
@@ -77,7 +78,7 @@ static int brz_assign_range2(BigInt *a ,BigInt b , int start , int end ) {
     }
 
     int k = 0 ; 
-    for (size_t i = start; i <= end; i++)
+    for (size_t i = start; i <=(size_t) end; i++)
     {
         a->nums[k] = b.nums[i] ; 
         k++ ;
@@ -149,7 +150,7 @@ static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Re
         printf("DIVISOR : \n") ; 
         bigra9m_print(*V); 
     #endif
-    uint64_t D = (BASE-1) / V->nums[V->length-1] ;
+    // uint64_t D = (BASE-1) / V->nums[V->length-1] ;
     BigInt temp_U , temp_V ;
     // bigra9m_inits()
     
@@ -246,7 +247,6 @@ static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Re
 
         // step 4 : [Multiply and Subtract]
 
-        int k = 0 ;  
 
         brz_assign_range2(&temp , *U , j , j+ n ) ; 
         // temp now has digits of (U) from (j) to (n+j)

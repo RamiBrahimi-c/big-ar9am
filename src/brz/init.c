@@ -69,6 +69,7 @@ int bigra9m_init_assign(BigInt *a , BigInt b  ) {
     // memcpy(a , &b , sizeof(BigInt)) ; 
 
     // a->length = b.length ; 
+    return 0;
 }
 static int is_num(const char a) {
     return a >= '0' && a <= '9' ; 
@@ -80,7 +81,7 @@ static int is_num(const char a) {
 // TODO : replace atoi() with strtol ... 
 void bigra9m_init_str(BigInt *a , const char *num_str) {
     
-    uchar_t *num_str_clean = strdup(num_str) ;
+    uchar_t *num_str_clean = (uchar_t*) strdup(num_str) ;
     // cuz we might increment `num_str_clean` therefore it wont point exactly to the first allocated byte 
     uchar_t *temp = num_str_clean ;
 

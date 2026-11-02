@@ -52,7 +52,7 @@ char *bigra9m_get_str(BigInt *number) {
         bigra9m_print(a) ; 
     #endif
     
-    for (size_t i = 0; i < total_num; i++)
+    for (size_t i = 0; i <(size_t) total_num; i++)
     {
         bigra9m_div(&a , &base , &a , &temp) ;        
         
@@ -70,11 +70,10 @@ char *bigra9m_get_str(BigInt *number) {
 
     buffer = realloc(buffer , counter + 1) ; // you see +1 cuz i wanna be extra sure and not put '\0' anywhere !!! 
     if (buffer==NULL) {
-        fprintf(stderr , "ERROR: failed to realloc to %ld !!! \n" , counter + 1) ; 
+        fprintf(stderr , "ERROR: failed to realloc to %d !!! \n" , counter + 1) ; 
     }
 
     // reversing it : 
-    char *beg , *end ; 
     for (int k = 0 ; k < counter / 2 ; k++) {
         char temp = buffer[k] ; 
         buffer[k] = buffer[counter - k - 1 ] ; 

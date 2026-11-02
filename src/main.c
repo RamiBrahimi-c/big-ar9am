@@ -6,7 +6,7 @@
 #include "../include/bigra9m.h"
 
 
-int main(int argc , char *argv[]) {
+int main() {
 
     printf("hiii big ar9am >-<\n") ; 
 

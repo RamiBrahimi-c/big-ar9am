@@ -124,6 +124,8 @@ int setrandom_bigra9m(BigInt *a  , int bits)  {
     #endif
     
     bigra9m_clears(&num , &divisor , &max ,&Bits , &temp , &temp2 , NULL) ; 
+
+    return 0;
 }
 
 
@@ -135,8 +137,6 @@ int setrandom_bigra9m2(BigInt *a , BigInt *high )  {
     }
     
     
-    uchar_t buffer[1024] ; 
-    // getRandomBytes(buffer , 1024) ;
     
     if (abs(a->length) < abs(high->length))
     {
@@ -189,6 +189,7 @@ int setrandom_bigra9m2(BigInt *a , BigInt *high )  {
     // bigra9m_inits(&num , &divisor , &max ,&Bits , &temp , NULL) ; 
     // bigra9m_clears(&num , &divisor , NULL) ; 
     // bigra9m_clear(&num) ; 
+    return 0;
 }
 
 
@@ -207,7 +208,7 @@ int generate_prime_bigra9m(BigInt *a , BigInt *high) {
     #if DEBUG_RANDOM_PRIME
     printf("is prime ? : %d \n" , bigra9m_miller_rabin(*a)) ; 
     #endif
-
+    return 0;
 }
 
 
@@ -229,6 +230,7 @@ int generate_prime_bigra9m2(BigInt *a , int bits) {
     #if DEBUG_RANDOM_PRIME_bits
         printf("is prime ? : %d \n" , bigra9m_miller_rabin(*a)) ; 
     #endif
+    return 0;
 }
 
 
@@ -262,6 +264,8 @@ int generate_prime_bigra9m3(BigInt *a , int bits) {
         printf("we tested : %d \n" , candidates_num) ; 
         printf("is prime ? : %d \n" , bigra9m_miller_rabin(*a)) ; 
     #endif
+
+    return 0;
 }
 
 #define DEBUG_RANDOM_NEXTPRIME 0
@@ -291,6 +295,8 @@ int bigra9m_nextprime(BigInt *a , BigInt *b) {
         printf("we tested : %d \n" , candidates_num) ; 
         printf("is prime ? : %d \n" , bigra9m_miller_rabin(*a)) ; 
     #endif
+
+    return 0;
 }
 
 

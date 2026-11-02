@@ -153,7 +153,7 @@ void bigra9m_modular_exponentiation(BigInt *base , BigInt *exponent , BigInt *mo
     
     int actual_len = 0 ; 
     // lets calculate the bits first
-    for (size_t i = 0; i < t; i++)
+    for (size_t i = 0; i < (size_t) t; i++)
     {
         buffer[i] = 0 ; 
         bigra9m_div(&temp , &temp_2 , &coefficient , &reminder ) ; 

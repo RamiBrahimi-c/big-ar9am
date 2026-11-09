@@ -212,9 +212,10 @@ static void knuths_algorithm_d(BigInt *U , BigInt *V ,BigInt *Qoeff , BigInt *Re
     j = m ; 
     if (j < 0)
     {
+        fprintf(stderr, "ERROR : fatal error j is %d < 0 before proceeding in step 3 in the knuth d algorithm\n", j) ;  
         exit(55) ; 
     }
-    
+
     BigInt temp , temp2;
     
     // printf("calling init from knuths_algorithm_d for temp:%p , temp2:%p" , &temp , &temp2) ; 
@@ -428,7 +429,12 @@ int bigra9m_div(BigInt *a , BigInt *b , BigInt *c ,  BigInt *d) {
 
         }
 
-        // basecase_multiplication(temp_a , temp_b , c) ; 
+        // ???????????????????????
+        // CRITICAL : now we literally were not doing anything about the sign before which is weird ???
+        // but anyway this is like temporal fix , i dunno 
+        temp_a.length = abs(temp_a.length) ; 
+        temp_b.length = abs(temp_b.length) ;
+
         knuths_algorithm_d(&temp_a , &temp_b , c , d) ; 
 
         c->length *= sign ; 
@@ -545,7 +551,15 @@ int bigra9m_div2(BigInt *a , BigInt *b , BigInt *c ) {
         }
         BigInt d ; 
         bigra9m_init(&d) ; 
-        // basecase_multiplication(temp_a , temp_b , c) ; 
+
+
+        // ???????????????????????
+        // CRITICAL : now we literally were not doing anything about the sign before which is weird ???
+        // but anyway this is like temporal fix , i dunno 
+        temp_a.length = abs(temp_a.length) ; 
+        temp_b.length = abs(temp_b.length) ; 
+        // printf("c length : %d\n" , c->length) ; 
+
         knuths_algorithm_d(&temp_a , &temp_b , c , &d) ; 
 
         c->length *= sign ; 

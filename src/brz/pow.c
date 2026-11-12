@@ -17,6 +17,24 @@ uint64_t pow_ui64(uint64_t a , uint64_t b) {
 
 // bro this NEEDS MORE investegations
 void bigra9m_pow(BigInt *base , BigInt *pow , BigInt *res) {
+
+    // ?????????????
+    if (bigra9m_is_zero(*base) ) {
+        if (bigra9m_is_zero(*pow)) {
+            fprintf(stderr, "ERROR: 0^0 ? you are literally doing a math crime rn\n" ) ; 
+        }
+        bigra9m_assign_uint64_t(res, 0) ; 
+
+        return;
+    }
+
+    // ?????????????
+    if (bigra9m_is_zero(*pow) ) {
+        bigra9m_assign_uint64_t(res, 1) ; 
+        return;
+    }
+
+
     BigInt i  , copy ; 
     bigra9m_inits(&i ,&copy , NULL  );
     #if POW_DEBUG 

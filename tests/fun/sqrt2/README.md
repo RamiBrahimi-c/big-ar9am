@@ -10,7 +10,7 @@ and also the [main.py](./main.py) (VERY HUGE THANKS TO PYTHON FOR EXISTING) prov
 
 ## how to compile 
 
-to compile this specific `sqrt_2.c` you need the static compiled library of Bigra9m in `lib/` in the root of the directory.
+to compile this specific `sqrt_2.c` you need the source files provided in both `src/brz/*` and `src/random-cross-platform/random_interface.c`.
 
 then depending on your platform : 
 
@@ -26,6 +26,8 @@ in [compile-croplt-win.sh](./compile-croplt-win.sh) you will find an example of 
 ```bash
 # run this for the first time : 
 $ chmod +x compile.sh
+# compile the source sqrt_2.c : 
+$ ./compile.sh
 # run the program to get 10000 digit from √2 number
 $ ./sqrt_2.exe
 

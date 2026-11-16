@@ -29,7 +29,7 @@ in [compile-croplt-win.sh](./compile-croplt-win.sh) you will find an example of 
 # run this for the first time : 
 $ chmod +x compile.sh
 # compile the executable : 
-
+$ ./compile.sh
 # run the program to get 10000 digit from π number
 $ ./pi.exe
 

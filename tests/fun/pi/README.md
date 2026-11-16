@@ -42,6 +42,7 @@ $ ./pi.exe
 The formula used is from Chudnovesky Algorithm , it converges pretty much fast (14 digits per iteration ) you can read more on the [wiki](https://en.wikipedia.org/wiki/Chudnovsky_algorithm)
 
 the formula : 
+
 $$
 \frac{1}{\pi} = \frac{\sqrt{10005}}{427094400} \sum_{k=0}^{\infty} \frac{(-1)^k (6k)! (545140134k + 13591409)}{(3k)! (k!)^3 (640320)^{3k}}
 $$

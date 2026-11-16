@@ -5,6 +5,7 @@ A self-contained arbitrary-precision arithmetic library written in C. Supports l
 it only depends on standard C lib . 
 
 
+*   [check 10000 digit of `π` calculated with this library](./tests/fun/pi/README.md)    
 *   [check 9999 digit of `euler number` calculated with this library](./tests/fun/euler-number/README.md)    
 *   [check 10000 digit of `√2`  calculated with this library](./tests/fun/sqrt2/README.md)    
 *   [check 10000 digit of `ϕ`(golden ratio)  calculated with this library](./tests/fun/golden-ratio/README.md)
